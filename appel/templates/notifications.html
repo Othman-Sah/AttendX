@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Notifications" %}{% endblock %}
+
+{% block content %}
+<section class="hero-section mb-4">
+    <span class="eyebrow"><i class="fas fa-bell"></i> {% trans "Centre de notifications" %}</span>
+    <h1>{% trans "Notifications" %}</h1>
+    <p>{% trans "Retrouvez ici les alertes d'absence, les mises a jour de justification et les reponses a vos demandes." %}</p>
+</section>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-grid gap-3">
+            {% for notification in notifications %}
+                <div class="p-3 rounded border {% if not notification.is_read %}border-primary{% endif %}" style="background: {% if notification.level == 'warning' %}#eaf4ff{% elif notification.level == 'success' %}#f4f9ff{% else %}#ffffff{% endif %};">
+                    <div class="d-flex justify-content-between align-items-start gap-3">
+                        <div>
+                            <div class="fw-semibold">{{ notification.title }}</div>
+                            <div class="text-muted small">{{ notification.message }}</div>
+                            <div class="text-muted small mt-1">{{ notification.created_at|date:"d/m/Y H:i" }}</div>
+                        </div>
+                        {% if notification.link %}
+                            <a href="{{ notification.link }}" class="btn btn-sm btn-outline-secondary">{% trans "Ouvrir" %}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-state">
+                    <p class="mb-0">{% trans "Aucune notification pour le moment." %}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

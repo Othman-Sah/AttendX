@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}QR Présence — {{ filiere.nom }}{% endblock %}
+
+{% block content %}
+<style>
+    .qr-wrap {
+        max-width: 860px;
+        margin: 0 auto;
+    }
+    .qr-card {
+        text-align: center;
+    }
+    .qr-img {
+        width: 260px;
+        height: 260px;
+        border-radius: 20px;
+        border: 3px solid var(--border-soft, rgba(41,121,255,0.18));
+        box-shadow:
+            0 1px 0 rgba(255,255,255,0.9) inset,
+            0 12px 32px rgba(41,121,255,0.18),
+            0 4px 12px rgba(41,121,255,0.12);
+        background: #fff;
+        padding: 10px;
+    }
+    .qr-title {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--blue-900, #073b88);
+        letter-spacing: -0.02em;
+    }
+    .qr-subtitle { color: var(--text-sub, #3b68b8); font-size: 0.93rem; }
+    .countdown {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.1rem;
+        border-radius: 999px;
+        background: rgba(41,121,255,0.10);
+        border: 1px solid rgba(41,121,255,0.22);
+        color: var(--blue-700, #0d47c8);
+        font-weight: 800;
+        font-size: 1.05rem;
+        min-width: 120px;
+        justify-content: center;
+    }
+    .countdown.expired {
+        background: rgba(255,80,80,0.10);
+        border-color: rgba(255,80,80,0.25);
+        color: #c62828;
+    }
+    .url-box {
+        word-break: break-all;
+        font-size: 0.78rem;
+        color: var(--text-dim, #7aa0d4);
+        background: rgba(41,121,255,0.06);
+        border: 1px solid rgba(41,121,255,0.14);
+        border-radius: 10px;
+        padding: 0.55rem 0.85rem;
+        text-align: left;
+    }
+    .scanned-list { max-height: 340px; overflow-y: auto; }
+    .scanned-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 0.9rem;
+        border-radius: 12px;
+        background: rgba(41,121,255,0.06);
+        border: 1px solid rgba(41,121,255,0.12);
+        margin-bottom: 0.45rem;
+    }
+    .scanned-avatar {
+        width: 36px; height: 36px; flex: 0 0 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #2979ff, #073b88);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 0.85rem;
+    }
+    .scanned-name { font-weight: 700; color: var(--blue-900, #073b88); }
+</style>
+
+<div class="qr-wrap">
+    <section class="hero-section mb-4">
+        <div class="d-flex align-items-start gap-3">
+            <div>
+                <span class="eyebrow"><i class="fas fa-qrcode"></i> {% trans "Appel QR Code" %}</span>
+                <h1>{{ filiere.nom }}</h1>
+                <p>{% trans "Affichez ce QR code aux etudiants. Ils scannent pour marquer leur presence instantanement." %}</p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <span class="pill"><i class="fas fa-calendar-day"></i> {{ today|date:"d/m/Y" }}</span>
+                    <span class="pill"><i class="fas fa-users"></i> {{ filiere.etudiants.count }} {% trans "etudiants" %}</span>
+                    <span class="pill"><i class="fas fa-check-circle"></i> {{ scanned_today.count }} {% trans "scans" %}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-4 mb-4">
+        {# ── QR Code panel ── #}
+        <div class="col-lg-7">
+            <div class="card h-100 qr-card">
+                <div class="card-body d-flex flex-column align-items-center gap-3 py-4">
+                    <img src="data:image/png;base64,{{ qr_b64 }}" alt="QR Code" class="qr-img" id="qrImage">
+
+                    <div>
+                        <p class="qr-title mb-1">{% trans "Scannez pour pointer" %}</p>
+                        <p class="qr-subtitle mb-0">{% trans "Valable" %} <strong>15 minutes</strong> &mdash; {% trans "expire dans" %}</p>
+                    </div>
+
+                    <div class="countdown" id="countdown">
+                        <i class="fas fa-clock"></i>
+                        <span id="countdownText">—</span>
+                    </div>
+
+                    <div class="url-box w-100">
+                        <i class="fas fa-link me-1"></i> {{ scan_url }}
+                    </div>
+
+                    <div class="d-flex gap-2 flex-wrap justify-content-center">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="refresh">
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="fas fa-rotate-right me-1"></i>{% trans "Nouveau code" %}
+                            </button>
+                        </form>
+                        <a href="{% url 'class_detail' filiere.id %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>{% trans "Retour a la classe" %}
+                        </a>
+                        <button class="btn btn-primary" onclick="window.print()">
+                            <i class="fas fa-print me-1"></i>{% trans "Imprimer" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# ── Scanned students ── #}
+        <div class="col-lg-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-user-check"></i> {% trans "Presents aujourd'hui" %}</h2>
+                        <p>{% trans "Etudiants ayant scanne ou ete marques presents." %}</p>
+                    </div>
+                    <div class="scanned-list" id="scannedList">
+                        {% for presence in scanned_today %}
+                            <div class="scanned-row">
+                                <span class="scanned-avatar">{{ presence.etudiant.nom|first|upper }}</span>
+                                <div>
+                                    <div class="scanned-name">{{ presence.etudiant.nom }}</div>
+                                    <small class="text-muted">{{ presence.etudiant.filiere.nom }}</small>
+                                </div>
+                                <span class="badge bg-primary ms-auto">{% trans "Présent" %}</span>
+                            </div>
+                        {% empty %}
+                            <div class="empty-state">
+                                <p class="mb-0">{% trans "Aucun scan pour le moment." %}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const expiresAt = new Date('{{ session.expires_at|date:"c" }}');
+    const el = document.getElementById('countdownText');
+    const wrap = document.getElementById('countdown');
+
+    function tick() {
+        const diff = Math.floor((expiresAt - Date.now()) / 1000);
+        if (diff <= 0) {
+            el.textContent = '{% trans "Expiré" %}';
+            wrap.classList.add('expired');
+            clearInterval(timer);
+            return;
+        }
+        const m = String(Math.floor(diff / 60)).padStart(2, '0');
+        const s = String(diff % 60).padStart(2, '0');
+        el.textContent = m + ':' + s;
+        if (diff <= 60) wrap.classList.add('expired');
+        else wrap.classList.remove('expired');
+    }
+
+    tick();
+    const timer = setInterval(tick, 1000);
+
+    // Auto-refresh page every 30 s to update scanned list
+    setTimeout(() => location.reload(), 30000);
+})();
+</script>
+{% endblock %}

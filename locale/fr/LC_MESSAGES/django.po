@@ -1,0 +1,2213 @@
+# French translations for Gestion Presences
+msgid ""
+msgstr ""
+"Project-Id-Version: Gestion Presences 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-17 10:00+0000\n"
+"PO-Revision-Date: 2026-04-17 10:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Navigation
+msgid "Dashboard"
+msgstr "Tableau de Bord"
+
+msgid "Student Area"
+msgstr "Espace Étudiant"
+
+msgid "My Profile"
+msgstr "Mon Profil"
+
+msgid "Change Password"
+msgstr "Changer le Mot de Passe"
+
+msgid "Logout"
+msgstr "Déconnexion"
+
+msgid "Admin Area"
+msgstr "Espace Admin"
+
+msgid "Manage Classes"
+msgstr "Gérer les Classes"
+
+msgid "Manage Justifications"
+msgstr "Gérer les Justifications"
+
+msgid "Reports"
+msgstr "Rapports"
+
+msgid "Language"
+msgstr "Langue"
+
+# Student Dashboard
+msgid "Good morning"
+msgstr "Bonjour"
+
+msgid "Good afternoon"
+msgstr "Bon après-midi"
+
+msgid "Good evening"
+msgstr "Bonsoir"
+
+msgid "Student Portal"
+msgstr "Portail Étudiant"
+
+msgid "Class"
+msgstr "Classe"
+
+msgid "Presences"
+msgstr "Présences"
+
+msgid "Absences"
+msgstr "Absences"
+
+msgid "Pending"
+msgstr "En Attente"
+
+msgid "Your Classes Schedule"
+msgstr "Votre Emploi du Temps"
+
+msgid "Monday"
+msgstr "Lundi"
+
+msgid "Tuesday"
+msgstr "Mardi"
+
+msgid "Wednesday"
+msgstr "Mercredi"
+
+msgid "Thursday"
+msgstr "Jeudi"
+
+msgid "Friday"
+msgstr "Vendredi"
+
+msgid "From"
+msgstr "De"
+
+msgid "To"
+msgstr "À"
+
+msgid "Professor"
+msgstr "Professeur"
+
+msgid "Room"
+msgstr "Salle"
+
+msgid "Quick Absence Justification"
+msgstr "Justification d'Absence Rapide"
+
+msgid "Justify Absence"
+msgstr "Justifier une Absence"
+
+msgid "Attendance History"
+msgstr "Historique de Présence"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Present"
+msgstr "Présent"
+
+msgid "Absent"
+msgstr "Absent"
+
+msgid "Justified"
+msgstr "Justifiée"
+
+msgid "Approved"
+msgstr "Approuvée"
+
+msgid "Rejected"
+msgstr "Rejetée"
+
+msgid "Action"
+msgstr "Action"
+
+# Admin Dashboard
+msgid "Teacher Studio"
+msgstr "Studio Enseignant"
+
+msgid "Today"
+msgstr "Aujourd'hui"
+
+msgid "Your classroom, better organized"
+msgstr "Votre salle de classe, mieux organisée"
+
+msgid "Track your classes in real time"
+msgstr "Suivez vos classes en temps réel"
+
+msgid "Classes"
+msgstr "Classes"
+
+msgid "Students"
+msgstr "Étudiants"
+
+msgid "Calls"
+msgstr "Appels"
+
+msgid "Active groups"
+msgstr "Groupes actifs"
+
+msgid "Total registered"
+msgstr "Total inscrit"
+
+msgid "Today's"
+msgstr "D'aujourd'hui"
+
+msgid "Rate"
+msgstr "Taux"
+
+msgid "Presences"
+msgstr "Présences"
+
+msgid "Create a Class"
+msgstr "Créer une Classe"
+
+msgid "Add a new group"
+msgstr "Ajoutez un nouveau groupe"
+
+msgid "Create the class"
+msgstr "Créer la classe"
+
+msgid "Your Classes"
+msgstr "Vos Classes"
+
+msgid "Access full management"
+msgstr "Accédez à la gestion complète"
+
+msgid "Room"
+msgstr "Salle"
+
+msgid "Stu."
+msgstr "Étu."
+
+msgid "Pres."
+msgstr "Prés."
+
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "No classes yet"
+msgstr "Aucune classe pour le moment"
+
+msgid "Create your first class to start"
+msgstr "Créez votre première classe pour commencer"
+
+msgid "Quick Actions"
+msgstr "Actions Rapides"
+
+msgid "Access main functions"
+msgstr "Accédez aux fonctions principales"
+
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+msgid "Justifications"
+msgstr "Justifications"
+
+msgid "Reports"
+msgstr "Rapports"
+
+msgid "Call"
+msgstr "Appel"
+
+msgid "Reports & Exports"
+msgstr "Rapports & Exports"
+
+msgid "Generate monthly documents"
+msgstr "Générez les documents mensuels"
+
+msgid "Monthly Report"
+msgstr "Rapport Mensuel"
+
+msgid "Export PDF"
+msgstr "Export PDF"
+
+msgid "Statistics"
+msgstr "Statistiques"
+
+msgid "Performance Overview"
+msgstr "Vue d'ensemble des Performances"
+
+msgid "Quick analysis of each class"
+msgstr "Analyse rapide de chaque classe"
+
+msgid "Staff"
+msgstr "Effectif"
+
+msgid "Present"
+msgstr "Présentes"
+
+msgid "Absent"
+msgstr "Absentes"
+
+msgid "Rate"
+msgstr "Taux"
+
+msgid "Detail"
+msgstr "Détail"
+
+# Justifications
+msgid "Absence Justifications"
+msgstr "Justifications d'Absence"
+
+msgid "Examine and process"
+msgstr "Examinez et traitez"
+
+msgid "Pending Justifications"
+msgstr "Justifications en Attente"
+
+msgid "To process"
+msgstr "À traiter"
+
+msgid "Approved"
+msgstr "Approuvées"
+
+msgid "Accepted"
+msgstr "Acceptées"
+
+msgid "Rejected"
+msgstr "Rejetées"
+
+msgid "Refused"
+msgstr "Refusées"
+
+msgid "Absence Date"
+msgstr "Date de l'Absence"
+
+msgid "Reason"
+msgstr "Motif"
+
+msgid "Explanation"
+msgstr "Explication"
+
+msgid "Submitted"
+msgstr "Soumis"
+
+msgid "Approve"
+msgstr "Approuver"
+
+msgid "Reject"
+msgstr "Rejeter"
+
+msgid "No Pending Justifications"
+msgstr "Aucune Justification en Attente"
+
+msgid "All justifications have been reviewed"
+msgstr "Toutes les justifications ont été examinées"
+
+msgid "Back to Dashboard"
+msgstr "Retour au Tableau de Bord"
+
+# Forms
+msgid "Username"
+msgstr "Nom d'Utilisateur"
+
+msgid "Password"
+msgstr "Mot de Passe"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Prénom"
+
+msgid "Last Name"
+msgstr "Nom de Famille"
+
+msgid "Login"
+msgstr "Connexion"
+
+msgid "Signup"
+msgstr "Inscription"
+
+msgid "Current Password"
+msgstr "Mot de Passe Actuel"
+
+msgid "New Password"
+msgstr "Nouveau Mot de Passe"
+
+msgid "Confirm Password"
+msgstr "Confirmer le Mot de Passe"
+
+msgid "Change Password"
+msgstr "Changer le Mot de Passe"
+
+msgid "Update Profile"
+msgstr "Mettre à Jour le Profil"
+
+msgid "Save Changes"
+msgstr "Enregistrer les Modifications"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+# Messages
+msgid "Login successful"
+msgstr "Connexion réussie"
+
+msgid "Logout successful"
+msgstr "Déconnexion réussie"
+
+msgid "Password changed successfully"
+msgstr "Mot de passe changé avec succès"
+
+msgid "Profile updated successfully"
+msgstr "Profil mis à jour avec succès"
+
+msgid "Justification approved"
+msgstr "Justification approuvée"
+
+msgid "Justification rejected"
+msgstr "Justification rejetée"
+
+msgid "Error occurred"
+msgstr "Une erreur s'est produite"
+
+msgid "Teacher Dashboard"
+msgstr "Tableau de Bord Enseignant"
+
+msgid "Create Account"
+msgstr "Créer un compte"
+
+msgid "Create Your Teacher Account"
+msgstr "Créez votre compte enseignant"
+
+msgid "New Space"
+msgstr "Nouvel Espace"
+
+msgid "New Account"
+msgstr "Nouveau Compte"
+
+msgid ""
+"Sign up to add classes, manage students and track attendance in your "
+"personal dashboard."
+msgstr ""
+"Inscrivez-vous pour ajouter des classes, gérer les étudiants et suivre les "
+"présences dans votre tableau de bord personnel."
+
+msgid "Choose a username and password to get started."
+msgstr "Choisissez un identifiant et un mot de passe pour commencer."
+
+msgid "Registration"
+msgstr "Inscription"
+
+msgid "Active Groups"
+msgstr "Groupes Actifs"
+
+msgid "Total Enrolled"
+msgstr "Total Inscrit"
+
+msgid "Unjustified"
+msgstr "Injustifié"
+
+msgid "Create Class"
+msgstr "Créer une Classe"
+
+msgid "Add a new group to manage"
+msgstr "Ajoutez un nouveau groupe à gérer"
+
+msgid "Access complete management"
+msgstr "Accédez à la gestion complète"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+msgid "Class created successfully"
+msgstr "Classe créée avec succès"
+
+msgid "Error on page load"
+msgstr "Erreur lors du chargement de la page"
+
+msgid "Presence"
+msgstr "Présence"
+
+msgid "Absence"
+msgstr "Absence"
+
+msgid "Justification Pending"
+msgstr "Justification En Attente"
+
+msgid "Justification Approved"
+msgstr "Justification Approuvée"
+
+msgid "Justification Rejected"
+msgstr "Justification Rejetée"
+
+msgid "Select a class"
+msgstr "Sélectionnez une classe"
+
+msgid "No classes available"
+msgstr "Aucune classe disponible"
+
+msgid "No classes for now"
+msgstr "Aucune classe pour le moment"
+
+msgid "Create your first class to get started"
+msgstr "Créez votre première classe pour commencer"
+ 
+# Shared shell and refreshed landing page
+msgid "Gestion de classe"
+msgstr "Gestion de classe"
+
+msgid "Gestion de Classe"
+msgstr "Gestion de Classe"
+
+msgid "Portail academique"
+msgstr "Portail academique"
+
+msgid "Changer le theme"
+msgstr "Changer le theme"
+
+msgid "Francais"
+msgstr "Francais"
+
+msgid "Anglais"
+msgstr "Anglais"
+
+msgid "Deconnexion"
+msgstr "Deconnexion"
+
+msgid "Principal"
+msgstr "Principal"
+
+msgid "Tableau de bord"
+msgstr "Tableau de bord"
+
+msgid "Mon espace"
+msgstr "Mon espace"
+
+msgid "Mon planning"
+msgstr "Mon planning"
+
+msgid "Marquer les absences"
+msgstr "Marquer les absences"
+
+msgid "Mes classes"
+msgstr "Mes classes"
+
+msgid "Scolarite"
+msgstr "Scolarite"
+
+msgid "Emploi du temps"
+msgstr "Emploi du temps"
+
+msgid "Suivi academique"
+msgstr "Suivi academique"
+
+msgid "Notes et evaluations"
+msgstr "Notes et evaluations"
+
+msgid "Absences et incidents"
+msgstr "Absences et incidents"
+
+msgid "Absences cours"
+msgstr "Absences cours"
+
+msgid "Absences examens"
+msgstr "Absences examens"
+
+msgid "Cas de triche"
+msgstr "Cas de triche"
+
+msgid "Infos generales"
+msgstr "Infos generales"
+
+msgid "SMS envoyes"
+msgstr "SMS envoyes"
+
+msgid "Connexion"
+msgstr "Connexion"
+
+msgid "Une interface claire pour suivre les presences, organiser les classes, consulter le planning et accompagner les etudiants au quotidien."
+msgstr "Une interface claire pour suivre les presences, organiser les classes, consulter le planning et accompagner les etudiants au quotidien."
+
+msgid "Se connecter"
+msgstr "Se connecter"
+
+msgid "Creer un compte"
+msgstr "Creer un compte"
+
+msgid "Planning lisible"
+msgstr "Planning lisible"
+
+msgid "Accedez rapidement aux seances et aux classes assignees."
+msgstr "Accedez rapidement aux seances et aux classes assignees."
+
+msgid "Presences rapides"
+msgstr "Presences rapides"
+
+msgid "Marquez les absences avec une interface simple et fiable."
+msgstr "Marquez les absences avec une interface simple et fiable."
+
+msgid "Multilingue"
+msgstr "Multilingue"
+
+msgid "Travaillez en francais ou anglais avec le meme confort."
+msgstr "Travaillez en francais ou anglais avec le meme confort."
+
+msgid "Connectez-vous pour acceder a votre espace de gestion."
+msgstr "Connectez-vous pour acceder a votre espace de gestion."
+
+msgid "Les enseignants accedent uniquement aux classes et aux plannings qui leur sont assignes."
+msgstr "Les enseignants accedent uniquement aux classes et aux plannings qui leur sont assignes."
+
+msgid "Vous n'avez pas encore de compte ?"
+msgstr "Vous n'avez pas encore de compte ?"
+
+# Extracted from templates and Python i18n calls
+
+msgid "A traiter"
+msgstr "A traiter"
+
+msgid "Absence enregistree"
+msgstr "Absence enregistree"
+
+msgid "Absence non justifiee"
+msgstr "Absence non justifiee"
+
+msgid "Absences Cours"
+msgstr "Absences Cours"
+
+msgid "Absences Non Justifiées"
+msgstr "Absences Non Justifiées"
+
+msgid "Absences a suivre"
+msgstr "Absences a suivre"
+
+msgid "Absences aux Contrôles"
+msgstr "Absences aux Contrôles"
+
+msgid "Absences aux Examens"
+msgstr "Absences aux Examens"
+
+msgid "Absences detectees"
+msgstr "Absences detectees"
+
+msgid "Absences en attente"
+msgstr "Absences en attente"
+
+msgid "Absent(s)"
+msgstr "Absent(s)"
+
+msgid "Accedez a la gestion complete de chaque groupe."
+msgstr "Accedez a la gestion complete de chaque groupe."
+
+msgid "Accedez directement aux outils utiles."
+msgstr "Accedez directement aux outils utiles."
+
+msgid "Acces non autorise."
+msgstr "Acces non autorise."
+
+msgid "Acces reserve a l'administration."
+msgstr "Acces reserve a l'administration."
+
+msgid "Accueil"
+msgstr "Accueil"
+
+msgid "Actions rapides"
+msgstr "Actions rapides"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Activez cette section seulement si vous voulez creer un acces personnel pour l'etudiant."
+msgstr "Activez cette section seulement si vous voulez creer un acces personnel pour l'etudiant."
+
+msgid "Activite"
+msgstr "Activite"
+
+msgid "Actualiser"
+msgstr "Actualiser"
+
+msgid "Administrateur"
+msgstr "Administrateur"
+
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Ahmed Bennani | STI-2026-002 | ahmed@school.ma"
+msgstr "Ahmed Bennani | STI-2026-002 | ahmed@school.ma"
+
+msgid "Ajouter l'etudiant"
+msgstr "Ajouter l'etudiant"
+
+msgid "Ajouter manuellement"
+msgstr "Ajouter manuellement"
+
+msgid "Ajouter un commentaire pour l'etudiant"
+msgstr "Ajouter un commentaire pour l'etudiant"
+
+msgid "Ajouter un etudiant"
+msgstr "Ajouter un etudiant"
+
+msgid "Ajouter une reponse ou une consigne"
+msgstr "Ajouter une reponse ou une consigne"
+
+msgid "Ajoutez la salle dans la deuxieme colonne si vous en avez une."
+msgstr "Ajoutez la salle dans la deuxieme colonne si vous en avez une."
+
+msgid "Ajoutez le nom complet dans la premiere colonne."
+msgstr "Ajoutez le nom complet dans la premiere colonne."
+
+msgid "Ajoutez le nom de la classe dans la premiere colonne."
+msgstr "Ajoutez le nom de la classe dans la premiere colonne."
+
+msgid "Ajoutez le numero et l'email si disponibles."
+msgstr "Ajoutez le numero et l'email si disponibles."
+
+msgid "Ajoutez plus de details sur l'absence"
+msgstr "Ajoutez plus de details sur l'absence"
+
+msgid "Ajoutez un PDF ou une image comme justificatif."
+msgstr "Ajoutez un PDF ou une image comme justificatif."
+
+msgid "Ajoutez un fichier PDF ou une image valide."
+msgstr "Ajoutez un fichier PDF ou une image valide."
+
+msgid "Ajoutez un motif clair, une explication et une piece jointe si besoin."
+msgstr "Ajoutez un motif clair, une explication et une piece jointe si besoin."
+
+msgid "Ajoutez un nouveau groupe, assignez un enseignant et definissez si besoin la date et l'heure du cours."
+msgstr "Ajoutez un nouveau groupe, assignez un enseignant et definissez si besoin la date et l'heure du cours."
+
+msgid "Ajoutez une classe depuis le tableau de bord pour commencer."
+msgstr "Ajoutez une classe depuis le tableau de bord pour commencer."
+
+msgid "Ajoutez une description dans la troisieme colonne si besoin."
+msgstr "Ajoutez une description dans la troisieme colonne si besoin."
+
+msgid "Ajoutez une liste d'etudiants depuis un fichier Excel pour la classe"
+msgstr "Ajoutez une liste d'etudiants depuis un fichier Excel pour la classe"
+
+msgid "Ajustez vos informations personnelles dans un formulaire a l'interface plus douce et plus lisible."
+msgstr "Ajustez vos informations personnelles dans un formulaire a l'interface plus douce et plus lisible."
+
+msgid "Alerte"
+msgstr "Alerte"
+
+msgid "Alertes"
+msgstr "Alertes"
+
+msgid "Alertes envoyees"
+msgstr "Alertes envoyees"
+
+msgid "Algorithmique"
+msgstr "Algorithmique"
+
+msgid "Already have an account?"
+msgstr "Already have an account?"
+
+msgid "Analyse de progression"
+msgstr "Analyse de progression"
+
+msgid "Analyse mensuelle"
+msgstr "Analyse mensuelle"
+
+msgid "Anglais Technique"
+msgstr "Anglais Technique"
+
+msgid "Annuler"
+msgstr "Annuler"
+
+msgid "Appel"
+msgstr "Appel"
+
+msgid "Appel du jour"
+msgstr "Appel du jour"
+
+msgid "Appel du jour - {nom}"
+msgstr "Appel du jour - {nom}"
+
+msgid "Appels"
+msgstr "Appels"
+
+msgid "Appels aujourd'hui"
+msgstr "Appels aujourd'hui"
+
+msgid "Approuvee"
+msgstr "Approuvee"
+
+msgid "Approuver"
+msgstr "Approuver"
+
+msgid "Apres-midi"
+msgstr "Apres-midi"
+
+msgid "Attestation de scolarite"
+msgstr "Attestation de scolarite"
+
+msgid "Aucun emploi du temps disponible pour le moment."
+msgstr "Aucun emploi du temps disponible pour le moment."
+
+msgid "Aucun etudiant"
+msgstr "Aucun etudiant"
+
+msgid "Aucun etudiant correspondant n'a ete trouve dans cette classe."
+msgstr "Aucun etudiant correspondant n'a ete trouve dans cette classe."
+
+msgid "Aucun etudiant dans cette classe."
+msgstr "Aucun etudiant dans cette classe."
+
+msgid "Aucun etudiant disponible pour cette classe."
+msgstr "Aucun etudiant disponible pour cette classe."
+
+msgid "Aucun incident"
+msgstr "Aucun incident"
+
+msgid "Aucun planning disponible"
+msgstr "Aucun planning disponible"
+
+msgid "Aucune absence"
+msgstr "Aucune absence"
+
+msgid "Aucune absence a signaler aujourd'hui."
+msgstr "Aucune absence a signaler aujourd'hui."
+
+msgid "Aucune absence enregistrée."
+msgstr "Aucune absence enregistrée."
+
+msgid "Aucune action"
+msgstr "Aucune action"
+
+msgid "Aucune alerte importante pour le moment."
+msgstr "Aucune alerte importante pour le moment."
+
+msgid "Aucune classe disponible"
+msgstr "Aucune classe disponible"
+
+msgid "Aucune classe disponible pour le rapport."
+msgstr "Aucune classe disponible pour le rapport."
+
+msgid "Aucune classe ne dispose encore d'un emploi du temps."
+msgstr "Aucune classe ne dispose encore d'un emploi du temps."
+
+msgid "Aucune classe pour le moment. Creez votre premiere classe pour commencer."
+msgstr "Aucune classe pour le moment. Creez votre premiere classe pour commencer."
+
+msgid "Aucune demande de document enregistree."
+msgstr "Aucune demande de document enregistree."
+
+msgid "Aucune demande de justification n'a encore ete recue."
+msgstr "Aucune demande de justification n'a encore ete recue."
+
+msgid "Aucune demande ouverte pour le moment."
+msgstr "Aucune demande ouverte pour le moment."
+
+msgid "Aucune donnee de suivi disponible."
+msgstr "Aucune donnee de suivi disponible."
+
+msgid "Aucune donnee."
+msgstr "Aucune donnee."
+
+msgid "Aucune justification"
+msgstr "Aucune justification"
+
+msgid "Aucune justification en attente"
+msgstr "Aucune justification en attente"
+
+msgid "Aucune notification pour le moment."
+msgstr "Aucune notification pour le moment."
+
+msgid "Aucune presence enregistree pour le moment."
+msgstr "Aucune presence enregistree pour le moment."
+
+msgid "Aujourd'hui"
+msgstr "Aujourd'hui"
+
+msgid "Autre"
+msgstr "Autre"
+
+msgid "Autres options"
+msgstr "Autres options"
+
+msgid "Back office"
+msgstr "Back office"
+
+msgid "Besoin d'aide ?"
+msgstr "Besoin d'aide ?"
+
+msgid "Cas de Triche"
+msgstr "Cas de Triche"
+
+msgid "Cas de Triche & Incidents"
+msgstr "Cas de Triche & Incidents"
+
+msgid "Ce nom d'utilisateur existe deja."
+msgstr "Ce nom d'utilisateur existe deja."
+
+msgid "Centre de notifications"
+msgstr "Centre de notifications"
+
+msgid "Certificat de presence"
+msgstr "Certificat de presence"
+
+msgid "Cet email est déjà utilisé par un autre compte."
+msgstr "Cet email est déjà utilisé par un autre compte."
+
+msgid "Cet etudiant a deja un compte."
+msgstr "Cet etudiant a deja un compte."
+
+msgid "Cet identifiant existe deja."
+msgstr "Cet identifiant existe deja."
+
+msgid "Cette classe n'a pas encore d'etudiants. Ajoutez-en un pour commencer."
+msgstr "Cette classe n'a pas encore d'etudiants. Ajoutez-en un pour commencer."
+
+msgid "Cette section n'est pas disponible pour le compte enseignant."
+msgstr "Cette section n'est pas disponible pour le compte enseignant."
+
+msgid "Cette vue rassemble les notifications importantes envoyees aux utilisateurs, en attendant une integration SMS complete."
+msgstr "Cette vue rassemble les notifications importantes envoyees aux utilisateurs, en attendant une integration SMS complete."
+
+msgid "Changer le mot de passe"
+msgstr "Changer le mot de passe"
+
+msgid "Chargez votre liste de classes dans la base de donnees pour pouvoir ensuite selectionner directement la classe voulue."
+msgstr "Chargez votre liste de classes dans la base de donnees pour pouvoir ensuite selectionner directement la classe voulue."
+
+msgid "Choisir un enseignant"
+msgstr "Choisir un enseignant"
+
+msgid "Choisir un jour"
+msgstr "Choisir un jour"
+
+msgid "Choisir un type..."
+msgstr "Choisir un type..."
+
+msgid "Choisissez un identifiant"
+msgstr "Choisissez un identifiant"
+
+msgid "Choisissez un jour ou une date de cours."
+msgstr "Choisissez un jour ou une date de cours."
+
+msgid "Choisissez un nouveau mot de passe solide."
+msgstr "Choisissez un nouveau mot de passe solide."
+
+msgid "Choisissez un type de document et ajoutez un commentaire si besoin."
+msgstr "Choisissez un type de document et ajoutez un commentaire si besoin."
+
+msgid "Choisissez une classe pour voir les etudiants et marquer les absences du jour."
+msgstr "Choisissez une classe pour voir les etudiants et marquer les absences du jour."
+
+msgid "Choisissez votre classe"
+msgstr "Choisissez votre classe"
+
+msgid "Chronologie des presences et absences."
+msgstr "Chronologie des presences et absences."
+
+msgid "Classe"
+msgstr "Classe"
+
+msgid "Classe et planning"
+msgstr "Classe et planning"
+
+msgid "Classes actives"
+msgstr "Classes actives"
+
+msgid "Classes affichees"
+msgstr "Classes affichees"
+
+msgid "Classes enseignant"
+msgstr "Classes enseignant"
+
+msgid "Colonnes"
+msgstr "Colonnes"
+
+msgid "Commentaire"
+msgstr "Commentaire"
+
+msgid "Commentaire administratif"
+msgstr "Commentaire administratif"
+
+msgid "Commentaire enseignant"
+msgstr "Commentaire enseignant"
+
+msgid "Commentaire etudiant"
+msgstr "Commentaire etudiant"
+
+msgid "Comparer les classes"
+msgstr "Comparer les classes"
+
+msgid "Comparez rapidement la taille et la presence de chaque classe."
+msgstr "Comparez rapidement la taille et la presence de chaque classe."
+
+msgid "Compte"
+msgstr "Compte"
+
+msgid "Compte etudiant"
+msgstr "Compte etudiant"
+
+msgid "Confirmation"
+msgstr "Confirmation"
+
+msgid "Confirmer le mot de passe"
+msgstr "Confirmer le mot de passe"
+
+msgid "Confirmez le nouveau mot de passe"
+msgstr "Confirmez le nouveau mot de passe"
+
+msgid "Confirmez votre nouveau mot de passe"
+msgstr "Confirmez votre nouveau mot de passe"
+
+msgid "Connexion recente"
+msgstr "Connexion recente"
+
+msgid "Consultez et ajustez les informations de votre compte depuis un espace plus lisible et plus calme."
+msgstr "Consultez et ajustez les informations de votre compte depuis un espace plus lisible et plus calme."
+
+msgid "Consultez l'etat, la reponse administrative et le fichier de livraison si disponible."
+msgstr "Consultez l'etat, la reponse administrative et le fichier de livraison si disponible."
+
+msgid "Consultez les cours planifies pour votre classe."
+msgstr "Consultez les cours planifies pour votre classe."
+
+msgid "Consultez les demandes soumises par les etudiants."
+msgstr "Consultez les demandes soumises par les etudiants."
+
+msgid "Consultez les presences et absences de toutes les classes pour le mois en cours."
+msgstr "Consultez les presences et absences de toutes les classes pour le mois en cours."
+
+msgid "Consultez les seances planifiees pour chaque classe."
+msgstr "Consultez les seances planifiees pour chaque classe."
+
+msgid "Consultez les tendances de presence et les derniers evenements utiles pour suivre votre parcours."
+msgstr "Consultez les tendances de presence et les derniers evenements utiles pour suivre votre parcours."
+
+msgid "Consultez vos etudiants et marquez les absences du jour pour cette classe."
+msgstr "Consultez vos etudiants et marquez les absences du jour pour cette classe."
+
+msgid "Consultez vos relevés de notes détaillés par matière."
+msgstr "Consultez vos relevés de notes détaillés par matière."
+
+msgid "Consultez vos seances classees par jour pour suivre votre semaine."
+msgstr "Consultez vos seances classees par jour pour suivre votre semaine."
+
+msgid "Contactez la scolarite"
+msgstr "Contactez la scolarite"
+
+msgid "Contrôle Continu"
+msgstr "Contrôle Continu"
+
+msgid "Create Student Account"
+msgstr "Create Student Account"
+
+msgid "Create my student account"
+msgstr "Create my student account"
+
+msgid "Create your student login"
+msgstr "Create your student login"
+
+msgid "Creer la classe"
+msgstr "Creer la classe"
+
+msgid "Creer un compte etudiant"
+msgstr "Creer un compte etudiant"
+
+msgid "Creer une classe"
+msgstr "Creer une classe"
+
+msgid "Creez un mot de passe"
+msgstr "Creez un mot de passe"
+
+msgid "Date d'absence"
+msgstr "Date d'absence"
+
+msgid "Date de demande"
+msgstr "Date de demande"
+
+msgid "Date du cours"
+msgstr "Date du cours"
+
+msgid "Definir la date et l'heure du cours"
+msgstr "Definir la date et l'heure du cours"
+
+msgid "Demande envoyee"
+msgstr "Demande envoyee"
+
+msgid "Demandes administratives"
+msgstr "Demandes administratives"
+
+msgid "Depot"
+msgstr "Depot"
+
+msgid "Depuis le début de l'année"
+msgstr "Depuis le début de l'année"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Details de l'absence"
+msgstr "Details de l'absence"
+
+msgid "Details de presence"
+msgstr "Details de presence"
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Document mis a jour"
+msgstr "Document mis a jour"
+
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Documents Soumis"
+msgstr "Documents Soumis"
+
+msgid "Effectif"
+msgstr "Effectif"
+
+msgid "Emploi du temps hebdomadaire"
+msgstr "Emploi du temps hebdomadaire"
+
+msgid "En attente"
+msgstr "En attente"
+
+msgid "En traitement"
+msgstr "En traitement"
+
+msgid "Enregistrer"
+msgstr "Enregistrer"
+
+msgid "Enregistrer l'appel"
+msgstr "Enregistrer l'appel"
+
+msgid "Enregistrer le planning"
+msgstr "Enregistrer le planning"
+
+msgid "Enregistrez ensuite le fichier au format Excel."
+msgstr "Enregistrez ensuite le fichier au format Excel."
+
+msgid "Enregistrez la presence des etudiants pour cette seance."
+msgstr "Enregistrez la presence des etudiants pour cette seance."
+
+msgid "Enregistrez le fichier au format Excel."
+msgstr "Enregistrez le fichier au format Excel."
+
+msgid "Enseignant"
+msgstr "Enseignant"
+
+msgid "Enseignant assigne"
+msgstr "Enseignant assigne"
+
+msgid "Entrez l'heure de debut."
+msgstr "Entrez l'heure de debut."
+
+msgid "Entrez l'heure de fin."
+msgstr "Entrez l'heure de fin."
+
+msgid "Entrez la matiere du cours."
+msgstr "Entrez la matiere du cours."
+
+msgid "Entrez un identifiant pour l'etudiant."
+msgstr "Entrez un identifiant pour l'etudiant."
+
+msgid "Entrez un mot de passe pour l'etudiant."
+msgstr "Entrez un mot de passe pour l'etudiant."
+
+msgid "Entrez votre identifiant"
+msgstr "Entrez votre identifiant"
+
+msgid "Entrez votre mot de passe"
+msgstr "Entrez votre mot de passe"
+
+msgid "Entrez votre mot de passe actuel"
+msgstr "Entrez votre mot de passe actuel"
+
+msgid "Entrez votre nom complet tel qu'il existe dans la classe"
+msgstr "Entrez votre nom complet tel qu'il existe dans la classe"
+
+msgid "Entrez votre nouveau mot de passe"
+msgstr "Entrez votre nouveau mot de passe"
+
+msgid "Envoyer"
+msgstr "Envoyer"
+
+msgid "Envoyer la justification"
+msgstr "Envoyer la justification"
+
+msgid "Envoyez une nouvelle demande et suivez le traitement de vos documents depuis un seul espace."
+msgstr "Envoyez une nouvelle demande et suivez le traitement de vos documents depuis un seul espace."
+
+msgid "Erreur lors de la lecture du fichier: {error}"
+msgstr "Erreur lors de la lecture du fichier: {error}"
+
+msgid "Erreur lors de la mise à jour du profil"
+msgstr "Erreur lors de la mise à jour du profil"
+
+msgid "Erreur lors du changement de mot de passe"
+msgstr "Erreur lors du changement de mot de passe"
+
+msgid "Error loading profile page"
+msgstr "Error loading profile page"
+
+msgid "Error validating file"
+msgstr "Error validating file"
+
+msgid "Espace enseignant"
+msgstr "Espace enseignant"
+
+msgid "Espace etudiant"
+msgstr "Espace etudiant"
+
+msgid "Etat du compte"
+msgstr "Etat du compte"
+
+msgid "Etudiant"
+msgstr "Etudiant"
+
+msgid "Etudiants"
+msgstr "Etudiants"
+
+msgid "Etudiants a risque"
+msgstr "Etudiants a risque"
+
+msgid "Etudiants inscrits"
+msgstr "Etudiants inscrits"
+
+msgid "Ex: Algorithmique"
+msgstr "Ex: Algorithmique"
+
+msgid "Ex: B12"
+msgstr "Ex: B12"
+
+msgid "Ex: Informatique 2A"
+msgstr "Ex: Informatique 2A"
+
+msgid "Ex: Rendez-vous medical"
+msgstr "Ex: Rendez-vous medical"
+
+msgid "Ex: STI-2026-014"
+msgstr "Ex: STI-2026-014"
+
+msgid "Ex: Salma El Idrissi"
+msgstr "Ex: Salma El Idrissi"
+
+msgid "Ex: aya.bennani"
+msgstr "Ex: aya.bennani"
+
+msgid "Ex: etu12345"
+msgstr "Ex: etu12345"
+
+msgid "Ex: etudiant@ecole.ma"
+msgstr "Ex: etudiant@ecole.ma"
+
+msgid "Examen Final"
+msgstr "Examen Final"
+
+msgid "Examinez les demandes envoyees par les etudiants et traitez-les avec un suivi clair."
+msgstr "Examinez les demandes envoyees par les etudiants et traitez-les avec un suivi clair."
+
+msgid "Exemple"
+msgstr "Exemple"
+
+msgid "Explication"
+msgstr "Explication"
+
+msgid "Expliquez votre absence pour que votre enseignant puisse examiner votre demande."
+msgstr "Expliquez votre absence pour que votre enseignant puisse examiner votre demande."
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Exporter PDF"
+msgstr "Exporter PDF"
+
+msgid "Exporter une classe en PDF"
+msgstr "Exporter une classe en PDF"
+
+msgid "Faire l'appel"
+msgstr "Faire l'appel"
+
+msgid "Ferme"
+msgstr "Ferme"
+
+msgid "Fichier"
+msgstr "Fichier"
+
+msgid "Fichier Excel"
+msgstr "Fichier Excel"
+
+msgid "Fichier Excel des classes"
+msgstr "Fichier Excel des classes"
+
+msgid "Fichier livre"
+msgstr "Fichier livre"
+
+msgid "File format is valid"
+msgstr "File format is valid"
+
+msgid "File is too large. Maximum size is {max_size_mb}MB"
+msgstr "File is too large. Maximum size is {max_size_mb}MB"
+
+msgid "File size is valid"
+msgstr "File size is valid"
+
+msgid "Filiere"
+msgstr "Filiere"
+
+msgid "Fill in your information exactly as it appears in the class list."
+msgstr "Fill in your information exactly as it appears in the class list."
+
+msgid "Format attendu"
+msgstr "Format attendu"
+
+msgid "Formats"
+msgstr "Formats"
+
+msgid "Formats acceptes: .xlsx, .xls"
+msgstr "Formats acceptes: .xlsx, .xls"
+
+msgid "Formats acceptes: PDF, PNG, JPG, JPEG, GIF, WEBP. Taille maximale: 5 MB."
+msgstr "Formats acceptes: PDF, PNG, JPG, JPEG, GIF, WEBP. Taille maximale: 5 MB."
+
+msgid "Félicitations, votre dossier disciplinaire est vierge."
+msgstr "Félicitations, votre dossier disciplinaire est vierge."
+
+msgid "GI 1 | A03 | Genie informatique premiere annee"
+msgstr "GI 1 | A03 | Genie informatique premiere annee"
+
+msgid "Gardez les gestes essentiels sous la main."
+msgstr "Gardez les gestes essentiels sous la main."
+
+msgid "Gerer les Documents"
+msgstr "Gerer les Documents"
+
+msgid "Gerez les inscriptions, l'appel du jour, les justifications et les exports depuis une seule page."
+msgstr "Gerez les inscriptions, l'appel du jour, les justifications et les exports depuis une seule page."
+
+msgid "Gestion des documents"
+msgstr "Gestion des documents"
+
+msgid "Heure de debut"
+msgstr "Heure de debut"
+
+msgid "Heure de fin"
+msgstr "Heure de fin"
+
+msgid "Historique"
+msgstr "Historique"
+
+msgid "Historique Détaillé"
+msgstr "Historique Détaillé"
+
+msgid "Historique de vos absences aux cours théoriques et travaux dirigés."
+msgstr "Historique de vos absences aux cours théoriques et travaux dirigés."
+
+msgid "Historique de vos absences lors des examens finaux."
+msgstr "Historique de vos absences lors des examens finaux."
+
+msgid "Historique de vos absences lors des évaluations continues."
+msgstr "Historique de vos absences lors des évaluations continues."
+
+msgid "Historique des alertes"
+msgstr "Historique des alertes"
+
+msgid "Historique des incidents académiques et conseils de discipline."
+msgstr "Historique des incidents académiques et conseils de discipline."
+
+msgid "Horaire"
+msgstr "Horaire"
+
+msgid "Horaires d'ouverture"
+msgstr "Horaires d'ouverture"
+
+msgid "Identifiant etudiant"
+msgstr "Identifiant etudiant"
+
+msgid "Import Excel"
+msgstr "Import Excel"
+
+msgid "Import termine: {imported_count} classe(s) ajoutee(s), {updated_count} mise(s) a jour."
+msgstr "Import termine: {imported_count} classe(s) ajoutee(s), {updated_count} mise(s) a jour."
+
+msgid "Import termine: {imported_count} etudiant(s) ajoute(s) ou mise a jour."
+msgstr "Import termine: {imported_count} etudiant(s) ajoute(s) ou mise a jour."
+
+msgid "Importer"
+msgstr "Importer"
+
+msgid "Importer classes"
+msgstr "Importer classes"
+
+msgid "Importer des classes"
+msgstr "Importer des classes"
+
+msgid "Importer des etudiants"
+msgstr "Importer des etudiants"
+
+msgid "Importer etudiants"
+msgstr "Importer etudiants"
+
+msgid "Importer les classes"
+msgstr "Importer les classes"
+
+msgid "Importer les etudiants depuis Excel"
+msgstr "Importer les etudiants depuis Excel"
+
+msgid "Impossible d'ajouter la classe. Verifiez le formulaire."
+msgstr "Impossible d'ajouter la classe. Verifiez le formulaire."
+
+msgid "Impossible de mettre a jour le document."
+msgstr "Impossible de mettre a jour le document."
+
+msgid "Impossible de traiter la justification."
+msgstr "Impossible de traiter la justification."
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Informations"
+msgstr "Informations"
+
+msgid "Informations academiques"
+msgstr "Informations academiques"
+
+msgid "Informations de classe"
+msgstr "Informations de classe"
+
+msgid "Informations etudiant"
+msgstr "Informations etudiant"
+
+msgid "Informations generales"
+msgstr "Informations generales"
+
+msgid "Informations personnelles"
+msgstr "Informations personnelles"
+
+msgid "Informations rapides"
+msgstr "Informations rapides"
+
+msgid "Informatique 2A | B12 | Groupe semestre 4"
+msgstr "Informatique 2A | B12 | Groupe semestre 4"
+
+msgid "Infos classe"
+msgstr "Infos classe"
+
+msgid "Inscription"
+msgstr "Inscription"
+
+msgid "Inscrivez un nouvel etudiant dans cette classe."
+msgstr "Inscrivez un nouvel etudiant dans cette classe."
+
+msgid "Invalid file format. Please upload .xlsx or .xls file"
+msgstr "Invalid file format. Please upload .xlsx or .xls file"
+
+msgid "Jeudi"
+msgstr "Jeudi"
+
+msgid "Joindre un fichier"
+msgstr "Joindre un fichier"
+
+msgid "Jour"
+msgstr "Jour"
+
+msgid "Journalier"
+msgstr "Journalier"
+
+msgid "Jours"
+msgstr "Jours"
+
+msgid "Justification"
+msgstr "Justification"
+
+msgid "Justification de {nom} approuvee."
+msgstr "Justification de {nom} approuvee."
+
+msgid "Justification de {nom} rejetee."
+msgstr "Justification de {nom} rejetee."
+
+msgid "Justification en attente"
+msgstr "Justification en attente"
+
+msgid "Justification envoyee"
+msgstr "Justification envoyee"
+
+msgid "Justification mise a jour"
+msgstr "Justification mise a jour"
+
+msgid "Justifications d'absence"
+msgstr "Justifications d'absence"
+
+msgid "Justifications recues"
+msgstr "Justifications recues"
+
+msgid "Justifiees"
+msgstr "Justifiees"
+
+msgid "Justifier"
+msgstr "Justifier"
+
+msgid "Justifier une absence"
+msgstr "Justifier une absence"
+
+msgid "L'administrateur peut planifier la seance de cette classe et l'affecter au planning enseignant."
+msgstr "L'administrateur peut planifier la seance de cette classe et l'affecter au planning enseignant."
+
+msgid "L'appel du jour a ete enregistre."
+msgstr "L'appel du jour a ete enregistre."
+
+msgid "L'etudiant a ete ajoute a la classe."
+msgstr "L'etudiant a ete ajoute a la classe."
+
+msgid "L'heure de fin doit etre apres l'heure de debut."
+msgstr "L'heure de fin doit etre apres l'heure de debut."
+
+msgid "La classe a ete ajoutee avec succes."
+msgstr "La classe a ete ajoutee avec succes."
+
+msgid "La prise de presence se fait depuis la page de la classe."
+msgstr "La prise de presence se fait depuis la page de la classe."
+
+msgid "Le compte enseignant n'a acces qu'au planning et a l'appel."
+msgstr "Le compte enseignant n'a acces qu'au planning et a l'appel."
+
+msgid "Le fichier ne doit pas depasser 5 MB"
+msgstr "Le fichier ne doit pas depasser 5 MB"
+
+msgid "Le formulaire de planning contient des erreurs."
+msgstr "Le formulaire de planning contient des erreurs."
+
+msgid "Le formulaire etudiant contient des erreurs."
+msgstr "Le formulaire etudiant contient des erreurs."
+
+msgid "Le mot de passe actuel est incorrect."
+msgstr "Le mot de passe actuel est incorrect."
+
+msgid "Le nouveau mot de passe doit contenir au moins 6 caracteres."
+msgstr "Le nouveau mot de passe doit contenir au moins 6 caracteres."
+
+msgid "Le planning de la classe a ete mis a jour."
+msgstr "Le planning de la classe a ete mis a jour."
+
+msgid "Le statut du document a ete mis a jour."
+msgstr "Le statut du document a ete mis a jour."
+
+msgid "Le tableau de bord enseignant centralise deja les absences du jour et les etudiants a risque."
+msgstr "Le tableau de bord enseignant centralise deja les absences du jour et les etudiants a risque."
+
+msgid "Les absences du jour qui demandent une attention rapide."
+msgstr "Les absences du jour qui demandent une attention rapide."
+
+msgid "Les absences non justifiees apparaissent ici."
+msgstr "Les absences non justifiees apparaissent ici."
+
+msgid "Les champs de base de votre compte."
+msgstr "Les champs de base de votre compte."
+
+msgid "Les champs essentiels de votre compte."
+msgstr "Les champs essentiels de votre compte."
+
+msgid "Les enseignants ne peuvent pas modifier la liste des etudiants."
+msgstr "Les enseignants ne peuvent pas modifier la liste des etudiants."
+
+msgid "Les enseignants ne peuvent pas modifier le planning de la classe."
+msgstr "Les enseignants ne peuvent pas modifier le planning de la classe."
+
+msgid "Les etudiants avec le plus d'absences cumulees."
+msgstr "Les etudiants avec le plus d'absences cumulees."
+
+msgid "Les informations liees a votre parcours."
+msgstr "Les informations liees a votre parcours."
+
+msgid "Les informations principales de votre groupe."
+msgstr "Les informations principales de votre groupe."
+
+msgid "Les locaux de l'etablissement sont accessibles selon les horaires suivants."
+msgstr "Les locaux de l'etablissement sont accessibles selon les horaires suivants."
+
+msgid "Les mots de passe ne correspondent pas."
+msgstr "Les mots de passe ne correspondent pas."
+
+msgid "Les nouveaux mots de passe ne correspondent pas."
+msgstr "Les nouveaux mots de passe ne correspondent pas."
+
+msgid "Les regles essentielles a connaitre et a respecter."
+msgstr "Les regles essentielles a connaitre et a respecter."
+
+msgid "Ligne {row_idx}: Le nom de la classe est obligatoire"
+msgstr "Ligne {row_idx}: Le nom de la classe est obligatoire"
+
+msgid "Ligne {row_idx}: Le nom de la classe ne peut pas etre vide"
+msgstr "Ligne {row_idx}: Le nom de la classe ne peut pas etre vide"
+
+msgid "Ligne {row_idx}: Le nom est obligatoire"
+msgstr "Ligne {row_idx}: Le nom est obligatoire"
+
+msgid "Ligne {row_idx}: Le nom ne peut pas etre vide"
+msgstr "Ligne {row_idx}: Le nom ne peut pas etre vide"
+
+msgid "Ligne {row_idx}: {error}"
+msgstr "Ligne {row_idx}: {error}"
+
+msgid "Liste des classes"
+msgstr "Liste des classes"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Lundi"
+msgstr "Lundi"
+
+msgid "Lundi - Vendredi"
+msgstr "Lundi - Vendredi"
+
+msgid "Mardi"
+msgstr "Mardi"
+
+msgid "Marquer l'appel"
+msgstr "Marquer l'appel"
+
+msgid "Marquer pret"
+msgstr "Marquer pret"
+
+msgid "Mathematiques Avancees"
+msgstr "Mathematiques Avancees"
+
+msgid "Matiere"
+msgstr "Matiere"
+
+msgid "Matin"
+msgstr "Matin"
+
+msgid "Mensuel"
+msgstr "Mensuel"
+
+msgid "Mercredi"
+msgstr "Mercredi"
+
+msgid "Mes documents"
+msgstr "Mes documents"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Mettez a jour votre mot de passe avec une page plus simple a parcourir."
+msgstr "Mettez a jour votre mot de passe avec une page plus simple a parcourir."
+
+msgid "Mettre a jour"
+msgstr "Mettre a jour"
+
+msgid "Mettre a jour le profil"
+msgstr "Mettre a jour le profil"
+
+msgid "Mettre en traitement"
+msgstr "Mettre en traitement"
+
+msgid "Modifier"
+msgstr "Modifier"
+
+msgid "Modifier le profil"
+msgstr "Modifier le profil"
+
+msgid "Module"
+msgstr "Module"
+
+msgid "Mon profil"
+msgstr "Mon profil"
+
+msgid "Mot de passe"
+msgstr "Mot de passe"
+
+msgid "Mot de passe actif"
+msgstr "Mot de passe actif"
+
+msgid "Mot de passe actuel"
+msgstr "Mot de passe actuel"
+
+msgid "Mot de passe etudiant"
+msgstr "Mot de passe etudiant"
+
+msgid "Motif"
+msgstr "Motif"
+
+msgid "Moyenne"
+msgstr "Moyenne"
+
+msgid "Niveau"
+msgstr "Niveau"
+
+msgid "Nom"
+msgstr "Nom"
+
+msgid "Nom complet"
+msgstr "Nom complet"
+
+msgid "Nom d'utilisateur"
+msgstr "Nom d'utilisateur"
+
+msgid "Nom de famille"
+msgstr "Nom de famille"
+
+msgid "Nom de la classe"
+msgstr "Nom de la classe"
+
+msgid "Nom | Numero etudiant | Email"
+msgstr "Nom | Numero etudiant | Email"
+
+msgid "Nom | Salle | Description"
+msgstr "Nom | Salle | Description"
+
+msgid "Nom, Numero, Email"
+msgstr "Nom, Numero, Email"
+
+msgid "Nom, Salle, Description"
+msgstr "Nom, Salle, Description"
+
+msgid "Non"
+msgstr "Non"
+
+msgid "Non justifiees"
+msgstr "Non justifiees"
+
+msgid "Non justifiée"
+msgstr "Non justifiée"
+
+msgid "Notes & Évaluations"
+msgstr "Notes & Évaluations"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Nouveau mot de passe"
+msgstr "Nouveau mot de passe"
+
+msgid "Nouvelle demande"
+msgstr "Nouvelle demande"
+
+msgid "Numero"
+msgstr "Numero"
+
+msgid "Numero etudiant"
+msgstr "Numero etudiant"
+
+msgid "Optionnel, mais recommande pour vous retrouver plus vite"
+msgstr "Optionnel, mais recommande pour vous retrouver plus vite"
+
+msgid "Organisation hebdomadaire de la classe."
+msgstr "Organisation hebdomadaire de la classe."
+
+msgid "Ou importer les classes depuis Excel"
+msgstr "Ou importer les classes depuis Excel"
+
+msgid "Oui"
+msgstr "Oui"
+
+msgid "Ouverture du portail intelligent..."
+msgstr "Ouverture du portail intelligent..."
+
+msgid "Ouvrez une classe pour voir ses etudiants et enregistrer les absences."
+msgstr "Ouvrez une classe pour voir ses etudiants et enregistrer les absences."
+
+msgid "Ouvrir"
+msgstr "Ouvrir"
+
+msgid "Ouvrir le fichier joint"
+msgstr "Ouvrir le fichier joint"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "Page {page}"
+msgstr "Page {page}"
+
+msgid "Pas encore assez de donnees pour afficher une tendance."
+msgstr "Pas encore assez de donnees pour afficher une tendance."
+
+msgid "Periode"
+msgstr "Periode"
+
+msgid "Periode : {date}"
+msgstr "Periode : {date}"
+
+msgid "Physique Appliquee"
+msgstr "Physique Appliquee"
+
+msgid "Piece jointe"
+msgstr "Piece jointe"
+
+msgid "Placez les titres sur la premiere ligne."
+msgstr "Placez les titres sur la premiere ligne."
+
+msgid "Planning"
+msgstr "Planning"
+
+msgid "Planning disponible"
+msgstr "Planning disponible"
+
+msgid "Plusieurs etudiants portent ce nom. Ajoutez le numero etudiant."
+msgstr "Plusieurs etudiants portent ce nom. Ajoutez le numero etudiant."
+
+msgid "Pour toute demande, ecrivez a"
+msgstr "Pour toute demande, ecrivez a"
+
+msgid "Precisez si besoin..."
+msgstr "Precisez si besoin..."
+
+msgid "Prenom"
+msgstr "Prenom"
+
+msgid "Preparation"
+msgstr "Preparation"
+
+msgid "Presence obligatoire a tous les cours."
+msgstr "Presence obligatoire a tous les cours."
+
+msgid "Presences / Absences"
+msgstr "Presences / Absences"
+
+msgid "Present(s)"
+msgstr "Present(s)"
+
+msgid "Present(s) / Absent(s)"
+msgstr "Present(s) / Absent(s)"
+
+msgid "Pret"
+msgstr "Pret"
+
+msgid "Prets"
+msgstr "Prets"
+
+msgid "Prochaine"
+msgstr "Prochaine"
+
+msgid "Professeur"
+msgstr "Professeur"
+
+msgid "Profil"
+msgstr "Profil"
+
+msgid "Profil utilisateur"
+msgstr "Profil utilisateur"
+
+msgid "Protege"
+msgstr "Protege"
+
+msgid "Prénom"
+msgstr "Prénom"
+
+msgid "Quelques details sur la classe"
+msgstr "Quelques details sur la classe"
+
+msgid "Rapport mensuel"
+msgstr "Rapport mensuel"
+
+msgid "Rapport mensuel - {nom}"
+msgstr "Rapport mensuel - {nom}"
+
+msgid "Rapport mensuel global"
+msgstr "Rapport mensuel global"
+
+msgid "Rapports"
+msgstr "Rapports"
+
+msgid "Rattrapage"
+msgstr "Rattrapage"
+
+msgid "Refuse"
+msgstr "Refuse"
+
+msgid "Refusee"
+msgstr "Refusee"
+
+msgid "Refuser"
+msgstr "Refuser"
+
+msgid "Reglement interieur"
+msgstr "Reglement interieur"
+
+msgid "Reglement interieur, horaires et contact utiles dans une presentation plus sobre et plus lisible."
+msgstr "Reglement interieur, horaires et contact utiles dans une presentation plus sobre et plus lisible."
+
+msgid "Rejeter"
+msgstr "Rejeter"
+
+msgid "Releve de notes"
+msgstr "Releve de notes"
+
+msgid "Renseignez d'abord les informations principales de l'etudiant."
+msgstr "Renseignez d'abord les informations principales de l'etudiant."
+
+msgid "Renseignez les informations principales, puis ajoutez une seance si elle est deja connue."
+msgstr "Renseignez les informations principales, puis ajoutez une seance si elle est deja connue."
+
+msgid "Repere pratique"
+msgstr "Repere pratique"
+
+msgid "Repere rapide"
+msgstr "Repere rapide"
+
+msgid "Reponse"
+msgstr "Reponse"
+
+msgid "Respect du personnel enseignant et administratif."
+msgstr "Respect du personnel enseignant et administratif."
+
+msgid "Resume"
+msgstr "Resume"
+
+msgid "Resume absences"
+msgstr "Resume absences"
+
+msgid "Retapez le mot de passe"
+msgstr "Retapez le mot de passe"
+
+msgid "Retour"
+msgstr "Retour"
+
+msgid "Retour au profil"
+msgstr "Retour au profil"
+
+msgid "Retour au tableau de bord"
+msgstr "Retour au tableau de bord"
+
+msgid "Retrouvez ici les alertes d'absence, les mises a jour de justification et les reponses a vos demandes."
+msgstr "Retrouvez ici les alertes d'absence, les mises a jour de justification et les reponses a vos demandes."
+
+msgid "Salle"
+msgstr "Salle"
+
+msgid "Salle du cours"
+msgstr "Salle du cours"
+
+msgid "Salma El Idrissi | STI-2026-001 | salma@school.ma"
+msgstr "Salma El Idrissi | STI-2026-001 | salma@school.ma"
+
+msgid "Samedi"
+msgstr "Samedi"
+
+msgid "Seance optionnelle"
+msgstr "Seance optionnelle"
+
+msgid "Seances"
+msgstr "Seances"
+
+msgid "Secure link"
+msgstr "Secure link"
+
+msgid "Securite"
+msgstr "Securite"
+
+msgid "Selectionnez le fichier Excel a importer."
+msgstr "Selectionnez le fichier Excel a importer."
+
+msgid "Selectionnez le fichier Excel qui contient vos classes."
+msgstr "Selectionnez le fichier Excel qui contient vos classes."
+
+msgid "Semestre 1"
+msgstr "Semestre 1"
+
+msgid "Semestre 1 - 2026"
+msgstr "Semestre 1 - 2026"
+
+msgid "Semestre 2"
+msgstr "Semestre 2"
+
+msgid "Seul l'administrateur peut approuver ou refuser les justifications."
+msgstr "Seul l'administrateur peut approuver ou refuser les justifications."
+
+msgid "Soumettre la demande"
+msgstr "Soumettre la demande"
+
+msgid "Statistiques"
+msgstr "Statistiques"
+
+msgid "Statut"
+msgstr "Statut"
+
+msgid "Student Access"
+msgstr "Student Access"
+
+msgid "Student registration"
+msgstr "Student registration"
+
+msgid "Subject or course name"
+msgstr "Subject or course name"
+
+msgid "Succes"
+msgstr "Succes"
+
+msgid "Suivez la part des absences deja traitees."
+msgstr "Suivez la part des absences deja traitees."
+
+msgid "Suivez les demandes des etudiants, repondez avec un commentaire et deposez le fichier final quand il est pret."
+msgstr "Suivez les demandes des etudiants, repondez avec un commentaire et deposez le fichier final quand il est pret."
+
+msgid "Suivez les presences, ouvrez une classe, gerez les justifications et gardez une vue claire sur vos groupes en quelques gestes."
+msgstr "Suivez les presences, ouvrez une classe, gerez les justifications et gardez une vue claire sur vos groupes en quelques gestes."
+
+msgid "Suivez votre evolution de presence mois par mois."
+msgstr "Suivez votre evolution de presence mois par mois."
+
+msgid "Synthese de presence du {date}"
+msgstr "Synthese de presence du {date}"
+
+msgid "Tableau enseignant"
+msgstr "Tableau enseignant"
+
+msgid "Taille maximale"
+msgstr "Taille maximale"
+
+msgid "Taux"
+msgstr "Taux"
+
+msgid "Taux de justification"
+msgstr "Taux de justification"
+
+msgid "Telephone garde en mode silencieux pendant le cours."
+msgstr "Telephone garde en mode silencieux pendant le cours."
+
+msgid "Tendance de presence"
+msgstr "Tendance de presence"
+
+msgid "Tenue correcte exigee dans l'etablissement."
+msgstr "Tenue correcte exigee dans l'etablissement."
+
+msgid "Titre"
+msgstr "Titre"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total Absences"
+msgstr "Total Absences"
+
+msgid "Toutes les demandes ont ete traitees."
+msgstr "Toutes les demandes ont ete traitees."
+
+msgid "Type de compte"
+msgstr "Type de compte"
+
+msgid "Type de document"
+msgstr "Type de document"
+
+msgid "Télécharger le bulletin"
+msgstr "Télécharger le bulletin"
+
+msgid "Un apercu simple de votre profil."
+msgstr "Un apercu simple de votre profil."
+
+msgid "Un apercu simple de votre rythme de presence mois par mois."
+msgstr "Un apercu simple de votre rythme de presence mois par mois."
+
+msgid "Un point simple sur votre situation actuelle."
+msgstr "Un point simple sur votre situation actuelle."
+
+msgid "Use your real name and class to link your account to your student profile, receive your absences and justify them online."
+msgstr "Use your real name and class to link your account to your student profile, receive your absences and justify them online."
+
+msgid "Utilisateur"
+msgstr "Utilisateur"
+
+msgid "Utilisez la premiere ligne pour les titres et une classe par ligne."
+msgstr "Utilisez la premiere ligne pour les titres et une classe par ligne."
+
+msgid "Valide"
+msgstr "Valide"
+
+msgid "Vendredi"
+msgstr "Vendredi"
+
+msgid "Verifiez la structure avant de lancer l'import."
+msgstr "Verifiez la structure avant de lancer l'import."
+
+msgid "Veuillez uploader un fichier Excel (.xlsx ou .xls)"
+msgstr "Veuillez uploader un fichier Excel (.xlsx ou .xls)"
+
+msgid "Voici les absences actuellement enregistrees sur votre espace."
+msgstr "Voici les absences actuellement enregistrees sur votre espace."
+
+msgid "Voir / marquer"
+msgstr "Voir / marquer"
+
+msgid "Voir la liste"
+msgstr "Voir la liste"
+
+msgid "Voir la piece jointe"
+msgstr "Voir la piece jointe"
+
+msgid "Voir le fichier actuel"
+msgstr "Voir le fichier actuel"
+
+msgid "Voir les totaux par etudiant"
+msgstr "Voir les totaux par etudiant"
+
+msgid "Vos classes"
+msgstr "Vos classes"
+
+msgid "Votre adresse email"
+msgstr "Votre adresse email"
+
+msgid "Votre classe n'a pas encore de seances enregistrees."
+msgstr "Votre classe n'a pas encore de seances enregistrees."
+
+msgid "Votre compte etudiant a ete cree avec succes."
+msgstr "Votre compte etudiant a ete cree avec succes."
+
+msgid "Votre demande \\\"{doc}\\\" est maintenant : {status}."
+msgstr "Votre demande \\\"{doc}\\\" est maintenant : {status}."
+
+msgid "Votre demande de document \\\"{doc}\\\" a ete envoyee."
+msgstr "Votre demande de document \\\"{doc}\\\" a ete envoyee."
+
+msgid "Votre demande de document a ete envoyee."
+msgstr "Votre demande de document a ete envoyee."
+
+msgid "Votre email"
+msgstr "Votre email"
+
+msgid "Votre espace personnel pour consulter les presences, suivre les absences et deposer une justification quand il le faut."
+msgstr "Votre espace personnel pour consulter les presences, suivre les absences et deposer une justification quand il le faut."
+
+msgid "Votre justification a bien ete envoyee."
+msgstr "Votre justification a bien ete envoyee."
+
+msgid "Votre justification du {date} a ete {status}."
+msgstr "Votre justification du {date} a ete {status}."
+
+msgid "Votre justification pour l'absence du {date} a ete envoyee."
+msgstr "Votre justification pour l'absence du {date} a ete envoyee."
+
+msgid "Votre mot de passe a été changé avec succès."
+msgstr "Votre mot de passe a été changé avec succès."
+
+msgid "Votre nom de famille"
+msgstr "Votre nom de famille"
+
+msgid "Votre profil a été mis à jour avec succès."
+msgstr "Votre profil a été mis à jour avec succès."
+
+msgid "Votre prénom"
+msgstr "Votre prénom"
+
+msgid "Vous avez ete marque absent le {date} pour la classe {classe}."
+msgstr "Vous avez ete marque absent le {date} pour la classe {classe}."
+
+msgid "Vous avez participé à tous les examens."
+msgstr "Vous avez participé à tous les examens."
+
+msgid "Vous avez été présent à tous les contrôles continus cette année."
+msgstr "Vous avez été présent à tous les contrôles continus cette année."
+
+msgid "Vous ne pouvez consulter que vos propres classes."
+msgstr "Vous ne pouvez consulter que vos propres classes."
+
+msgid "Vous ne pouvez marquer l'absence que pour vos propres classes."
+msgstr "Vous ne pouvez marquer l'absence que pour vos propres classes."
+
+msgid "Vous pouvez aussi revenir a la classe pour ajouter ou verifier les etudiants."
+msgstr "Vous pouvez aussi revenir a la classe pour ajouter ou verifier les etudiants."
+
+msgid "Vue d'ensemble"
+msgstr "Vue d'ensemble"
+
+msgid "Vue de pilotage"
+msgstr "Vue de pilotage"
+
+msgid "Vue rapide"
+msgstr "Vue rapide"
+
+msgid "a examiner"
+msgstr "a examiner"
+
+msgid "a traiter"
+msgstr "a traiter"
+
+msgid "approuver ou rejeter"
+msgstr "approuver ou rejeter"
+
+msgid "aucune seance"
+msgstr "aucune seance"
+
+msgid "aujourd'hui"
+msgstr "aujourd'hui"
+
+msgid "classe(s)"
+msgstr "classe(s)"
+
+msgid "dans la semaine"
+msgstr "dans la semaine"
+
+msgid "demandes actives"
+msgstr "demandes actives"
+
+msgid "demandes approuvees"
+msgstr "demandes approuvees"
+
+msgid "demandes ouvertes"
+msgstr "demandes ouvertes"
+
+msgid "en attente"
+msgstr "en attente"
+
+msgid "enregistrees"
+msgstr "enregistrees"
+
+msgid "formation actuelle"
+msgstr "formation actuelle"
+
+msgid "groupes actifs"
+msgstr "groupes actifs"
+
+msgid "inscrits"
+msgstr "inscrits"
+
+msgid "jours/séances"
+msgstr "jours/séances"
+
+msgid "justification(s) en attente"
+msgstr "justification(s) en attente"
+
+msgid "occupes"
+msgstr "occupes"
+
+msgid "openpyxl n'est pas installe. Installez-le avec: pip install openpyxl"
+msgstr "openpyxl n'est pas installe. Installez-le avec: pip install openpyxl"
+
+msgid "presence moyenne"
+msgstr "presence moyenne"
+
+msgid "presences"
+msgstr "presences"
+
+msgid "saisis aujourd'hui"
+msgstr "saisis aujourd'hui"
+
+msgid "seance(s)"
+msgstr "seance(s)"
+
+msgid "total inscrit"
+msgstr "total inscrit"
+
+msgid "{error_count} erreur(s) rencontree(s)."
+msgstr "{error_count} erreur(s) rencontree(s)."
+
+msgid "Travaillez en francais ou anglais avec le meme confort."
+msgstr "Travaillez en francais ou anglais avec le meme confort."

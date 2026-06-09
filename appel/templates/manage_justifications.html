@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load appel_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Justifications d'absence" %}{% endblock %}
+
+{% block content %}
+    <section class="hero-section mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="eyebrow"><i class="fas fa-clipboard-check"></i> {% trans "Administration" %}</span>
+                <h1>{% trans "Justifications d'absence" %}</h1>
+                <p>{% trans "Examinez les demandes envoyees par les etudiants et traitez-les avec un suivi clair." %}</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="spotlight h-100">
+                    <span class="eyebrow"><i class="fas fa-hourglass-half"></i> {% trans "A traiter" %}</span>
+                    <div class="stats-number">{{ pending_justifications.count }}</div>
+                    <p class="mb-0 text-muted">{% trans "justification(s) en attente" %}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-clock"></i> {% trans "En attente" %}</p>
+                <div class="stats-number">{{ pending_justifications.count }}</div>
+                <small>{% trans "a examiner" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-user-graduate"></i> {% trans "Etudiants" %}</p>
+                <div class="stats-number">{{ pending_justifications|length }}</div>
+                <small>{% trans "demandes ouvertes" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-school"></i> {% trans "Action" %}</p>
+                <div class="stats-number">2</div>
+                <small>{% trans "approuver ou rejeter" %}</small>
+            </div>
+        </div>
+    </div>
+
+    {% if pending_justifications %}
+        <div class="row g-4">
+            {% for justification in pending_justifications %}
+                <div class="col-lg-6">
+                    <article class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                                <div>
+                                    <h2 class="h5 mb-1">{{ justification.presence.etudiant.nom }}</h2>
+                                    <p class="text-muted mb-0">{{ justification.presence.etudiant.filiere.nom }}</p>
+                                </div>
+                                <span class="badge bg-warning">{% trans "En attente" %}</span>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label">{% trans "Date d'absence" %}</label>
+                                    <div class="empty-state text-start py-3">
+                                        {{ justification.presence.date|date:"d/m/Y" }}<br>
+                                        <small>{{ justification.presence.date|date:"l" }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label">{% trans "Depot" %}</label>
+                                    <div class="empty-state text-start py-3">
+                                        {{ justification.submitted_at|date:"d/m/Y H:i" }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label class="form-label">{% trans "Motif" %}</label>
+                            <p class="fw-semibold mb-3">{{ justification.reason }}</p>
+
+                            <label class="form-label">{% trans "Explication" %}</label>
+                            <div class="empty-state text-start mb-4">
+                                {{ justification.details }}
+                            </div>
+
+                            {% if justification.attachment %}
+                                <label class="form-label">{% trans "Piece jointe" %}</label>
+                                <div class="empty-state text-start mb-4">
+                                    <a href="{{ justification.attachment.url }}" target="_blank" rel="noopener">
+                                        {% trans "Ouvrir le fichier joint" %}
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                            {% with forms=review_forms|get_item:justification.id %}
+                                <form method="post" class="d-grid gap-2">
+                                    {% csrf_token %}
+                                    {{ forms.approve.justification_id }}
+                                    <label class="form-label">{{ forms.approve.teacher_comment.label }}</label>
+                                    {{ forms.approve.teacher_comment }}
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button type="submit" name="action" value="approve" class="btn btn-success flex-grow-1">
+                                            <i class="fas fa-check me-1"></i>{% trans "Approuver" %}
+                                        </button>
+                                    </div>
+                                </form>
+                                <form method="post" class="mt-2">
+                                    {% csrf_token %}
+                                    {{ forms.reject.justification_id }}
+                                    <input type="hidden" name="teacher_comment" value="{{ forms.approve.teacher_comment.value|default:'' }}">
+                                    <button type="submit" name="action" value="reject" class="btn btn-danger w-100">
+                                        <i class="fas fa-times me-1"></i>{% trans "Rejeter" %}
+                                    </button>
+                                </form>
+                            {% endwith %}
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-body">
+                <div class="empty-state">
+                    <i class="fas fa-check-circle fs-1 mb-3 d-block text-muted"></i>
+                    <h2 class="h5">{% trans "Aucune justification en attente" %}</h2>
+                    <p class="mb-3">{% trans "Toutes les demandes ont ete traitees." %}</p>
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left me-1"></i>{% trans "Retour au tableau de bord" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

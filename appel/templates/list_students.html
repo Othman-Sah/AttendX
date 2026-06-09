@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+{% load appel_extras %}
+{% load i18n %}
+{% load i18n %}
+
+{% block title %}{{ filiere.nom }}{% endblock %}
+
+{% block content %}
+    <section class="hero-section mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="eyebrow"><i class="fas fa-book"></i> AttendX</span>
+                <h1>{{ filiere.nom }}</h1>
+                {% if teacher_mode %}
+                    <p>{% trans "Consultez vos etudiants et marquez les absences du jour pour cette classe." %}</p>
+                {% else %}
+                    <p>{% trans "Gerez les inscriptions, l'appel du jour, les justifications et les exports depuis une seule page." %}</p>
+                {% endif %}
+            </div>
+            <div class="col-lg-4">
+                <div class="spotlight h-100">
+                    <span class="eyebrow"><i class="fas fa-chart-line"></i> {% trans "Informations rapides" %}</span>
+                    <ul class="mb-0">
+                        <li>{% trans "Salle" %}: <strong>{{ filiere.salle|default:"-" }}</strong></li>
+                        <li>
+                            {% trans "Enseignant" %}:
+                            <strong>
+                                {% if filiere.teacher %}
+                                    {{ filiere.teacher.get_full_name|default:filiere.teacher.username }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </strong>
+                        </li>
+                        <li>{% trans "Effectif" %}: <strong>{{ students|length }}</strong></li>
+                        <li>{% trans "Aujourd'hui" %}: <strong>{{ today|date:"d/m/Y" }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-4">
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-users"></i> {% trans "Total" %}</p>
+                <div class="stats-number">{{ students|length }}</div>
+                <small>{% trans "inscrits" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-check-circle"></i> {% trans "Present(s)" %}</p>
+                <div class="stats-number">{{ present_count|default:0 }}</div>
+                <small>{% trans "aujourd'hui" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-times-circle"></i> {% trans "Absent(s)" %}</p>
+                <div class="stats-number">{{ absent_count|default:0 }}</div>
+                <small>{% trans "aujourd'hui" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-percentage"></i> {% trans "Taux" %}</p>
+                <div class="stats-number" style="font-size: 2rem;">
+                    {% if students|length > 0 %}
+                        {{ attendance_rate|default:"-" }}%
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+                <small>{% trans "presences" %}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        {% if not teacher_mode %}
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-user-plus"></i> {% trans "Ajouter un etudiant" %}</h2>
+                        <p>{% trans "Inscrivez un nouvel etudiant dans cette classe." %}</p>
+                    </div>
+                    <form method="post" enctype="multipart/form-data" class="d-grid gap-3">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add_student">
+                        {% if student_form.non_field_errors %}
+                            <div class="errorlist">{{ student_form.non_field_errors }}</div>
+                        {% endif %}
+
+                        <div class="card border-0" style="background: #f8fafc;">
+                            <div class="card-body">
+                                <div class="section-head mb-3">
+                                    <h3 class="h5 mb-1"><i class="fas fa-id-badge"></i> {% trans "Informations etudiant" %}</h3>
+                                    <p class="mb-0">{% trans "Renseignez d'abord les informations principales de l'etudiant." %}</p>
+                                </div>
+
+                                <div class="d-grid gap-3">
+                                    <div>
+                                        <label class="form-label" for="{{ student_form.nom.id_for_label }}">{{ student_form.nom.label }}</label>
+                                        {{ student_form.nom }}
+                                        {% if student_form.nom.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.nom.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="{{ student_form.numero_etudiant.id_for_label }}">{{ student_form.numero_etudiant.label }}</label>
+                                        {{ student_form.numero_etudiant }}
+                                        {% if student_form.numero_etudiant.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.numero_etudiant.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="{{ student_form.email.id_for_label }}">{{ student_form.email.label }}</label>
+                                        {{ student_form.email }}
+                                        {% if student_form.email.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.email.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="{{ student_form.profile_photo.id_for_label }}">{{ student_form.profile_photo.label }}</label>
+                                        {{ student_form.profile_photo }}
+                                        {% if student_form.profile_photo.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.profile_photo.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0" style="background: #eef4ff;">
+                            <div class="card-body">
+                                <div class="section-head mb-3">
+                                    <h3 class="h5 mb-1"><i class="fas fa-user-shield"></i> {% trans "Compte etudiant" %}</h3>
+                                    <p class="mb-0">{% trans "Activez cette section seulement si vous voulez creer un acces personnel pour l'etudiant." %}</p>
+                                </div>
+
+                                <div class="d-grid gap-3">
+                                    <div>
+                                        <label class="form-label d-flex align-items-center gap-2" for="{{ student_form.create_student_account.id_for_label }}">
+                                            {{ student_form.create_student_account }}
+                                            <span>{{ student_form.create_student_account.label }}</span>
+                                        </label>
+                                        {% if student_form.create_student_account.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.create_student_account.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="{{ student_form.student_username.id_for_label }}">{{ student_form.student_username.label }}</label>
+                                        {{ student_form.student_username }}
+                                        {% if student_form.student_username.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.student_username.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div>
+                                        <label class="form-label" for="{{ student_form.student_password.id_for_label }}">{{ student_form.student_password.label }}</label>
+                                        {{ student_form.student_password }}
+                                        {% if student_form.student_password.errors %}
+                                            <div class="errorlist mt-2">{{ student_form.student_password.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-plus me-1"></i>{% trans "Ajouter l'etudiant" %}
+                        </button>
+                    </form>
+                    <a href="{% url 'import_students_excel' filiere.id %}" class="btn btn-outline-secondary w-100 mt-3">
+                        <i class="fas fa-file-import me-1"></i>{% trans "Importer les etudiants depuis Excel" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-box-archive"></i> {% trans "Reutiliser une liste" %}</h2>
+                        <p>{% trans "Copiez les etudiants deja stockes dans une autre classe, sans importer Excel a nouveau." %}</p>
+                    </div>
+                    {% if source_filieres %}
+                        <form method="post" class="d-grid gap-3">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="copy_students_from_class">
+                            <div>
+                                <label class="form-label" for="source_filiere">{% trans "Classe source" %}</label>
+                                <select class="form-select" id="source_filiere" name="source_filiere" required>
+                                    <option value="">{% trans "Choisir une classe stockee" %}</option>
+                                    {% for source in source_filieres %}
+                                        <option value="{{ source.id }}">{{ source.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-copy me-1"></i>{% trans "Copier dans cette classe" %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-folder-open fs-1 mb-3 d-block text-muted"></i>
+                            <p class="mb-0">{% trans "Aucune autre classe stockee pour le moment." %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="{% if teacher_mode %}col-12{% else %}col-lg-6{% endif %}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-bolt"></i> {% trans "Actions rapides" %}</h2>
+                        <p>{% trans "Accedez directement aux outils utiles." %}</p>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% if teacher_mode %}
+                            <a class="quick-action" href="{% url 'calendar' %}"><i class="fas fa-calendar-alt"></i> {% trans "Mon planning" %}</a>
+                            <a class="quick-action" href="{% url 'select_filiere' %}"><i class="fas fa-school"></i> {% trans "Mes classes" %}</a>
+                        {% else %}
+                            <a class="quick-action" href="{% url 'dashboard' %}"><i class="fas fa-home"></i> {% trans "Accueil" %}</a>
+                            <a class="quick-action" href="{% url 'import_students_excel' filiere.id %}"><i class="fas fa-upload"></i> {% trans "Importer etudiants" %}</a>
+                            <a class="quick-action" href="{% url 'generate_monthly_report' filiere.id %}"><i class="fas fa-file-pdf"></i> {% trans "Exporter PDF" %}</a>
+                            <a class="quick-action" href="{% url 'dashboard' %}"><i class="fas fa-chart-bar"></i> {% trans "Statistiques" %}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not teacher_mode %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-calendar-plus"></i> {% trans "Definir la date et l'heure du cours" %}</h2>
+                <p>{% trans "L'administrateur peut planifier la seance de cette classe et l'affecter au planning enseignant." %}</p>
+            </div>
+            <form method="post" class="row g-3">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_schedule">
+                <div class="col-md-4">
+                    <label class="form-label" for="{{ schedule_form.class_date.id_for_label }}">{{ schedule_form.class_date.label }}</label>
+                    {{ schedule_form.class_date }}
+                    {% if schedule_form.class_date.errors %}
+                        <div class="errorlist mt-2">{{ schedule_form.class_date.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+                {{ schedule_form.day_of_week }}
+                <div class="col-md-8">
+                    <label class="form-label">{% trans "Enseignant" %}</label>
+                    <input class="form-control" type="text" value="{% if filiere.teacher %}{{ filiere.teacher.get_full_name|default:filiere.teacher.username }}{% else %}-{% endif %}" disabled>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ schedule_form.start_time.id_for_label }}">{{ schedule_form.start_time.label }}</label>
+                    {{ schedule_form.start_time }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ schedule_form.end_time.id_for_label }}">{{ schedule_form.end_time.label }}</label>
+                    {{ schedule_form.end_time }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ schedule_form.subject.id_for_label }}">{{ schedule_form.subject.label }}</label>
+                    {{ schedule_form.subject }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ schedule_form.session_type.id_for_label }}">{{ schedule_form.session_type.label }}</label>
+                    {{ schedule_form.session_type }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ schedule_form.room.id_for_label }}">{{ schedule_form.room.label }}</label>
+                    {{ schedule_form.room }}
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>{% trans "Enregistrer le planning" %}
+                    </button>
+                </div>
+            </form>
+
+            {% if schedules %}
+                <div class="table-responsive mt-4">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Jour" %}</th>
+                                <th>{% trans "Horaire" %}</th>
+                                <th>{% trans "Matiere" %}</th>
+                                <th>{% trans "Type" %}</th>
+                                <th>{% trans "Salle" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for schedule in schedules %}
+                                <tr>
+                                    <td>{{ schedule.class_date|date:"d/m/Y"|default:"-" }}</td>
+                                    <td>{{ schedule.get_day_of_week_display }}</td>
+                                    <td>{{ schedule.start_time|time:"H:i" }} - {{ schedule.end_time|time:"H:i" }}</td>
+                                    <td>{{ schedule.subject }}</td>
+                                    <td>
+                                        <span class="badge {% if schedule.session_type == 'exam' %}bg-warning{% else %}bg-primary{% endif %}">
+                                            {{ schedule.get_session_type_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ schedule.room|default:"-" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-pencil-alt"></i> {% trans "Appel du jour" %}</h2>
+                <p>{% trans "Enregistrez la presence des etudiants pour cette seance." %}</p>
+            </div>
+            {% if students %}
+                <form method="post" action="{% url 'save_attendance' filiere.id %}">
+                    {% csrf_token %}
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Nom complet" %}</th>
+                                    <th>{% trans "Numero" %}</th>
+                                    <th>{% trans "Email" %}</th>
+                                    <th>{% trans "Presences" %}</th>
+                                    <th>{% trans "Absences" %}</th>
+                                    <th class="text-center">{% trans "Present" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in students %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                {% if student.profile_photo %}
+                                                    <img src="{{ student.profile_photo.url }}?v={{ student.profile_photo|file_version }}" alt="{{ student.nom }}" class="student-table-avatar">
+                                                {% else %}
+                                                    <span class="student-table-avatar student-table-avatar-fallback">{{ student.nom|first|upper }}</span>
+                                                {% endif %}
+                                                <strong>{{ student.nom }}</strong>
+                                            </div>
+                                        </td>
+                                        <td>{{ student.numero_etudiant|default:"-" }}</td>
+                                        <td>{{ student.email|default:"-" }}</td>
+                                        <td>{{ student.total_presences }}</td>
+                                        <td>{{ student.total_absences }}</td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox" name="present_{{ student.id }}"{% if attendance_map|get_item:student.id %} checked{% endif %}>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">
+                        <i class="fas fa-save me-1"></i>{% trans "Enregistrer l'appel" %}
+                    </button>
+                </form>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-inbox fs-1 mb-3 d-block text-muted"></i>
+                    <h3 class="h5 mb-2">{% trans "Aucun etudiant" %}</h3>
+                    <p class="mb-0">{% trans "Cette classe n'a pas encore d'etudiants. Ajoutez-en un pour commencer." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if not teacher_mode %}
+    <div class="card">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-file-signature"></i> {% trans "Justifications recues" %}</h2>
+                <p>{% trans "Consultez les demandes soumises par les etudiants." %}</p>
+            </div>
+            {% if justifications %}
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Etudiant" %}</th>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Motif" %}</th>
+                                <th>{% trans "Statut" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for justification in justifications %}
+                                <tr>
+                                    <td><strong>{{ justification.presence.etudiant.nom }}</strong></td>
+                                    <td>{{ justification.presence.date|date:"d/m/Y" }}</td>
+                                    <td>{{ justification.reason|truncatewords:5 }}</td>
+                                    <td>
+                                        {% if justification.get_status_display == "Approuvée" %}
+                                            <span class="badge bg-success">{{ justification.get_status_display }}</span>
+                                        {% elif justification.get_status_display == "En attente" %}
+                                            <span class="badge bg-warning">{{ justification.get_status_display }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">{{ justification.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-check-circle fs-1 mb-3 d-block text-muted"></i>
+                    <h3 class="h5 mb-2">{% trans "Aucune justification" %}</h3>
+                    <p class="mb-0">{% trans "Aucune demande de justification n'a encore ete recue." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

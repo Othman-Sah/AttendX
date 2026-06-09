@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load appel_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Mettre a jour le profil" %}{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-6">
+            <section class="hero-section mb-4 text-center">
+                <span class="eyebrow"><i class="fas fa-user-edit"></i> {% trans "Profil" %}</span>
+                <h1>{% trans "Mettre a jour le profil" %}</h1>
+                <p>{% trans "Ajustez vos informations personnelles dans un formulaire a l'interface plus douce et plus lisible." %}</p>
+            </section>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-pen"></i> {% trans "Informations" %}</h2>
+                        <p>{% trans "Les champs de base de votre compte." %}</p>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" class="d-grid gap-3">
+                        {% csrf_token %}
+
+                        {% if student %}
+                            <div>
+                                <label for="{{ form.profile_photo.id_for_label }}" class="form-label">{% trans "Photo de profil" %}</label>
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    {% if student.profile_photo %}
+                                        <img src="{{ student.profile_photo.url }}?v={{ student.profile_photo|file_version }}" alt="{{ student.nom }}" class="profile-photo-preview" data-profile-photo-preview>
+                                    {% else %}
+                                        <span class="profile-photo-preview profile-photo-fallback" data-profile-photo-preview>{{ student.nom|first|upper }}</span>
+                                    {% endif %}
+                                    <div class="text-muted small">{% trans "Cette photo apparaitra sur votre espace etudiant et votre profil." %}</div>
+                                </div>
+                                {{ form.profile_photo }}
+                                {% if form.profile_photo.help_text %}
+                                    <small class="text-muted d-block mt-2">{{ form.profile_photo.help_text }}</small>
+                                {% endif %}
+                                {% if form.profile_photo.errors %}
+                                    <div class="errorlist mt-2">{{ form.profile_photo.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label">{% trans "Prenom" %}</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="errorlist mt-2">{{ form.first_name.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}" class="form-label">{% trans "Nom" %}</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="errorlist mt-2">{{ form.last_name.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.email.id_for_label }}" class="form-label">{% trans "Email" %}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="errorlist mt-2">{{ form.email.errors|join:", " }}</div>
+                            {% endif %}
+                            {% if form.email.help_text %}
+                                <small class="text-muted d-block mt-2">{{ form.email.help_text|safe }}</small>
+                            {% endif %}
+                        </div>
+
+                        {% if form.non_field_errors %}
+                            <div class="errorlist">{{ form.non_field_errors|join:", " }}</div>
+                        {% endif %}
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-save me-1"></i>{% trans "Enregistrer" %}
+                        </button>
+                    </form>
+
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <a href="{% url 'user_profile' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i>{% trans "Annuler" %}</a>
+                        <a href="{% url 'change_password' %}" class="btn btn-outline-secondary"><i class="fas fa-lock me-1"></i>{% trans "Changer le mot de passe" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const input = document.getElementById('{{ form.profile_photo.id_for_label }}');
+            const preview = document.querySelector('[data-profile-photo-preview]');
+
+            if (!input || !preview) {
+                return;
+            }
+
+            input.addEventListener('change', () => {
+                const file = input.files && input.files[0];
+                if (!file || !file.type.startsWith('image/')) {
+                    return;
+                }
+
+                const imageUrl = URL.createObjectURL(file);
+                const image = preview.tagName === 'IMG' ? preview : document.createElement('img');
+                image.src = imageUrl;
+                image.alt = '{{ student.nom|default:request.user.username|escapejs }}';
+                image.className = 'profile-photo-preview';
+                image.setAttribute('data-profile-photo-preview', '');
+
+                if (image !== preview) {
+                    preview.replaceWith(image);
+                }
+
+                image.onload = () => URL.revokeObjectURL(imageUrl);
+            });
+        })();
+    </script>
+{% endblock %}

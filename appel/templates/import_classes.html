@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Importer des classes" %}{% endblock %}
+
+{% block content %}
+    <section class="hero-section mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="eyebrow"><i class="fas fa-file-import"></i> {% trans "Import Excel" %}</span>
+                <h1>{% trans "Importer des classes" %}</h1>
+                <p>{% trans "Chargez un fichier d'etudiants: le nom du fichier deviendra le nom de la classe." %}</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="spotlight h-100">
+                    <span class="eyebrow"><i class="fas fa-table"></i> {% trans "Format attendu" %}</span>
+                    <ul class="mb-0">
+                        <li>{% trans "Nom classe" %}: <strong>{% trans "Nom du fichier" %}</strong></li>
+                        <li>{% trans "Colonnes" %}: <strong>{% trans "Nom, Numero, Email" %}</strong></li>
+                        <li>{% trans "Formats" %}: <strong>.xlsx, .xls</strong></li>
+                        <li>{% trans "Taille maximale" %}: <strong>5 MB</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-school"></i> {% trans "Classes deja importees" %}</h2>
+                <p>{% trans "Choisissez directement une classe deja stockee sans recharger le fichier Excel." %}</p>
+            </div>
+            {% if saved_classes %}
+                <form class="row g-3 align-items-end">
+                    <div class="col-lg-9">
+                        <label class="form-label" for="savedClassSelect">{% trans "Classe stockee" %}</label>
+                        <select class="form-select" id="savedClassSelect">
+                            <option value="">{% trans "Choisir une classe pre-importee" %}</option>
+                            {% for saved_class in saved_classes %}
+                                <option value="{% url 'class_detail' saved_class.id %}">
+                                    {{ saved_class.nom }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-primary w-100" data-open-saved-class>
+                            <i class="fas fa-arrow-right me-1"></i>{% trans "Ouvrir" %}
+                        </button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="empty-state">
+                    <p class="mb-0">{% trans "Aucune classe importee pour le moment." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-upload"></i> {% trans "Fichier" %}</h2>
+                        <p>{% trans "Selectionnez le fichier Excel. Exemple: IIR.xlsx creera la classe IIR." %}</p>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" class="d-grid gap-3">
+                        {% csrf_token %}
+                        <div>
+                            <label class="form-label" for="{{ form.excel_file.id_for_label }}">{% trans "Fichier Excel" %}</label>
+                            {{ form.excel_file }}
+                            {% if form.excel_file.help_text %}
+                                <small class="text-muted d-block mt-2">{{ form.excel_file.help_text|safe }}</small>
+                            {% endif %}
+                            {% if form.excel_file.errors %}
+                                <div class="errorlist mt-2">{{ form.excel_file.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-upload me-1"></i>{% trans "Importer les classes" %}
+                        </button>
+                        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-arrow-left me-1"></i>{% trans "Retour au tableau de bord" %}
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-list-check"></i> {% trans "Preparation" %}</h2>
+                        <p>{% trans "Le nom du fichier devient la classe, et les lignes deviennent les etudiants." %}</p>
+                    </div>
+                    <ol class="mb-4">
+                        <li>{% trans "Nommez le fichier avec le nom de la classe, par exemple IIR.xlsx." %}</li>
+                        <li>{% trans "Ajoutez le nom complet de l'etudiant dans la premiere colonne." %}</li>
+                        <li>{% trans "Ajoutez le numero et l'email dans les colonnes suivantes si disponibles." %}</li>
+                        <li>{% trans "Enregistrez ensuite le fichier au format Excel." %}</li>
+                    </ol>
+
+                    <div class="empty-state text-start">
+                        <div class="fw-semibold mb-2">{% trans "Exemple" %}</div>
+                        <code>{% trans "Fichier: IIR.xlsx" %}</code><br>
+                        <code>{% trans "Nom | Numero etudiant | Email" %}</code><br>
+                        <code>{% trans "Salma El Idrissi | STI-2026-001 | salma@school.ma" %}</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const select = document.getElementById('savedClassSelect');
+            const button = document.querySelector('[data-open-saved-class]');
+
+            if (!select || !button) {
+                return;
+            }
+
+            button.addEventListener('click', () => {
+                if (select.value) {
+                    window.location.href = select.value;
+                }
+            });
+        })();
+    </script>
+{% endblock %}

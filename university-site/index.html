@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A modern responsive university website for Northbridge International University." />
+  <title>Northbridge International University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Northbridge International University home">
+        <span class="brand-mark">N</span>
+        <span>
+          <strong>Northbridge</strong>
+          <small>International University</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#admissions">Admissions</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#apply">Apply Now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <p class="eyebrow">Established 1898 · Global Research University</p>
+          <h1>Northbridge International University</h1>
+          <p class="hero-lead">Shaping future leaders through rigorous scholarship, bold research, and service to society.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#apply">Apply Now</a>
+            <a class="btn btn-secondary" href="#programs">Explore Programs</a>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal" aria-label="Key university statistics">
+          <div>
+            <strong>42k+</strong>
+            <span>Students from 118 countries</span>
+          </div>
+          <div>
+            <strong>96%</strong>
+            <span>Graduate employment rate</span>
+          </div>
+          <div>
+            <strong>12:1</strong>
+            <span>Student to faculty ratio</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section news" aria-labelledby="news-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">News & Announcements</p>
+          <h2 id="news-title">Latest from Northbridge</h2>
+        </div>
+
+        <div class="news-grid">
+          <article class="news-card reveal">
+            <span>Research</span>
+            <h3>New Center for Climate Systems opens this fall</h3>
+            <p>Faculty and students will collaborate on resilient infrastructure, clean energy, and environmental policy.</p>
+          </article>
+          <article class="news-card reveal">
+            <span>Admissions</span>
+            <h3>Undergraduate applications are now open</h3>
+            <p>Prospective students can submit applications for early action until November 15.</p>
+          </article>
+          <article class="news-card reveal">
+            <span>Campus</span>
+            <h3>Global Leadership Forum welcomes 60 speakers</h3>
+            <p>The annual forum connects students with leaders in science, public service, medicine, and business.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="section-head reveal">
+          <p class="eyebrow">About Northbridge</p>
+          <h2>Academic excellence with a global public purpose.</h2>
+          <p>Northbridge International University is a community of scholars, creators, clinicians, engineers, and civic leaders dedicated to expanding knowledge and improving lives.</p>
+        </div>
+
+        <div class="about-panels">
+          <article class="info-panel reveal">
+            <h3>Mission</h3>
+            <p>To educate principled leaders, advance discovery, and apply knowledge to the world’s most urgent challenges.</p>
+          </article>
+          <article class="info-panel reveal">
+            <h3>Vision</h3>
+            <p>To stand among the world’s most respected universities through innovation, inclusion, and lasting impact.</p>
+          </article>
+          <article class="info-panel reveal">
+            <h3>History</h3>
+            <p>Founded in 1898, Northbridge grew from a civic college into a global research university with campuses on four continents.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="container leadership">
+        <div class="section-head reveal">
+          <p class="eyebrow">Leadership</p>
+          <h2>Guided by experienced academic leaders.</h2>
+        </div>
+        <div class="leader-grid">
+          <article class="leader-card reveal">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="University president portrait">
+            <h3>Dr. Elias Warren</h3>
+            <p>President</p>
+          </article>
+          <article class="leader-card reveal">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Provost portrait">
+            <h3>Prof. Amara Bennett</h3>
+            <p>Provost and Chief Academic Officer</p>
+          </article>
+          <article class="leader-card reveal">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80" alt="Dean portrait">
+            <h3>Dr. Marcus Hale</h3>
+            <p>Dean of Student Success</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section programs" id="programs">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Programs</p>
+          <h2>Faculties designed for ambitious learners.</h2>
+          <p>Choose from undergraduate, graduate, professional, and online pathways taught by internationally recognized faculty.</p>
+        </div>
+
+        <div class="program-grid">
+          <article class="program-card reveal">
+            <h3>Faculty of Engineering</h3>
+            <p>Mechanical, civil, electrical, computer, and environmental engineering.</p>
+            <dl>
+              <div><dt>Duration</dt><dd>4 years</dd></div>
+              <div><dt>Requirements</dt><dd>Math, physics, portfolio optional</dd></div>
+            </dl>
+          </article>
+          <article class="program-card reveal">
+            <h3>School of Business</h3>
+            <p>Finance, management, analytics, entrepreneurship, and global strategy.</p>
+            <dl>
+              <div><dt>Duration</dt><dd>3-4 years</dd></div>
+              <div><dt>Requirements</dt><dd>Transcript, statement, interview</dd></div>
+            </dl>
+          </article>
+          <article class="program-card reveal">
+            <h3>Faculty of Medicine</h3>
+            <p>Clinical science, biomedical research, public health, and patient care.</p>
+            <dl>
+              <div><dt>Duration</dt><dd>6 years</dd></div>
+              <div><dt>Requirements</dt><dd>Biology, chemistry, entrance exam</dd></div>
+            </dl>
+          </article>
+          <article class="program-card reveal">
+            <h3>Arts & Humanities</h3>
+            <p>History, literature, philosophy, languages, media, and cultural studies.</p>
+            <dl>
+              <div><dt>Duration</dt><dd>3 years</dd></div>
+              <div><dt>Requirements</dt><dd>Writing sample, transcript</dd></div>
+            </dl>
+          </article>
+          <article class="program-card reveal">
+            <h3>Computer Science</h3>
+            <p>Artificial intelligence, cybersecurity, software engineering, and data science.</p>
+            <dl>
+              <div><dt>Duration</dt><dd>4 years</dd></div>
+              <div><dt>Requirements</dt><dd>Math, coding assessment optional</dd></div>
+            </dl>
+          </article>
+          <article class="program-card reveal">
+            <h3>Online Learning</h3>
+            <p>Flexible certificates and degree pathways for professionals worldwide.</p>
+            <dl>
+              <div><dt>Duration</dt><dd>8 weeks to 2 years</dd></div>
+              <div><dt>Requirements</dt><dd>Open enrollment or program review</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section admissions" id="admissions">
+      <div class="container admissions-grid">
+        <div class="reveal">
+          <p class="eyebrow">Admissions</p>
+          <h2>Apply with confidence.</h2>
+          <p>Our admissions process is transparent, supportive, and designed to help each applicant present their strongest case.</p>
+
+          <ol class="steps">
+            <li><strong>Create your applicant profile</strong><span>Choose your program and preferred intake.</span></li>
+            <li><strong>Upload required documents</strong><span>Submit transcripts, ID, statement, and references.</span></li>
+            <li><strong>Attend review or interview</strong><span>Some programs require an academic interview or exam.</span></li>
+            <li><strong>Receive your decision</strong><span>Track updates through the admissions portal.</span></li>
+          </ol>
+
+          <div class="requirements">
+            <h3>General requirements</h3>
+            <ul>
+              <li>Completed online application</li>
+              <li>Official academic transcripts</li>
+              <li>Personal statement</li>
+              <li>Recommendation letter</li>
+              <li>English proficiency if applicable</li>
+            </ul>
+          </div>
+        </div>
+
+        <form class="application-form reveal" id="apply">
+          <h3>Online Application</h3>
+          <label>
+            Full name
+            <input type="text" name="fullName" placeholder="Jane Student" required>
+          </label>
+          <label>
+            Email address
+            <input type="email" name="email" placeholder="jane@example.com" required>
+          </label>
+          <label>
+            Program of interest
+            <select name="program" required>
+              <option value="">Select a program</option>
+              <option>Engineering</option>
+              <option>Business</option>
+              <option>Medicine</option>
+              <option>Computer Science</option>
+              <option>Online Learning</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea name="message" placeholder="Tell us about your academic goals"></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Submit Application</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section campus">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Campus Life</p>
+          <h2>A campus built for study, culture, and connection.</h2>
+        </div>
+
+        <div class="campus-grid">
+          <article class="campus-card reveal">
+            <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=80" alt="Students on campus">
+            <h3>Student Community</h3>
+            <p>More than 220 student societies, service groups, and leadership organizations.</p>
+          </article>
+          <article class="campus-card reveal">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80" alt="Students studying together">
+            <h3>Research Culture</h3>
+            <p>Students collaborate with faculty in labs, studios, clinics, and field research sites.</p>
+          </article>
+          <article class="campus-card reveal">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=80" alt="Graduation ceremony">
+            <h3>Traditions</h3>
+            <p>Convocation, global forums, arts festivals, and annual innovation showcases.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bonus">
+      <div class="container bonus-grid">
+        <div class="dashboard-mock reveal">
+          <div class="mock-top">
+            <span></span><span></span><span></span>
+          </div>
+          <h3>Student Dashboard</h3>
+          <div class="mock-stat"><span>Attendance</span><strong>96%</strong></div>
+          <div class="mock-stat"><span>Assignments</span><strong>12</strong></div>
+          <div class="mock-stat"><span>Advisor Meetings</span><strong>3</strong></div>
+        </div>
+
+        <div class="calendar reveal">
+          <p class="eyebrow">Events</p>
+          <h2>Academic calendar</h2>
+          <ul>
+            <li><time>Sep 04</time><span>Orientation Week</span></li>
+            <li><time>Oct 18</time><span>Research Symposium</span></li>
+            <li><time>Nov 15</time><span>Early Action Deadline</span></li>
+            <li><time>Dec 08</time><span>Winter Concert</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section testimonials">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Testimonials</p>
+          <h2>Voices from our community.</h2>
+        </div>
+        <div class="testimonial-grid">
+          <blockquote class="reveal">
+            “Northbridge gave me the academic depth and global network to launch my career in biomedical research.”
+            <cite>— Lina Ortega, Medicine</cite>
+          </blockquote>
+          <blockquote class="reveal">
+            “The mentorship here is exceptional. Every semester pushed me to think more clearly and lead better.”
+            <cite>— Samir Khan, Business</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow reveal">Contact</p>
+          <h2 class="reveal">Visit or contact admissions.</h2>
+          <form class="contact-form reveal" id="contactForm">
+            <label>
+              Name
+              <input type="text" name="name" required>
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required>
+            </label>
+            <label>
+              Message
+              <textarea name="message" required></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+        </div>
+
+        <aside class="contact-info reveal">
+          <h3>Northbridge International University</h3>
+          <p>100 University Avenue, Cambridge, MA 02139</p>
+          <p>+1 (555) 123-4567</p>
+          <p>admissions@northbridge.edu</p>
+          <div class="social-links">
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+          </div>
+          <iframe title="Map showing university location" src="https://www.google.com/maps?q=Cambridge%20MA&output=embed" loading="lazy"></iframe>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <p>© 2026 Northbridge International University. All rights reserved.</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

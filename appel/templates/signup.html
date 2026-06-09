@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}AttendX - {% trans "Create Student Account" %}{% endblock %}
+
+{% block content %}
+<style>
+    .navbar,
+    .sidebar-wrapper {
+        display: none !important;
+    }
+
+    body {
+        min-height: 100vh;
+        background:
+            radial-gradient(ellipse 55% 45% at 15% 8%, rgba(41, 121, 255, 0.16), transparent 62%),
+            radial-gradient(ellipse 45% 40% at 92% 88%, rgba(92, 157, 255, 0.14), transparent 58%),
+            linear-gradient(165deg, #f7fbff 0%, #eef5ff 58%, #ffffff 100%) !important;
+    }
+
+    .main-content-wrapper {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 1.25rem !important;
+    }
+
+    .page-shell {
+        width: min(1080px, 100%);
+        max-width: none;
+        padding: 0 !important;
+    }
+
+    .student-register {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+        min-height: 690px;
+        overflow: hidden;
+        border: 1px solid rgba(41, 121, 255, 0.18);
+        border-top: 2px solid rgba(255, 255, 255, 0.94);
+        border-radius: 32px;
+        background: #ffffff;
+        box-shadow:
+            0 1px 0 rgba(255, 255, 255, 0.94) inset,
+            0 12px 28px rgba(41, 121, 255, 0.13),
+            0 34px 80px rgba(7, 48, 128, 0.14);
+    }
+
+    .sr-form-panel {
+        padding: clamp(1.65rem, 3.8vw, 3rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background:
+            linear-gradient(90deg, rgba(41, 121, 255, 0.035) 1px, transparent 1px),
+            linear-gradient(rgba(41, 121, 255, 0.03) 1px, transparent 1px),
+            #ffffff;
+        background-size: 34px 34px;
+    }
+
+    .sr-brand {
+        width: max-content;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        margin-bottom: 1.35rem;
+        color: #040f2e !important;
+        text-decoration: none;
+    }
+
+    .sr-brand img {
+        width: 42px;
+        height: 42px;
+        object-fit: contain;
+        border-radius: 12px;
+        padding: 0.22rem;
+        background: linear-gradient(135deg, #2979ff, #073080);
+        box-shadow: 0 8px 20px rgba(41, 121, 255, 0.28);
+    }
+
+    .sr-brand span {
+        font-size: 1.14rem;
+        font-weight: 900;
+        letter-spacing: 0;
+        color: #040f2e !important;
+    }
+
+    .sr-heading {
+        max-width: 560px;
+        margin: 0;
+        color: #073080 !important;
+        font-size: clamp(2rem, 4.4vw, 3.45rem);
+        line-height: 0.98;
+        font-weight: 950;
+        letter-spacing: 0;
+    }
+
+    .sr-sub {
+        max-width: 560px;
+        margin: 0.65rem 0 1.35rem;
+        color: #3b68b8 !important;
+        font-size: 0.96rem;
+    }
+
+    .sr-tabs {
+        width: min(360px, 100%);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.22rem;
+        margin-bottom: 1.3rem;
+        padding: 0.24rem;
+        border: 1px solid rgba(41, 121, 255, 0.16);
+        border-radius: 14px;
+        background: #f0f6ff;
+    }
+
+    .sr-tab {
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        color: #3b68b8 !important;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    .sr-tab.active {
+        background: linear-gradient(135deg, #5c9dff, #2979ff, #073080);
+        color: #ffffff !important;
+        box-shadow: 0 8px 18px rgba(41, 121, 255, 0.26);
+    }
+
+    .sr-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.95rem;
+    }
+
+    .sr-field {
+        position: relative;
+        min-width: 0;
+    }
+
+    .sr-field.is-wide,
+    .sr-errors,
+    .sr-submit,
+    .sr-login-link {
+        grid-column: 1 / -1;
+    }
+
+    .sr-field label {
+        display: block;
+        margin-bottom: 0.42rem;
+        color: #3b68b8 !important;
+        font-size: 0.73rem;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .sr-field .form-control,
+    .sr-field .form-select {
+        width: 100%;
+        min-height: 48px;
+        padding-right: 2.7rem;
+        border: 1px solid rgba(41, 121, 255, 0.18) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.94) !important;
+        border-radius: 14px !important;
+        background: #ffffff !important;
+        color: #0d2a6e !important;
+        box-shadow:
+            0 1px 0 rgba(255, 255, 255, 0.95) inset,
+            inset 0 2px 4px rgba(41, 121, 255, 0.06) !important;
+    }
+
+    .sr-field .form-control:focus,
+    .sr-field .form-select:focus {
+        border-color: #2979ff !important;
+        box-shadow:
+            0 1px 0 rgba(255, 255, 255, 0.95) inset,
+            0 0 0 3px rgba(41, 121, 255, 0.15),
+            0 8px 18px rgba(41, 121, 255, 0.1) !important;
+    }
+
+    .sr-field-icon {
+        position: absolute;
+        right: 1rem;
+        bottom: 15px;
+        color: #7aa0d4;
+        font-size: 0.88rem;
+        pointer-events: none;
+    }
+
+    .sr-help {
+        margin-top: 0.35rem;
+        color: #5a7bb5 !important;
+        font-size: 0.75rem;
+    }
+
+    .sr-errors {
+        padding: 0.7rem 0.85rem;
+        border: 1px solid rgba(178, 58, 72, 0.18);
+        border-radius: 14px;
+        background: rgba(178, 58, 72, 0.07);
+        color: #9f2635 !important;
+        font-size: 0.82rem;
+        font-weight: 650;
+    }
+
+    .sr-submit {
+        min-height: 52px;
+        margin-top: 0.25rem;
+        border: 0;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #5c9dff, #2979ff, #073080);
+        color: #ffffff;
+        font-weight: 850;
+        box-shadow:
+            0 2px 0 rgba(7, 48, 128, 0.32),
+            0 12px 28px rgba(41, 121, 255, 0.28);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .sr-submit:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 4px 0 rgba(7, 48, 128, 0.26),
+            0 18px 36px rgba(41, 121, 255, 0.32);
+    }
+
+    .sr-login-link {
+        margin: 0;
+        color: #3b68b8 !important;
+        font-size: 0.88rem;
+        text-align: center;
+    }
+
+    .sr-login-link a {
+        font-weight: 850;
+    }
+
+    .sr-visual-panel {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: 100%;
+        padding: clamp(1.4rem, 3vw, 2.2rem);
+        overflow: hidden;
+        background:
+            linear-gradient(180deg, rgba(7, 48, 128, 0.08), rgba(7, 48, 128, 0.82)),
+            linear-gradient(135deg, rgba(41, 121, 255, 0.1), rgba(7, 48, 128, 0.55)),
+            url("{% static 'appel/img/school-hero.png' %}") center / cover no-repeat;
+        color: #ffffff;
+    }
+
+    .sr-visual-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(90deg, rgba(255, 255, 255, 0.13) 1px, transparent 1px),
+            linear-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: linear-gradient(180deg, transparent 0%, black 25%, black 100%);
+        pointer-events: none;
+    }
+
+    .sr-visual-content {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 1rem;
+    }
+
+    .sr-kicker {
+        width: max-content;
+        max-width: 100%;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.48rem 0.72rem;
+        border: 1px solid rgba(255, 255, 255, 0.36);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+        color: #ffffff !important;
+        font-size: 0.72rem;
+        font-weight: 850;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        backdrop-filter: blur(12px);
+    }
+
+    .sr-visual-title {
+        margin: 0;
+        color: #ffffff !important;
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        line-height: 1;
+        font-weight: 950;
+        letter-spacing: 0;
+        text-shadow: 0 12px 30px rgba(0, 0, 0, 0.36);
+    }
+
+    .sr-visual-text {
+        max-width: 24rem;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.84) !important;
+        font-size: 0.95rem;
+    }
+
+    .sr-checks {
+        display: grid;
+        gap: 0.55rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .sr-checks li {
+        display: flex;
+        align-items: center;
+        gap: 0.58rem;
+        min-height: 40px;
+        padding: 0.58rem 0.7rem;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff !important;
+        font-size: 0.85rem;
+        font-weight: 700;
+        backdrop-filter: blur(12px);
+    }
+
+    .sr-checks i {
+        width: 1rem;
+        color: #d9ebff;
+        text-align: center;
+    }
+
+    @media (max-width: 920px) {
+        .student-register {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+
+        .sr-visual-panel {
+            min-height: 300px;
+            order: -1;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .main-content-wrapper {
+            padding: 0.75rem !important;
+            place-items: start center;
+        }
+
+        .student-register {
+            border-radius: 24px;
+        }
+
+        .sr-form {
+            grid-template-columns: 1fr;
+        }
+
+        .sr-heading {
+            font-size: clamp(2rem, 12vw, 2.75rem);
+        }
+
+        .sr-visual-panel {
+            min-height: 250px;
+        }
+    }
+</style>
+
+<section class="student-register">
+    <div class="sr-form-panel">
+        <a href="{% url 'login' %}" class="sr-brand">
+            <img src="{{ app_logo_url }}" alt="AttendX">
+            <span>AttendX</span>
+        </a>
+
+        <h1 class="sr-heading">{% trans "Create your student account" %}</h1>
+        <p class="sr-sub">{% trans "Use the same name and class listed by your school so AttendX can connect your account to the right student profile." %}</p>
+
+        <div class="sr-tabs">
+            <a href="{% url 'login' %}" class="sr-tab">{% trans "Sign in" %}</a>
+            <span class="sr-tab active">{% trans "Sign Up" %}</span>
+        </div>
+
+        <form method="post" class="sr-form">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div class="sr-errors">{{ form.non_field_errors|join:", " }}</div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="sr-field {% if field.name == 'full_name' or field.name == 'email' %}is-wide{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    <i class="sr-field-icon fas {% if 'password' in field.name %}fa-lock{% elif field.name == 'email' %}fa-envelope{% elif field.name == 'filiere' %}fa-school{% elif field.name == 'student_number' %}fa-id-card{% elif field.name == 'full_name' %}fa-user-graduate{% else %}fa-user{% endif %}" aria-hidden="true"></i>
+                    {% if field.help_text %}
+                        <div class="sr-help">{{ field.help_text }}</div>
+                    {% endif %}
+                    {% if field.errors %}
+                        <div class="sr-errors mt-2">{{ field.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="sr-submit">
+                <i class="fas fa-user-plus me-2" aria-hidden="true"></i>
+                {% trans "Create my student account" %}
+            </button>
+
+            <p class="sr-login-link">
+                {% trans "Already have an account?" %}
+                <a href="{% url 'login' %}">{% trans "Log in" %}</a>
+            </p>
+        </form>
+    </div>
+
+    <aside class="sr-visual-panel" aria-label="{% trans 'Student access preview' %}">
+        <div class="sr-visual-content">
+            <span class="sr-kicker"><i class="fas fa-shield-heart" aria-hidden="true"></i>{% trans "Student Access" %}</span>
+            <h2 class="sr-visual-title">{% trans "Absences, documents, and class updates in one place." %}</h2>
+            <p class="sr-visual-text">{% trans "After registration, your dashboard follows your attendance, justifications, documents, and schedule without extra setup." %}</p>
+            <ul class="sr-checks">
+                <li><i class="fas fa-check" aria-hidden="true"></i>{% trans "Linked to your official class list" %}</li>
+                <li><i class="fas fa-bell" aria-hidden="true"></i>{% trans "Absence notifications and justifications" %}</li>
+                <li><i class="fas fa-calendar-days" aria-hidden="true"></i>{% trans "Student schedule and school services" %}</li>
+            </ul>
+        </div>
+    </aside>
+</section>
+{% endblock %}

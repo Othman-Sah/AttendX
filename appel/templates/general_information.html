@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Informations generales" %}{% endblock %}
+
+{% block content %}
+    <style>
+        .info-page {
+            display: grid;
+            gap: 1.75rem;
+        }
+
+        .info-page .info-hero,
+        .info-page .info-contact {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(31, 111, 235, 0.16);
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at 88% 12%, rgba(100, 165, 255, 0.18), transparent 30%),
+                linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+            box-shadow: 0 22px 60px rgba(31, 111, 235, 0.1);
+        }
+
+        .info-page .info-hero {
+            padding: clamp(1.7rem, 4vw, 2.8rem);
+            text-align: left;
+        }
+
+        .info-page .info-hero::before,
+        .info-page .info-contact::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            right: -90px;
+            top: -120px;
+            border-radius: 50%;
+            background: rgba(31, 111, 235, 0.09);
+            pointer-events: none;
+        }
+
+        .info-page .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.9rem;
+            padding: 0.42rem 0.75rem;
+            border-radius: 999px;
+            background: #eaf4ff;
+            color: #0b3d91;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .info-page .info-hero h1 {
+            position: relative;
+            max-width: 760px;
+            margin: 0;
+            color: #0b3d91;
+            font-size: clamp(2.4rem, 6vw, 4.6rem);
+            font-weight: 950;
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+        }
+
+        .info-page .info-hero p {
+            position: relative;
+            max-width: 680px;
+            margin: 1rem 0 0;
+            color: #235fb4;
+            font-size: clamp(1rem, 2vw, 1.18rem);
+            line-height: 1.65;
+        }
+
+        .info-page .card {
+            border-radius: 24px;
+        }
+
+        .info-page .section-head h2 {
+            color: #0b3d91 !important;
+            letter-spacing: -0.035em;
+        }
+
+        .info-page .section-head p {
+            color: #235fb4;
+        }
+
+        .info-page .info-contact {
+            padding: clamp(1.5rem, 4vw, 2.2rem);
+            text-align: center;
+        }
+
+        .info-page .info-contact h2 {
+            position: relative;
+            color: #0b3d91;
+            font-size: clamp(1.5rem, 3vw, 2.15rem);
+            font-weight: 950;
+            letter-spacing: -0.035em;
+        }
+
+        .info-page .info-contact p {
+            position: relative;
+            color: #235fb4;
+            font-size: 1.05rem;
+        }
+
+        .info-page .info-contact a {
+            color: #0b3d91;
+            font-weight: 900;
+            text-decoration-thickness: 0.12em;
+            text-underline-offset: 0.18em;
+        }
+    </style>
+
+    <div class="info-page">
+    <section class="info-hero">
+        <span class="eyebrow"><i class="fas fa-info-circle"></i> {% trans "Repere pratique" %}</span>
+        <h1>{% trans "Informations generales" %}</h1>
+        <p>{% trans "Reglement interieur, horaires et contact utiles dans une presentation plus sobre et plus lisible." %}</p>
+    </section>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-book-reader"></i> {% trans "Reglement interieur" %}</h2>
+                        <p>{% trans "Les regles essentielles a connaitre et a respecter." %}</p>
+                    </div>
+                    <div class="spotlight">
+                        <ul class="mb-0">
+                            <li>{% trans "Presence obligatoire a tous les cours." %}</li>
+                            <li>{% trans "Tenue correcte exigee dans l'etablissement." %}</li>
+                            <li>{% trans "Telephone garde en mode silencieux pendant le cours." %}</li>
+                            <li>{% trans "Respect du personnel enseignant et administratif." %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-clock"></i> {% trans "Horaires d'ouverture" %}</h2>
+                        <p>{% trans "Les locaux de l'etablissement sont accessibles selon les horaires suivants." %}</p>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Jour" %}</th>
+                                    <th>{% trans "Matin" %}</th>
+                                    <th>{% trans "Apres-midi" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{% trans "Lundi - Vendredi" %}</td>
+                                    <td>08:00 - 12:00</td>
+                                    <td>14:00 - 18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>{% trans "Samedi" %}</td>
+                                    <td>08:00 - 12:00</td>
+                                    <td><span class="badge bg-danger">{% trans "Ferme" %}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="info-contact">
+                <span class="eyebrow"><i class="fas fa-envelope-open-text"></i> {% trans "Besoin d'aide ?" %}</span>
+                <h2 class="h4 mb-2">{% trans "Contactez la scolarite" %}</h2>
+                <p class="mb-0">{% trans "Pour toute demande, ecrivez a" %} <a href="mailto:scolarite@ecole.ma">scolarite@ecole.ma</a>.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

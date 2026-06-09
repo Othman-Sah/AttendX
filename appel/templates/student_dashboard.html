@@ -1,0 +1,729 @@
+{% extends "base.html" %}
+{% load appel_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Espace etudiant" %}{% endblock %}
+
+{% block content %}
+    <style>
+        .student-hero {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            padding: clamp(1.4rem, 4vw, 2.4rem);
+            border: 1px solid rgba(31, 111, 235, 0.16);
+            border-radius: 30px;
+            background:
+                radial-gradient(circle at 88% 14%, rgba(100, 165, 255, 0.2), transparent 32%),
+                linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+            box-shadow: 0 24px 70px rgba(31, 111, 235, 0.11);
+        }
+
+        .student-hero::before {
+            content: "";
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            right: -120px;
+            top: -140px;
+            border-radius: 50%;
+            background: rgba(31, 111, 235, 0.08);
+            pointer-events: none;
+        }
+
+        .student-hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.7fr);
+            gap: clamp(1rem, 3vw, 1.5rem);
+            align-items: center;
+        }
+
+        .student-identity {
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 3vw, 1.4rem);
+        }
+
+        .student-avatar {
+            width: clamp(94px, 16vw, 142px);
+            height: clamp(94px, 16vw, 142px);
+            flex: 0 0 auto;
+            border: 4px solid #ffffff;
+            border-radius: 28px;
+            object-fit: cover;
+            background: #dbeafe;
+            box-shadow: 0 18px 40px rgba(13, 71, 161, 0.18);
+        }
+
+        .student-avatar-fallback {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #0d47a1;
+            font-size: clamp(2.5rem, 7vw, 4.6rem);
+            font-weight: 950;
+        }
+
+        .student-hero .eyebrow,
+        .student-summary-card .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.85rem;
+            padding: 0.42rem 0.75rem;
+            border-radius: 999px;
+            background: #eaf4ff;
+            color: #0b3d91;
+            font-size: 0.74rem;
+            font-weight: 950;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .student-hero h1 {
+            max-width: 720px;
+            margin: 0;
+            color: #0b3d91;
+            font-size: clamp(2.4rem, 6vw, 4.7rem);
+            font-weight: 950;
+            line-height: 0.92;
+            letter-spacing: -0.07em;
+            text-transform: uppercase;
+        }
+
+        .student-hero p {
+            max-width: 680px;
+            margin: 1rem 0 0;
+            color: #235fb4;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 1.65;
+        }
+
+        .student-hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+        }
+
+        .student-hero-pills .pill {
+            background: #ffffff;
+            color: #0b3d91;
+            border-color: rgba(31, 111, 235, 0.18);
+            box-shadow: 0 10px 24px rgba(31, 111, 235, 0.08);
+        }
+
+        .student-summary-card {
+            padding: 1.2rem;
+            border: 1px solid rgba(31, 111, 235, 0.16);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 18px 46px rgba(31, 111, 235, 0.1);
+        }
+
+        .student-summary-list {
+            display: grid;
+            gap: 0.7rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .student-summary-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.75rem 0.85rem;
+            border-radius: 16px;
+            background: #f4f9ff;
+            color: #235fb4;
+            font-weight: 750;
+        }
+
+        .student-summary-list strong {
+            color: #0b3d91;
+            font-weight: 950;
+        }
+
+        .student-detail-card {
+            overflow: hidden;
+        }
+
+        .student-detail-card .card-body {
+            padding: 0 !important;
+        }
+
+        .student-detail-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.95rem;
+            padding: 1.25rem 1.35rem 1rem;
+            border-bottom: 1px solid #d7e8ff;
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 247, 255, 0.96));
+        }
+
+        .student-detail-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            border-radius: 14px;
+            background: #0d47a1;
+            color: #ffffff;
+            font-size: 1.35rem;
+            box-shadow: 0 12px 24px rgba(13, 71, 161, 0.18);
+        }
+
+        .student-detail-head h2 {
+            margin: 0;
+            color: #073b88;
+            font-size: clamp(1.25rem, 2vw, 1.65rem);
+            font-weight: 950;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .student-detail-head p {
+            margin: 0.25rem 0 0;
+            color: #326bb8;
+            font-size: 0.96rem;
+            line-height: 1.5;
+        }
+
+        .student-detail-grid {
+            display: grid;
+            gap: 0.75rem;
+            padding: 1rem 1.35rem 1.35rem;
+            background: #ffffff;
+        }
+
+        .student-info-row,
+        .student-metric-row {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 0.8rem;
+            align-items: center;
+            min-height: 58px;
+            padding: 0.78rem 0.9rem;
+            border: 1px solid #d7e8ff;
+            border-radius: 14px;
+            background: #f7fbff;
+        }
+
+        .student-info-row i,
+        .student-metric-row i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: #e8f2ff;
+            color: #0d47a1;
+        }
+
+        .student-detail-label {
+            display: block;
+            margin-bottom: 0.12rem;
+            color: #326bb8;
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .student-detail-value {
+            display: block;
+            min-width: 0;
+            color: #073b88;
+            font-size: 1rem;
+            font-weight: 850;
+            overflow-wrap: anywhere;
+        }
+
+        .student-metric-row {
+            grid-template-columns: auto minmax(0, 1fr) auto;
+        }
+
+        .student-metric-number {
+            color: #073b88;
+            font-size: 1.35rem;
+            font-weight: 950;
+        }
+
+        .student-progress {
+            height: 10px;
+            margin-top: 0.1rem;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e8f2ff;
+        }
+
+        .student-progress span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #0d6efd, #073b88);
+        }
+
+        @media (max-width: 991.98px) {
+            .student-hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .student-identity {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <section class="student-hero">
+        <div class="student-hero-grid">
+            <div class="student-identity">
+                {% if student.profile_photo %}
+                    <img src="{{ student.profile_photo.url }}?v={{ student.profile_photo|file_version }}" alt="{{ student.nom }}" class="student-avatar">
+                {% else %}
+                    <span class="student-avatar student-avatar-fallback">{{ student.nom|first|upper }}</span>
+                {% endif %}
+                <div>
+                    <span class="eyebrow"><i class="fas fa-user-graduate"></i> {% trans "Espace etudiant" %}</span>
+                    <h1>{{ student.nom }}</h1>
+                    <p>{% trans "Votre espace personnel pour consulter les presences, suivre les absences et deposer une justification quand il le faut." %}</p>
+                    <div class="student-hero-pills">
+                        <span class="pill"><i class="fas fa-graduation-cap"></i> {{ student.filiere.nom }}</span>
+                        <span class="pill"><i class="fas fa-calendar-check"></i> <span data-current-date>{{ current_time|date:'d/m/Y' }}</span></span>
+                        <span class="pill"><i class="fas fa-clock"></i> <span data-current-time>{{ current_time|time:'H:i:s' }}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="student-summary-card">
+                <span class="eyebrow"><i class="fas fa-id-card"></i> {% trans "Repere rapide" %}</span>
+                <ul class="student-summary-list">
+                    <li><span>{% trans "Classe" %}</span> <strong>{{ student.filiere.nom }}</strong></li>
+                    <li><span>{% trans "Presences" %}</span> <strong>{{ stats.presence_count }}</strong></li>
+                    <li><span>{% trans "Absences" %}</span> <strong>{{ stats.absence_count }}</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-4">
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-door-open"></i> {% trans "Classe" %}</p>
+                <div class="stats-number" style="font-size:1.7rem;">{{ student.filiere.nom|truncatewords:2 }}</div>
+                <small>{% trans "formation actuelle" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-check-circle"></i> {% trans "Presences" %}</p>
+                <div class="stats-number">{{ stats.presence_count }}</div>
+                <small>{% trans "enregistrees" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-times-circle"></i> {% trans "Absences" %}</p>
+                <div class="stats-number">{{ stats.absence_count }}</div>
+                <small>{% trans "a traiter" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-thumbs-up"></i> {% trans "Justifiees" %}</p>
+                <div class="stats-number">{{ stats.justified_count }}</div>
+                <small>{% trans "demandes approuvees" %}</small>
+            </div>
+        </div>
+    </div>
+
+    {% if stats.absence_count > 0 %}
+        <div class="card mb-4 border-danger">
+            <div class="card-body">
+                <div class="section-head mb-3">
+                    <h2><i class="fas fa-bell"></i> {% trans "Absences detectees" %}</h2>
+                    <p>{% trans "Voici les absences actuellement enregistrees sur votre espace." %}</p>
+                </div>
+                <div class="d-grid gap-2">
+                    {% for presence in presences %}
+                        {% if not presence.present %}
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-3 rounded" style="background: #eaf4ff; border: 1px solid rgba(31, 111, 235, 0.18);">
+                                <div>
+                                    <strong>{{ presence.date|date:"d/m/Y" }}</strong>
+                                    <span class="text-muted">- {{ presence.etudiant.filiere.nom }}</span>
+                                </div>
+                                <span class="badge bg-danger">
+                                    {% if presence.justification %}
+                                        {{ presence.justification.get_status_display }}
+                                    {% else %}
+                                        {% trans "Absence non justifiee" %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% with percentage=stats.justified_count|mul:100|div:stats.absence_count %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                        <div>
+                            <div class="section-head mb-0">
+                                <h2><i class="fas fa-chart-line"></i> {% trans "Taux de justification" %}</h2>
+                                <p>{% trans "Suivez la part des absences deja traitees." %}</p>
+                            </div>
+                        </div>
+                        <span class="pill">{{ percentage|floatformat:0 }}%</span>
+                    </div>
+                    <div class="progress" style="height: 14px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ percentage|floatformat:0 }}%;" aria-valuenow="{{ percentage|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3 text-muted small">
+                        <span>{{ stats.justified_count }}/{{ stats.absence_count }}</span>
+                        <span>{{ stats.pending_absence_count }} {% trans "en attente" %}</span>
+                    </div>
+                </div>
+            </div>
+        {% endwith %}
+    {% endif %}
+
+    <div class="card mb-4" id="schedule-section">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-calendar-alt"></i> {% trans "Emploi du temps hebdomadaire" %}</h2>
+                <p>{% trans "Consultez les cours planifies pour votre classe." %}</p>
+            </div>
+
+            {% if schedule %}
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Jour" %}</th>
+                                <th>{% trans "Horaire" %}</th>
+                                <th>{% trans "Matiere" %}</th>
+                                <th>{% trans "Type" %}</th>
+                                <th>{% trans "Professeur" %}</th>
+                                <th>{% trans "Salle" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for class_item in schedule %}
+                                <tr>
+                                    <td><strong>{{ class_item.get_day_of_week_display }}</strong></td>
+                                    <td>{{ class_item.start_time|time:"H:i" }} - {{ class_item.end_time|time:"H:i" }}</td>
+                                    <td>{{ class_item.subject }}</td>
+                                    <td>
+                                        <span class="badge {% if class_item.session_type == 'exam' %}bg-warning{% else %}bg-primary{% endif %}">
+                                            {{ class_item.get_session_type_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ class_item.professor|default:"-" }}</td>
+                                    <td>{{ class_item.room|default:"-" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-calendar-days fs-1 mb-3 d-block text-muted"></i>
+                    <p class="mb-0">{% trans "Aucun emploi du temps disponible pour le moment." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if stats.pending_absence_count > 0 %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-exclamation-triangle"></i> {% trans "Absences en attente" %}</h2>
+                    <p>{% trans "Les absences non justifiees apparaissent ici." %}</p>
+                </div>
+                <div class="row g-3">
+                    {% for presence in presences %}
+                        {% if not presence.present and not presence.justification %}
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between gap-3">
+                                            <div>
+                                                <strong>{{ presence.date|date:"d/m/Y" }}</strong><br>
+                                                <small class="text-muted">{{ presence.date|date:"l" }} - {{ presence.etudiant.filiere.nom }}</small>
+                                            </div>
+                                            <span class="badge bg-danger">{% trans "En attente" %}</span>
+                                        </div>
+                                        <a href="{% url 'justify_absence' presence.id %}" class="btn btn-outline-secondary w-100 mt-3">
+                                            <i class="fas fa-file-upload me-1"></i>{% trans "Justifier" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card h-100 student-detail-card">
+                <div class="card-body">
+                    <div class="student-detail-head">
+                        <span class="student-detail-icon"><i class="fas fa-building"></i></span>
+                        <div>
+                            <h2>{% trans "Infos classe" %}</h2>
+                            <p>{% trans "Les informations principales de votre groupe." %}</p>
+                        </div>
+                    </div>
+                    <div class="student-detail-grid">
+                        <div class="student-info-row">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Classe" %}</span>
+                                <span class="student-detail-value">{{ student.filiere.nom }}</span>
+                            </div>
+                        </div>
+                        <div class="student-info-row">
+                            <i class="fas fa-door-open"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Salle" %}</span>
+                                <span class="student-detail-value">{{ student.filiere.salle|default:"-" }}</span>
+                            </div>
+                        </div>
+                        <div class="student-info-row">
+                            <i class="fas fa-hashtag"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Numero" %}</span>
+                                <span class="student-detail-value">{{ student.numero_etudiant|default:"-" }}</span>
+                            </div>
+                        </div>
+                        <div class="student-info-row">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Email" %}</span>
+                                <span class="student-detail-value">{{ student.email|default:"-" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100 student-detail-card">
+                <div class="card-body">
+                    <div class="student-detail-head">
+                        <span class="student-detail-icon"><i class="fas fa-chart-pie"></i></span>
+                        <div>
+                            <h2>{% trans "Resume absences" %}</h2>
+                            <p>{% trans "Un point simple sur votre situation actuelle." %}</p>
+                        </div>
+                    </div>
+                    <div class="student-detail-grid">
+                        <div class="student-metric-row">
+                            <i class="fas fa-list-check"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Total" %}</span>
+                                <span class="student-detail-value">{% trans "Absences enregistrees" %}</span>
+                            </div>
+                            <span class="student-metric-number">{{ stats.absence_count }}</span>
+                        </div>
+                        <div class="student-metric-row">
+                            <i class="fas fa-circle-check"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Justifiees" %}</span>
+                                <span class="student-detail-value">{% trans "Dossiers valides" %}</span>
+                            </div>
+                            <span class="student-metric-number">{{ stats.justified_count }}</span>
+                        </div>
+                        <div class="student-metric-row">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Non justifiees" %}</span>
+                                <span class="student-detail-value">{% trans "A traiter" %}</span>
+                            </div>
+                            <span class="student-metric-number">{{ stats.pending_absence_count }}</span>
+                        </div>
+                        <div class="student-info-row">
+                            <i class="fas fa-percent"></i>
+                            <div>
+                                <span class="student-detail-label">{% trans "Taux" %}</span>
+                                <span class="student-detail-value">
+                                    {% if stats.absence_count > 0 %}
+                                        {{ justified_percent|default:"0" }}%
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </span>
+                                {% if stats.absence_count > 0 %}
+                                    <div class="student-progress" aria-hidden="true">
+                                        <span style="width: {{ justified_percent|default:'0' }}%;"></span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-chart-area"></i> {% trans "Analyse mensuelle" %}</h2>
+                <p>{% trans "Suivez votre evolution de presence mois par mois." %}</p>
+            </div>
+            {% if analytics %}
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Periode" %}</th>
+                                <th>{% trans "Presences" %}</th>
+                                <th>{% trans "Absences" %}</th>
+                                <th>{% trans "Taux" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in analytics %}
+                                <tr>
+                                    <td><strong>{{ row.label }}</strong></td>
+                                    <td>{{ row.present }}</td>
+                                    <td>{{ row.absent }}</td>
+                                    <td><span class="pill">{{ row.rate }}%</span></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p class="mb-0">{% trans "Pas encore assez de donnees pour afficher une tendance." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-history"></i> {% trans "Historique" %}</h2>
+                <p>{% trans "Chronologie des presences et absences." %}</p>
+            </div>
+
+            {% if presences %}
+                <div class="d-grid gap-3">
+                    {% for presence in presences %}
+                        <div class="timeline-item">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center g-3">
+                                        <div class="col-md-3">
+                                            <strong>{{ presence.date|date:"d/m/Y" }}</strong><br>
+                                            <small class="text-muted">{{ presence.date|date:"l" }}</small>
+                                        </div>
+                                        <div class="col-md-3">
+                                            {% if presence.present %}
+                                                <span class="badge bg-success">{% trans "Present" %}</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">{% trans "Absent" %}</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="text-muted small mb-1">{{ presence.etudiant.filiere.nom }}</div>
+                                            {% if presence.present %}
+                                                <span class="text-muted">{% trans "Aucune action" %}</span>
+                                            {% else %}
+                                                {% if presence.justification %}
+                                                    <span class="text-muted">{{ presence.justification.get_status_display }}</span>
+                                                    {% if presence.justification.teacher_comment %}
+                                                        <div class="small text-muted mt-1">{{ presence.justification.teacher_comment }}</div>
+                                                    {% endif %}
+                                                    {% if presence.justification.attachment %}
+                                                        <div class="mt-1">
+                                                            <a href="{{ presence.justification.attachment.url }}" target="_blank" rel="noopener" class="small">
+                                                                {% trans "Voir la piece jointe" %}
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="text-danger fw-semibold">{% trans "Justification en attente" %}</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-2 text-md-end">
+                                            {% if not presence.present %}
+                                                <a class="btn btn-sm btn-outline-secondary" href="{% url 'justify_absence' presence.id %}">
+                                                    <i class="fas fa-{% if presence.justification %}pen{% else %}upload{% endif %} me-1"></i>
+                                                    {% if presence.justification %}{% trans "Modifier" %}{% else %}{% trans "Justifier" %}{% endif %}
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-inbox fs-1 mb-3 d-block text-muted"></i>
+                    <p class="mb-0">{% trans "Aucune presence enregistree pour le moment." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <a href="{% url 'student_dashboard' %}" class="btn btn-outline-secondary"><i class="fas fa-rotate-right me-1"></i>{% trans "Actualiser" %}</a>
+        <a href="{% url 'monthly_report' %}" class="btn btn-outline-secondary"><i class="fas fa-chart-line me-1"></i>{% trans "Rapports" %}</a>
+        <a href="{% url 'user_profile' %}" class="btn btn-outline-secondary"><i class="fas fa-user me-1"></i>{% trans "Profil" %}</a>
+        <a href="{% url 'logout' %}" class="btn btn-light"><i class="fas fa-sign-out-alt me-1"></i>{% trans "Deconnexion" %}</a>
+    </div>
+
+    <script>
+        (function () {
+            const dateNode = document.querySelector('[data-current-date]');
+            const timeNode = document.querySelector('[data-current-time]');
+
+            if (!dateNode || !timeNode) {
+                return;
+            }
+
+            const renderClock = () => {
+                const now = new Date();
+                const dateParts = new Intl.DateTimeFormat('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                }).format(now);
+                const timeParts = new Intl.DateTimeFormat('fr-FR', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false,
+                }).format(now);
+
+                dateNode.textContent = dateParts;
+                timeNode.textContent = timeParts;
+            };
+
+            renderClock();
+            window.setInterval(renderClock, 1000);
+        })();
+    </script>
+{% endblock %}

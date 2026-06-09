@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load appel_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Mon profil" %}{% endblock %}
+
+{% block content %}
+    <section class="hero-section mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="eyebrow"><i class="fas fa-user-circle"></i> {% trans "Profil utilisateur" %}</span>
+                <h1>{{ request.user.get_full_name|default:request.user.username }}</h1>
+                <p>{% trans "Consultez et ajustez les informations de votre compte depuis un espace plus lisible et plus calme." %}</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="spotlight h-100">
+                    {% if request.user.etudiant_profile %}
+                        <div class="mb-3 text-lg-center">
+                            {% if request.user.etudiant_profile.profile_photo %}
+                                <img src="{{ request.user.etudiant_profile.profile_photo.url }}?v={{ request.user.etudiant_profile.profile_photo|file_version }}" alt="{{ request.user.get_full_name|default:request.user.username }}" class="profile-photo-preview">
+                            {% else %}
+                                <span class="profile-photo-preview profile-photo-fallback">{{ request.user.etudiant_profile.nom|first|upper }}</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <span class="eyebrow"><i class="fas fa-shield-halved"></i> {% trans "Compte" %}</span>
+                    <ul class="mb-0">
+                        <li>{{ request.user.username }}</li>
+                        <li>{{ request.user.email|default:"Non renseigne" }}</li>
+                        <li>
+                            {% if request.user.is_staff %}
+                                {% trans "Administrateur" %}
+                            {% elif request.user.etudiant_profile %}
+                                {% trans "Etudiant" %}
+                            {% else %}
+                                {% trans "Enseignant" %}
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-id-card"></i> {% trans "Informations personnelles" %}</h2>
+                        <p>{% trans "Les champs essentiels de votre compte." %}</p>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">{% trans "Nom d'utilisateur" %}</label>
+                            <div class="empty-state text-start py-3">{{ request.user.username }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{% trans "Email" %}</label>
+                            <div class="empty-state text-start py-3">{{ request.user.email|default:"Non renseigne" }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{% trans "Prenom" %}</label>
+                            <div class="empty-state text-start py-3">{{ request.user.first_name|default:"Non renseigne" }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{% trans "Nom" %}</label>
+                            <div class="empty-state text-start py-3">{{ request.user.last_name|default:"Non renseigne" }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{% trans "Type de compte" %}</label>
+                            <div class="empty-state text-start py-3">
+                                {% if request.user.is_staff %}
+                                    {% trans "Administrateur" %}
+                                {% elif request.user.etudiant_profile %}
+                                    {% trans "Etudiant" %}
+                                {% else %}
+                                    {% trans "Enseignant" %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{% trans "Inscription" %}</label>
+                            <div class="empty-state text-start py-3">{{ request.user.date_joined|date:"d/m/Y H:i" }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-lock"></i> {% trans "Etat du compte" %}</h2>
+                        <p>{% trans "Un apercu simple de votre profil." %}</p>
+                    </div>
+                    <div class="d-grid gap-3">
+                        <div class="stats-card">
+                            <p class="stats-label"><i class="fas fa-shield"></i> {% trans "Securite" %}</p>
+                            <div class="stats-number" style="font-size:1.5rem;">{% trans "Protege" %}</div>
+                            <small>{% trans "Mot de passe actif" %}</small>
+                        </div>
+                        <div class="stats-card">
+                            <p class="stats-label"><i class="fas fa-bolt"></i> {% trans "Activite" %}</p>
+                            <div class="stats-number" style="font-size:1.5rem;">{% trans "Active" %}</div>
+                            <small>{% trans "Connexion recente" %}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if request.user.etudiant_profile %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-graduation-cap"></i> {% trans "Informations academiques" %}</h2>
+                    <p>{% trans "Les informations liees a votre parcours." %}</p>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">{% trans "Photo de profil" %}</label>
+                        <div class="empty-state text-start py-3">
+                            {% if request.user.etudiant_profile.profile_photo %}
+                                {% trans "Ajoutee" %}
+                            {% else %}
+                                {% trans "Non ajoutee" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">{% trans "Filiere" %}</label>
+                        <div class="empty-state text-start py-3">{{ request.user.etudiant_profile.filiere.nom }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">{% trans "Numero etudiant" %}</label>
+                        <div class="empty-state text-start py-3">{{ request.user.etudiant_profile.numero_etudiant|default:"Non renseigne" }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">{% trans "Presences" %}</label>
+                        <div class="empty-state text-start py-3">{{ request.user.etudiant_profile.total_presences }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">{% trans "Absences" %}</label>
+                        <div class="empty-state text-start py-3">{{ request.user.etudiant_profile.total_absences }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'update_profile' %}" class="btn btn-primary"><i class="fas fa-pen me-1"></i>{% trans "Modifier le profil" %}</a>
+        <a href="{% url 'change_password' %}" class="btn btn-outline-secondary"><i class="fas fa-lock me-1"></i>{% trans "Changer le mot de passe" %}</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i>{% trans "Retour" %}</a>
+        <a href="{% url 'logout' %}" class="btn btn-light"><i class="fas fa-sign-out-alt me-1"></i>{% trans "Deconnexion" %}</a>
+    </div>
+{% endblock %}

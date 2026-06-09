@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load appel_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Gerer les Documents" %}{% endblock %}
+
+{% block content %}
+<section class="hero-section mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="eyebrow"><i class="fas fa-folder-open"></i> {% trans "Back office" %}</span>
+            <h1>{% trans "Gestion des documents" %}</h1>
+            <p>{% trans "Suivez les demandes des etudiants, repondez avec un commentaire et deposez le fichier final quand il est pret." %}</p>
+        </div>
+        <div class="col-lg-4">
+            <div class="spotlight h-100">
+                <ul class="mb-0">
+                    <li>{% trans "En attente" %}: <strong>{{ stats.pending }}</strong></li>
+                    <li>{% trans "En traitement" %}: <strong>{{ stats.processing }}</strong></li>
+                    <li>{% trans "Prets" %}: <strong>{{ stats.ready }}</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row g-4">
+    {% for doc in pending_docs %}
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                        <div>
+                            <h2 class="h5 mb-1">{{ doc.etudiant.nom }}</h2>
+                            <p class="text-muted mb-0">{{ doc.etudiant.filiere.nom }} - {{ doc.document_type }}</p>
+                        </div>
+                        <span class="pill">{{ doc.get_status_display }}</span>
+                    </div>
+
+                    <div class="empty-state text-start mb-3">
+                        <div><strong>{% trans "Date de demande" %}:</strong> {{ doc.request_date|date:"d/m/Y H:i" }}</div>
+                        <div><strong>{% trans "Commentaire etudiant" %}:</strong> {{ doc.comments|default:"-" }}</div>
+                    </div>
+
+                    {% with forms=processing_forms|get_item:doc.id %}
+                        <form method="post" enctype="multipart/form-data" class="d-grid gap-3">
+                            {% csrf_token %}
+                            {{ forms.ready.request_id }}
+                            <label class="form-label">{{ forms.ready.admin_comment.label }}</label>
+                            {{ forms.ready.admin_comment }}
+                            <div>
+                                <label class="form-label">{{ forms.ready.delivered_file.label }}</label>
+                                {{ forms.ready.delivered_file }}
+                                {% if doc.delivered_file %}
+                                    <a href="{{ doc.delivered_file.url }}" target="_blank" rel="noopener" class="small mt-2 d-inline-block">{% trans "Voir le fichier actuel" %}</a>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% if doc.status == 'pending' %}
+                                    <button type="submit" name="action" value="process" class="btn btn-outline-secondary flex-grow-1">
+                                        {% trans "Mettre en traitement" %}
+                                    </button>
+                                {% endif %}
+                                <button type="submit" name="action" value="ready" class="btn btn-success flex-grow-1">
+                                    {% trans "Marquer pret" %}
+                                </button>
+                                <button type="submit" name="action" value="reject" class="btn btn-danger flex-grow-1">
+                                    {% trans "Refuser" %}
+                                </button>
+                            </div>
+                        </form>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle fs-1 mb-3 d-block text-muted"></i>
+                        <p class="mb-0">{% trans "Aucune demande ouverte pour le moment." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

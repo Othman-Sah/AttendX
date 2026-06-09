@@ -1,0 +1,109 @@
+#!/usr/bin/env python
+"""
+Junglefile for gestion_presence Django project
+Defines automation tasks for common Django operations
+"""
+
+import os
+import sys
+from jungle import Jungle
+
+# Initialize Jungle
+jungle = Jungle(__file__)
+
+# Task: Run development server
+@jungle.task
+def runserver(port=8000):
+    """Start Django development server on specified port (default: 8000)"""
+    os.system(f"python manage.py runserver {port}")
+
+# Task: Run migrations
+@jungle.task
+def migrate():
+    """Apply database migrations"""
+    os.system("python manage.py migrate")
+
+# Task: Make migrations
+@jungle.task
+def makemigrations():
+    """Create new migration files based on model changes"""
+    os.system("python manage.py makemigrations")
+
+# Task: Collect static files
+@jungle.task
+def collectstatic():
+    """Collect static files into STATIC_ROOT"""
+    os.system("python manage.py collectstatic --noinput")
+
+# Task: Create superuser
+@jungle.task
+def createsuperuser():
+    """Create a Django superuser interactively"""
+    os.system("python manage.py createsuperuser")
+
+# Task: Run tests
+@jungle.task
+def test():
+    """Run all Django tests"""
+    os.system("python manage.py test")
+
+# Task: Database shell
+@jungle.task
+def shell():
+    """Open Django interactive shell"""
+    os.system("python manage.py shell")
+
+# Task: Database shell_plus (if django-extensions is installed)
+@jungle.task
+def dbshell():
+    """Open database shell"""
+    os.system("python manage.py dbshell")
+
+# Task: Flush database
+@jungle.task
+def flush():
+    """Flush (clear) the database"""
+    os.system("python manage.py flush")
+
+# Task: Build - run migrations and collect static files
+@jungle.task
+def build():
+    """Build: Apply migrations and collect static files"""
+    print("Running migrations...")
+    os.system("python manage.py migrate")
+    print("\nCollecting static files...")
+    os.system("python manage.py collectstatic --noinput")
+    print("\nBuild complete!")
+
+# Task: Setup - initial project setup
+@jungle.task
+def setup():
+    """Initial project setup: migrations, superuser, static files"""
+    print("Setting up project...")
+    os.system("python manage.py migrate")
+    os.system("python manage.py createsuperuser")
+    os.system("python manage.py collectstatic --noinput")
+    print("Setup complete!")
+
+# Task: Clean - remove Python cache files
+@jungle.task
+def clean():
+    """Remove Python cache files and directories"""
+    import shutil
+    for root, dirs, files in os.walk("."):
+        if "__pycache__" in dirs:
+            print(f"Removing {os.path.join(root, '__pycache__')}")
+            shutil.rmtree(os.path.join(root, "__pycache__"))
+        if ".pytest_cache" in dirs:
+            print(f"Removing {os.path.join(root, '.pytest_cache')}")
+            shutil.rmtree(os.path.join(root, ".pytest_cache"))
+
+# Task: Info - display project info
+@jungle.task
+def info():
+    """Display Django project information"""
+    os.system("python manage.py --version")
+    print("\nInstalled apps and middleware configured in settings.py")
+
+if __name__ == "__main__":
+    jungle.execute()

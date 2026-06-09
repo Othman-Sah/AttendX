@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Notes & Evaluations" %}{% endblock %}
+
+{% block content %}
+<style>
+    .grades-panel {
+        overflow: hidden;
+    }
+
+    .grades-panel .card-body {
+        padding: 0 !important;
+    }
+
+    .grades-hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-items: start;
+        padding: clamp(1.2rem, 3vw, 1.65rem);
+        border-bottom: 1px solid #d7e8ff;
+        background:
+            radial-gradient(circle at 92% 0%, rgba(13, 110, 253, 0.16), transparent 30%),
+            linear-gradient(135deg, #ffffff 0%, #edf6ff 100%);
+    }
+
+    .grades-title {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.95rem;
+    }
+
+    .grades-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        flex: 0 0 52px;
+        border-radius: 14px;
+        background: #073b88;
+        color: #ffffff;
+        font-size: 1.35rem;
+        box-shadow: 0 12px 24px rgba(7, 59, 136, 0.18);
+    }
+
+    .grades-title h1 {
+        margin: 0;
+        color: #073b88;
+        font-size: clamp(1.65rem, 3vw, 2.35rem);
+        font-weight: 950;
+        letter-spacing: 0;
+    }
+
+    .grades-title p {
+        margin: 0.35rem 0 0;
+        color: #326bb8;
+        font-weight: 650;
+    }
+
+    .semester-select {
+        min-width: 154px;
+        border-color: #bfd7ff !important;
+        background: #ffffff !important;
+        color: #073b88 !important;
+        font-weight: 850;
+    }
+
+    .grades-summary {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.85rem;
+        padding: 1.1rem 1.35rem;
+        background: #ffffff;
+    }
+
+    .grade-stat {
+        min-height: 86px;
+        padding: 0.85rem 0.95rem;
+        border: 1px solid #d7e8ff;
+        border-radius: 14px;
+        background: #f8fbff;
+    }
+
+    .grade-stat span {
+        display: block;
+        color: #326bb8;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .grade-stat strong {
+        display: block;
+        margin-top: 0.35rem;
+        color: #073b88;
+        font-size: 1.6rem;
+        line-height: 1;
+        font-weight: 950;
+    }
+
+    .grade-list {
+        display: grid;
+        gap: 0.85rem;
+        padding: 0 1.35rem 1.35rem;
+        background: #ffffff;
+    }
+
+    .grade-row {
+        display: grid;
+        grid-template-columns: minmax(190px, 1.2fr) repeat(2, minmax(92px, 0.45fr)) minmax(150px, 0.75fr) auto;
+        gap: 0.8rem;
+        align-items: center;
+        padding: 0.95rem;
+        border: 1px solid #d7e8ff;
+        border-radius: 16px;
+        background: #f8fbff;
+        transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+    }
+
+    .grade-row:hover {
+        transform: translateY(-1px);
+        background: #ffffff;
+        box-shadow: 0 14px 28px rgba(13, 110, 253, 0.08);
+    }
+
+    .module-cell {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+    }
+
+    .module-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        border-radius: 12px;
+        background: #e8f2ff;
+        color: #073b88;
+        font-weight: 950;
+    }
+
+    .module-cell strong {
+        display: block;
+        color: #16233a;
+        font-weight: 950;
+        overflow-wrap: anywhere;
+    }
+
+    .module-cell span,
+    .grade-mini span,
+    .average-cell span {
+        display: block;
+        color: #326bb8;
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .grade-mini {
+        min-height: 54px;
+        padding: 0.55rem 0.7rem;
+        border: 1px solid #e0edff;
+        border-radius: 12px;
+        background: #ffffff;
+    }
+
+    .grade-mini strong,
+    .average-cell strong {
+        display: block;
+        margin-top: 0.12rem;
+        color: #073b88;
+        font-size: 1.05rem;
+        font-weight: 950;
+    }
+
+    .average-cell strong {
+        display: inline-flex;
+        min-width: 64px;
+        justify-content: center;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        background: #edf6ff;
+    }
+
+    .average-cell.is-low strong {
+        background: #fff4de;
+        color: #8a5300;
+    }
+
+    .average-line {
+        height: 7px;
+        margin-top: 0.5rem;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #dcecff;
+    }
+
+    .average-line span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #0d6efd, #073b88);
+    }
+
+    .average-cell.is-low .average-line span {
+        background: linear-gradient(90deg, #f59e0b, #8a5300);
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        min-width: 104px;
+        padding: 0.48rem 0.75rem;
+        border-radius: 999px;
+        background: #e9f8ef;
+        color: #0f7a3b;
+        font-size: 0.82rem;
+        font-weight: 950;
+    }
+
+    .status-badge.is-retake {
+        background: #fff4de;
+        color: #8a5300;
+    }
+
+    .grades-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 1.35rem 1.35rem;
+        background: #ffffff;
+    }
+
+    .grades-actions .btn {
+        border-radius: 999px !important;
+        font-weight: 950 !important;
+    }
+
+    @media (max-width: 991.98px) {
+        .grades-summary {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grade-row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .module-cell,
+        .average-cell {
+            grid-column: 1 / -1;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .grades-hero {
+            grid-template-columns: 1fr;
+        }
+
+        .grades-summary,
+        .grade-row {
+            grid-template-columns: 1fr;
+        }
+
+        .grades-actions .btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<section class="section-head text-center">
+    <h2><i class="fas fa-star"></i> {% trans "Notes & Evaluations" %}</h2>
+    <p>{% trans "Consultez vos releves de notes detailles par matiere." %}</p>
+</section>
+
+<div class="card grades-panel">
+    <div class="card-body">
+        <div class="grades-hero">
+            <div class="grades-title">
+                <span class="grades-icon"><i class="fas fa-file-signature"></i></span>
+                <div>
+                    <h1>{% trans "Semestre 1 - 2026" %}</h1>
+                    <p>{% trans "Synthese des controles, examens et decisions du semestre." %}</p>
+                </div>
+            </div>
+            <select class="form-select semester-select">
+                <option selected>{% trans "Semestre 1" %}</option>
+                <option>{% trans "Semestre 2" %}</option>
+            </select>
+        </div>
+
+        <div class="grades-summary">
+            <div class="grade-stat">
+                <span>{% trans "Moyenne generale" %}</span>
+                <strong>14.19</strong>
+            </div>
+            <div class="grade-stat">
+                <span>{% trans "Modules valides" %}</span>
+                <strong>3/4</strong>
+            </div>
+            <div class="grade-stat">
+                <span>{% trans "Meilleure note" %}</span>
+                <strong>17.75</strong>
+            </div>
+            <div class="grade-stat">
+                <span>{% trans "Rattrapage" %}</span>
+                <strong>1</strong>
+            </div>
+        </div>
+
+        <div class="grade-list">
+            <div class="grade-row">
+                <div class="module-cell">
+                    <span class="module-mark">AM</span>
+                    <div>
+                        <strong>{% trans "Mathematiques Avancees" %}</strong>
+                        <span>{% trans "Module" %}</span>
+                    </div>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Controle continu" %}</span>
+                    <strong>14.50</strong>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Examen final" %}</span>
+                    <strong>16.00</strong>
+                </div>
+                <div class="average-cell">
+                    <span>{% trans "Moyenne" %}</span>
+                    <strong>15.25</strong>
+                    <div class="average-line" aria-hidden="true"><span style="width: 76%;"></span></div>
+                </div>
+                <span class="status-badge"><i class="fas fa-check"></i>{% trans "Valide" %}</span>
+            </div>
+
+            <div class="grade-row">
+                <div class="module-cell">
+                    <span class="module-mark">AL</span>
+                    <div>
+                        <strong>{% trans "Algorithmique" %}</strong>
+                        <span>{% trans "Module" %}</span>
+                    </div>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Controle continu" %}</span>
+                    <strong>18.00</strong>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Examen final" %}</span>
+                    <strong>17.50</strong>
+                </div>
+                <div class="average-cell">
+                    <span>{% trans "Moyenne" %}</span>
+                    <strong>17.75</strong>
+                    <div class="average-line" aria-hidden="true"><span style="width: 89%;"></span></div>
+                </div>
+                <span class="status-badge"><i class="fas fa-check"></i>{% trans "Valide" %}</span>
+            </div>
+
+            <div class="grade-row">
+                <div class="module-cell">
+                    <span class="module-mark">PA</span>
+                    <div>
+                        <strong>{% trans "Physique Appliquee" %}</strong>
+                        <span>{% trans "Module" %}</span>
+                    </div>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Controle continu" %}</span>
+                    <strong>10.00</strong>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Examen final" %}</span>
+                    <strong>08.50</strong>
+                </div>
+                <div class="average-cell is-low">
+                    <span>{% trans "Moyenne" %}</span>
+                    <strong>09.25</strong>
+                    <div class="average-line" aria-hidden="true"><span style="width: 46%;"></span></div>
+                </div>
+                <span class="status-badge is-retake"><i class="fas fa-rotate-right"></i>{% trans "Rattrapage" %}</span>
+            </div>
+
+            <div class="grade-row">
+                <div class="module-cell">
+                    <span class="module-mark">AT</span>
+                    <div>
+                        <strong>{% trans "Anglais Technique" %}</strong>
+                        <span>{% trans "Module" %}</span>
+                    </div>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Controle continu" %}</span>
+                    <strong>15.00</strong>
+                </div>
+                <div class="grade-mini">
+                    <span>{% trans "Examen final" %}</span>
+                    <strong>14.00</strong>
+                </div>
+                <div class="average-cell">
+                    <span>{% trans "Moyenne" %}</span>
+                    <strong>14.50</strong>
+                    <div class="average-line" aria-hidden="true"><span style="width: 73%;"></span></div>
+                </div>
+                <span class="status-badge"><i class="fas fa-check"></i>{% trans "Valide" %}</span>
+            </div>
+        </div>
+
+        <div class="grades-actions">
+            <button class="btn btn-primary"><i class="fas fa-file-pdf me-1"></i>{% trans "Telecharger le bulletin" %}</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

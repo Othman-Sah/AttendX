@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Importer des etudiants" %} - {{ filiere.nom }}{% endblock %}
+
+{% block content %}
+    <section class="hero-section mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="eyebrow"><i class="fas fa-file-import"></i> {% trans "Import Excel" %}</span>
+                <h1>{% trans "Importer des etudiants" %}</h1>
+                <p>{% trans "Ajoutez une liste d'etudiants depuis un fichier Excel pour la classe" %} <strong>{{ filiere.nom }}</strong>.</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="spotlight h-100">
+                    <span class="eyebrow"><i class="fas fa-table"></i> {% trans "Format attendu" %}</span>
+                    <ul class="mb-0">
+                        <li>{% trans "Colonnes" %}: <strong>{% trans "Nom, Numero, Email" %}</strong></li>
+                        <li>{% trans "Formats" %}: <strong>.xlsx, .xls</strong></li>
+                        <li>{% trans "Taille maximale" %}: <strong>5 MB</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-box-archive"></i> {% trans "Utiliser une classe deja importee" %}</h2>
+                <p>{% trans "Choisissez une classe pre-uploaded comme source et copiez ses etudiants vers" %} <strong>{{ filiere.nom }}</strong>.</p>
+            </div>
+            {% if source_filieres %}
+                <form method="post" action="{% url 'class_detail' filiere.id %}" class="row g-3 align-items-end">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="copy_students_from_class">
+                    <div class="col-lg-9">
+                        <label class="form-label" for="source_filiere">{% trans "Classe source" %}</label>
+                        <select class="form-select" id="source_filiere" name="source_filiere" required>
+                            <option value="">{% trans "Choisir une classe pre-importee" %}</option>
+                            {% for source in source_filieres %}
+                                <option value="{{ source.id }}">{{ source.nom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-copy me-1"></i>{% trans "Copier" %}
+                        </button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="empty-state">
+                    <p class="mb-0">{% trans "Aucune autre classe avec etudiants n'est disponible." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-upload"></i> {% trans "Fichier" %}</h2>
+                        <p>{% trans "Selectionnez le fichier Excel a importer." %}</p>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" class="d-grid gap-3">
+                        {% csrf_token %}
+                        <div>
+                            <label class="form-label" for="{{ form.excel_file.id_for_label }}">{% trans "Fichier Excel" %}</label>
+                            {{ form.excel_file }}
+                            {% if form.excel_file.help_text %}
+                                <small class="text-muted d-block mt-2">{{ form.excel_file.help_text|safe }}</small>
+                            {% endif %}
+                            {% if form.excel_file.errors %}
+                                <div class="errorlist mt-2">{{ form.excel_file.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-upload me-1"></i>{% trans "Importer" %}
+                        </button>
+                        <a href="{% url 'class_detail' filiere.id %}" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-arrow-left me-1"></i>{% trans "Annuler" %}
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-list-check"></i> {% trans "Preparation" %}</h2>
+                        <p>{% trans "Verifiez la structure avant de lancer l'import." %}</p>
+                    </div>
+                    <ol class="mb-4">
+                        <li>{% trans "Placez les titres sur la premiere ligne." %}</li>
+                        <li>{% trans "Ajoutez le nom complet dans la premiere colonne." %}</li>
+                        <li>{% trans "Ajoutez le numero et l'email si disponibles." %}</li>
+                        <li>{% trans "Enregistrez le fichier au format Excel." %}</li>
+                    </ol>
+
+                    <div class="empty-state text-start">
+                        <div class="fw-semibold mb-2">{% trans "Exemple" %}</div>
+                        <code>{% trans "Nom | Numero etudiant | Email" %}</code><br>
+                        <code>{% trans "Salma El Idrissi | STI-2026-001 | salma@school.ma" %}</code><br>
+                        <code>{% trans "Ahmed Bennani | STI-2026-002 | ahmed@school.ma" %}</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-user-plus"></i> {% trans "Autres options" %}</h2>
+                <p>{% trans "Vous pouvez aussi revenir a la classe pour ajouter ou verifier les etudiants." %}</p>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'class_detail' filiere.id %}" class="quick-action">
+                    <i class="fas fa-list"></i>{% trans "Voir la liste" %}
+                </a>
+                <a href="{% url 'class_detail' filiere.id %}" class="quick-action">
+                    <i class="fas fa-plus"></i>{% trans "Ajouter manuellement" %}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

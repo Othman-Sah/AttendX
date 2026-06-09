@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Documents Soumis" %}{% endblock %}
+
+{% block content %}
+<section class="hero-section mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="eyebrow"><i class="fas fa-folder-open"></i> {% trans "Documents" %}</span>
+            <h1>{% trans "Demandes administratives" %}</h1>
+            <p>{% trans "Envoyez une nouvelle demande et suivez le traitement de vos documents depuis un seul espace." %}</p>
+        </div>
+        <div class="col-lg-4">
+            <div class="spotlight h-100">
+                <span class="eyebrow"><i class="fas fa-id-card"></i> {% trans "Etudiant" %}</span>
+                <div class="fw-semibold">{{ student.nom }}</div>
+                <div class="text-muted">{{ student.filiere.nom }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-plus-circle"></i> {% trans "Nouvelle demande" %}</h2>
+                    <p>{% trans "Choisissez un type de document et ajoutez un commentaire si besoin." %}</p>
+                </div>
+                <form method="post" class="d-grid gap-3">
+                    {% csrf_token %}
+                    <div>
+                        <label class="form-label">{{ form.document_type.label }}</label>
+                        {{ form.document_type }}
+                    </div>
+                    <div>
+                        <label class="form-label">{{ form.comments.label }}</label>
+                        {{ form.comments }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">{% trans "Soumettre la demande" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-list"></i> {% trans "Mes documents" %}</h2>
+                    <p>{% trans "Consultez l'etat, la reponse administrative et le fichier de livraison si disponible." %}</p>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Document" %}</th>
+                                <th>{% trans "Commentaire" %}</th>
+                                <th>{% trans "Reponse" %}</th>
+                                <th>{% trans "Statut" %}</th>
+                                <th>{% trans "Fichier" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doc in documents %}
+                                <tr>
+                                    <td>{{ doc.request_date|date:"d/m/Y H:i" }}</td>
+                                    <td><strong>{{ doc.document_type }}</strong></td>
+                                    <td>{{ doc.comments|default:"-" }}</td>
+                                    <td>{{ doc.admin_comment|default:"-" }}</td>
+                                    <td><span class="pill">{{ doc.get_status_display }}</span></td>
+                                    <td>
+                                        {% if doc.delivered_file %}
+                                            <a href="{{ doc.delivered_file.url }}" target="_blank" rel="noopener">{% trans "Ouvrir" %}</a>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">{% trans "Aucune demande de document enregistree." %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Justifier une absence" %}{% endblock %}
+
+{% block content %}
+    <style>
+        .justification-page {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        .justification-hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(31, 111, 235, 0.16);
+            border-radius: 28px;
+            padding: clamp(1.5rem, 4vw, 2.35rem);
+            background:
+                radial-gradient(circle at 85% 15%, rgba(31, 111, 235, 0.18), transparent 32%),
+                linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+            box-shadow: 0 22px 60px rgba(31, 111, 235, 0.1);
+        }
+
+        .justification-hero h1 {
+            margin: 0.45rem 0 0.7rem;
+            max-width: 780px;
+            color: #0b3d91;
+            font-size: clamp(2rem, 5vw, 4.2rem);
+            line-height: 0.95;
+            letter-spacing: -0.055em;
+            text-transform: uppercase;
+        }
+
+        .justification-hero p {
+            max-width: 680px;
+            margin: 0;
+            color: #2b63b7;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+
+        .justification-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #0b3d91;
+            font-weight: 800;
+            box-shadow: 0 10px 24px rgba(31, 111, 235, 0.1);
+        }
+
+        .justification-grid {
+            display: grid;
+            grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.35fr);
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .absence-summary,
+        .justification-form-card {
+            border: 1px solid rgba(31, 111, 235, 0.15);
+            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: 0 18px 46px rgba(31, 111, 235, 0.09);
+        }
+
+        .absence-summary {
+            padding: 1.35rem;
+            position: sticky;
+            top: 1rem;
+        }
+
+        .summary-icon {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #1f6feb, #64a5ff);
+            color: #ffffff;
+            font-size: 1.35rem;
+            box-shadow: 0 14px 28px rgba(31, 111, 235, 0.22);
+        }
+
+        .summary-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .summary-row {
+            padding: 0.85rem;
+            border-radius: 18px;
+            background: #f4f9ff;
+            color: #0b3d91;
+        }
+
+        .summary-row span {
+            display: block;
+            color: #5f7fb3;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .summary-row strong {
+            display: block;
+            margin-top: 0.15rem;
+            font-size: 1rem;
+        }
+
+        .justification-form-card {
+            padding: clamp(1.2rem, 3vw, 2rem);
+        }
+
+        .justification-form-card .section-head {
+            margin-bottom: 1.25rem;
+        }
+
+        .justification-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .field-shell {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .field-shell .form-label {
+            margin: 0;
+            color: #0b3d91;
+            font-weight: 900;
+        }
+
+        .field-shell input,
+        .field-shell textarea {
+            width: 100%;
+            border: 1px solid rgba(31, 111, 235, 0.2);
+            border-radius: 18px;
+            background: #f8fbff;
+            color: #102a55;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .field-shell input {
+            min-height: 52px;
+            padding: 0.85rem 1rem;
+        }
+
+        .field-shell textarea {
+            min-height: 170px;
+            padding: 1rem;
+            resize: vertical;
+        }
+
+        .field-shell input:focus,
+        .field-shell textarea:focus {
+            outline: none;
+            border-color: #1f6feb;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.12);
+        }
+
+        .upload-panel {
+            display: grid;
+            gap: 0.85rem;
+            margin-top: 0.25rem;
+            padding: 1.15rem;
+            border: 1px dashed rgba(31, 111, 235, 0.35);
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 95% 0%, rgba(100, 165, 255, 0.2), transparent 30%),
+                #f5faff;
+        }
+
+        .upload-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .upload-heading i {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: #ffffff;
+            color: #1f6feb;
+            box-shadow: 0 10px 22px rgba(31, 111, 235, 0.12);
+        }
+
+        .upload-heading h3 {
+            margin: 0;
+            color: #0b3d91;
+            font-size: 1.25rem;
+            font-weight: 900;
+        }
+
+        .upload-heading p {
+            margin: 0.1rem 0 0;
+            color: #2b63b7;
+        }
+
+        .upload-panel input[type="file"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(31, 111, 235, 0.22);
+            border-radius: 18px;
+            background: #ffffff;
+            color: #0b3d91;
+        }
+
+        .upload-panel input[type="file"]::file-selector-button {
+            margin-right: 0.85rem;
+            border: 0;
+            border-radius: 14px;
+            padding: 0.65rem 0.95rem;
+            background: #1f6feb;
+            color: #ffffff;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .format-note {
+            color: #2b63b7;
+            font-weight: 600;
+        }
+
+        .justification-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .justification-actions .btn {
+            min-height: 48px;
+            padding-inline: 1.25rem;
+            border-radius: 16px;
+            font-weight: 900;
+        }
+
+        @media (max-width: 991.98px) {
+            .justification-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .absence-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .justification-actions {
+                flex-direction: column-reverse;
+            }
+
+            .justification-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div class="justification-page">
+        <section class="justification-hero">
+            <span class="eyebrow d-block">{% trans "Justification" %}</span>
+            <h1>{% trans "Envoyer la justification" %}</h1>
+            <p>{% trans "Ajoutez un motif clair, une explication complete et un fichier si vous avez un justificatif." %}</p>
+            <span class="justification-date mt-3">
+                <i class="fas fa-calendar-day" aria-hidden="true"></i>
+                {{ presence.date|date:"d/m/Y" }}
+            </span>
+        </section>
+
+        <div class="justification-grid">
+            <aside class="absence-summary">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="summary-icon">
+                        <i class="fas fa-user-clock" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="h4 mb-1">{% trans "Details de l'absence" %}</h2>
+                        <p class="text-muted mb-0">{% trans "Informations liees a cette demande." %}</p>
+                    </div>
+                </div>
+                <div class="summary-list">
+                    <div class="summary-row">
+                        <span>{% trans "Etudiant" %}</span>
+                        <strong>{{ student.nom }}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>{% trans "Classe" %}</span>
+                        <strong>{{ student.filiere.nom }}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>{% trans "Date" %}</span>
+                        <strong>{{ presence.date|date:"d/m/Y" }}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>{% trans "Statut" %}</span>
+                        <strong>{% trans "Absent" %}</strong>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="justification-form-card">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow d-block">{% trans "Demande" %}</span>
+                        <h2>{% trans "Votre explication" %}</h2>
+                        <p class="text-muted">{% trans "Soyez precis et ajoutez un document seulement si necessaire." %}</p>
+                    </div>
+                </div>
+                <form method="post" enctype="multipart/form-data" class="justification-form">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="errorlist">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    <div class="field-shell">
+                        <label class="form-label" for="{{ form.reason.id_for_label }}">{% trans "Motif" %}</label>
+                        {{ form.reason }}
+                        {% if form.reason.errors %}
+                            <div class="errorlist mt-2">{{ form.reason.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="field-shell">
+                        <label class="form-label" for="{{ form.details.id_for_label }}">{% trans "Explication" %}</label>
+                        {{ form.details }}
+                        {% if form.details.errors %}
+                            <div class="errorlist mt-2">{{ form.details.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="upload-panel">
+                        <div class="upload-heading">
+                            <i class="fas fa-paperclip" aria-hidden="true"></i>
+                            <div>
+                                <h3>{% trans "Joindre un fichier" %}</h3>
+                                <p>{% trans "PDF ou image, si vous avez une preuve a ajouter." %}</p>
+                            </div>
+                        </div>
+
+                        <div class="field-shell">
+                            <label class="form-label" for="{{ form.attachment.id_for_label }}">{% trans "Piece jointe" %}</label>
+                            {{ form.attachment }}
+                            <small class="format-note">{% trans "Formats acceptes: PDF, PNG, JPG, JPEG, GIF, WEBP. Taille maximale: 5 MB." %}</small>
+                            {% if form.attachment.errors %}
+                                <div class="errorlist mt-2">{{ form.attachment.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+
+                        {% if form.instance.attachment %}
+                            <div>
+                                <a href="{{ form.instance.attachment.url }}" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-eye me-1" aria-hidden="true"></i>
+                                    {% trans "Voir le fichier actuel" %}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="justification-actions">
+                        <a class="btn btn-light" href="{% url 'student_dashboard' %}">{% trans "Retour" %}</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1" aria-hidden="true"></i>
+                            {% trans "Envoyer" %}
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+{% endblock %}

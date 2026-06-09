@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Absences aux Examens" %}{% endblock %}
+
+{% block content %}
+<div class="section-head text-center">
+    <h2><i class="fas fa-file-signature"></i> {% trans "Absences aux Examens" %}</h2>
+    <p>{% trans "Historique de vos absences lors des examens finaux." %}</p>
+</div>
+
+<div class="empty-state">
+    <i class="fas fa-check-circle text-success" style="font-size: 4rem; opacity: 1;"></i>
+    <h3 class="mt-4 text-white">{% trans "Aucune absence" %}</h3>
+    <p class="text-secondary">{% trans "Vous avez participé à tous les examens." %}</p>
+</div>
+{% endblock %}

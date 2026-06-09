@@ -1,0 +1,898 @@
+{% extends "base.html" %}
+{% load appel_extras %}
+{% load i18n %}
+
+{% block title %}{% trans "Tableau de bord" %}{% endblock %}
+
+{% block content %}
+    <style>
+        .class-table-wrap {
+            overflow: hidden;
+            border: 1px solid #d7e8ff;
+            border-radius: 16px;
+            background: #f7fbff;
+        }
+
+        .class-table {
+            margin: 0;
+            border-collapse: separate !important;
+            border-spacing: 0 0.55rem !important;
+        }
+
+        .class-table thead th {
+            padding: 0.95rem 1rem !important;
+            border: 0 !important;
+            background: #eaf4ff !important;
+            color: #073b88 !important;
+            font-size: 0.74rem !important;
+            font-weight: 950 !important;
+            letter-spacing: 0.11em !important;
+            text-transform: uppercase;
+        }
+
+        .class-table thead th:first-child {
+            border-top-left-radius: 14px;
+        }
+
+        .class-table thead th:last-child {
+            border-top-right-radius: 14px;
+        }
+
+        .class-table tbody tr {
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
+
+        .class-table tbody tr:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(13, 110, 253, 0.08);
+        }
+
+        .class-table tbody td {
+            padding: 0.85rem 1rem !important;
+            border-top: 1px solid #d7e8ff !important;
+            border-bottom: 1px solid #d7e8ff !important;
+            background: #ffffff !important;
+            vertical-align: middle;
+        }
+
+        .class-table tbody td:first-child {
+            border-left: 1px solid #d7e8ff !important;
+            border-radius: 14px 0 0 14px !important;
+        }
+
+        .class-table tbody td:last-child {
+            border-right: 1px solid #d7e8ff !important;
+            border-radius: 0 14px 14px 0 !important;
+        }
+
+        .class-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 220px;
+        }
+
+        .class-avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0d6efd, #073b88);
+            color: #ffffff;
+            font-weight: 950;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.18);
+        }
+
+        .class-title {
+            display: block;
+            color: #16233a;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .class-subtle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #326bb8;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .class-subtle i {
+            color: #0d6efd;
+        }
+
+        .class-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 46px;
+            height: 34px;
+            padding: 0 0.75rem;
+            border-radius: 999px;
+            background: #edf6ff;
+            color: #073b88;
+            font-weight: 950;
+        }
+
+        .presence-meter {
+            min-width: 96px;
+        }
+
+        .presence-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            min-width: 76px;
+            justify-content: center;
+            padding: 0.42rem 0.7rem;
+            border: 1px solid #bfd7ff;
+            border-radius: 999px;
+            background: #f7fbff;
+            color: #073b88;
+            font-weight: 950;
+        }
+
+        .presence-line {
+            height: 5px;
+            width: 86px;
+            margin-top: 0.45rem;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #dcecff;
+        }
+
+        .presence-line span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #0d6efd, #073b88);
+        }
+
+        .class-open-btn {
+            border: 0 !important;
+            border-radius: 999px !important;
+            background: #0d6efd !important;
+            color: #ffffff !important;
+            font-weight: 900 !important;
+            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2) !important;
+        }
+
+        .class-open-btn:hover {
+            background: #073b88 !important;
+            color: #ffffff !important;
+        }
+
+        .overview-panel {
+            overflow: hidden;
+        }
+
+        .overview-panel .card-body {
+            padding: 0 !important;
+        }
+
+        .overview-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.35rem 1.45rem;
+            border-bottom: 1px solid #d7e8ff;
+            background:
+                linear-gradient(135deg, #ffffff 0%, #edf6ff 100%);
+        }
+
+        .overview-title {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.95rem;
+        }
+
+        .overview-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            flex: 0 0 50px;
+            border-radius: 14px;
+            background: #073b88;
+            color: #ffffff;
+            font-size: 1.35rem;
+            box-shadow: 0 12px 24px rgba(7, 59, 136, 0.18);
+        }
+
+        .overview-head h2 {
+            margin: 0;
+            color: #073b88;
+            font-size: clamp(1.35rem, 2vw, 1.85rem);
+            font-weight: 950;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .overview-head p {
+            margin: 0.25rem 0 0;
+            color: #326bb8;
+            font-weight: 650;
+        }
+
+        .overview-total {
+            min-width: 124px;
+            padding: 0.75rem 0.9rem;
+            border: 1px solid #bfd7ff;
+            border-radius: 14px;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .overview-total strong {
+            display: block;
+            color: #073b88;
+            font-size: 1.65rem;
+            line-height: 1;
+            font-weight: 950;
+        }
+
+        .overview-total span {
+            color: #326bb8;
+            font-size: 0.74rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .overview-list {
+            display: grid;
+            gap: 0.85rem;
+            padding: 1.1rem 1.35rem 1.35rem;
+            background: #ffffff;
+        }
+
+        .overview-row {
+            display: grid;
+            grid-template-columns: minmax(180px, 1.35fr) repeat(3, minmax(90px, 0.45fr)) minmax(160px, 0.75fr);
+            gap: 0.8rem;
+            align-items: center;
+            padding: 0.9rem;
+            border: 1px solid #d7e8ff;
+            border-radius: 16px;
+            background: #f8fbff;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+        }
+
+        .overview-row:hover {
+            transform: translateY(-1px);
+            background: #ffffff;
+            box-shadow: 0 14px 28px rgba(13, 110, 253, 0.08);
+        }
+
+        .overview-class {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+
+        .overview-class-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            border-radius: 12px;
+            background: #e8f2ff;
+            color: #073b88;
+            font-weight: 950;
+            text-transform: uppercase;
+        }
+
+        .overview-class strong {
+            display: block;
+            color: #16233a;
+            font-weight: 950;
+            overflow-wrap: anywhere;
+        }
+
+        .overview-class span {
+            color: #326bb8;
+            font-size: 0.82rem;
+            font-weight: 750;
+        }
+
+        .overview-stat {
+            display: grid;
+            gap: 0.12rem;
+            min-height: 52px;
+            padding: 0.55rem 0.7rem;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #e0edff;
+        }
+
+        .overview-stat span {
+            color: #326bb8;
+            font-size: 0.68rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .overview-stat strong {
+            color: #073b88;
+            font-size: 1.05rem;
+            font-weight: 950;
+        }
+
+        .overview-rate strong {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 58px;
+            padding: 0.35rem 0.65rem;
+            border-radius: 999px;
+            background: #edf6ff;
+            color: #073b88;
+            font-weight: 950;
+        }
+
+        .overview-rate-line {
+            height: 7px;
+            margin-top: 0.55rem;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #dcecff;
+        }
+
+        .overview-rate-line span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #0d6efd, #073b88);
+        }
+
+        @media (max-width: 767.98px) {
+            .class-table thead {
+                display: none;
+            }
+
+            .class-table,
+            .class-table tbody,
+            .class-table tr,
+            .class-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .class-table tbody tr {
+                margin: 0.75rem;
+                border: 1px solid #d7e8ff;
+                border-radius: 14px;
+                background: #ffffff;
+            }
+
+            .class-table tbody td {
+                border: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .class-table tbody td:last-child {
+                text-align: left !important;
+            }
+
+            .overview-head {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .overview-total {
+                text-align: left;
+            }
+
+            .overview-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .overview-class,
+            .overview-rate {
+                grid-column: 1 / -1;
+            }
+        }
+    </style>
+
+    <section class="hero-section mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="eyebrow"><i class="fas fa-chalkboard-teacher"></i> {% trans "Tableau enseignant" %}</span>
+                <h1>{% trans "Tableau de bord" %}</h1>
+                <p>
+                    {% trans "Suivez les presences, ouvrez une classe, gerez les justifications et gardez une vue claire sur vos groupes en quelques gestes." %}
+                </p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <span class="pill"><i class="fas fa-calendar-day"></i> {{ today|date:"d/m/Y" }}</span>
+                    <span class="pill"><i class="fas fa-clock"></i> {% now "H:i" %}</span>
+                    <span class="pill"><i class="fas fa-graduation-cap"></i> {{ stats.filiere_count }} {% trans "classe(s)" %}</span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="spotlight h-100">
+                    <span class="eyebrow"><i class="fas fa-chart-pie"></i> {% trans "Vue rapide" %}</span>
+                    <ul class="mb-0">
+                        <li>{% trans "Classes actives" %}: <strong>{{ stats.filiere_count }}</strong></li>
+                        <li>{% trans "Etudiants inscrits" %}: <strong>{{ stats.student_count }}</strong></li>
+                        <li>{% trans "Appels aujourd'hui" %}: <strong>{{ stats.attendance_count_today }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-4">
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-door-open"></i> {% trans "Classes" %}</p>
+                <div class="stats-number">{{ stats.filiere_count }}</div>
+                <small>{% trans "groupes actifs" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-user-graduate"></i> {% trans "Etudiants" %}</p>
+                <div class="stats-number">{{ stats.student_count }}</div>
+                <small>{% trans "total inscrit" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-clipboard-check"></i> {% trans "Appels" %}</p>
+                <div class="stats-number">{{ stats.attendance_count_today }}</div>
+                <small>{% trans "saisis aujourd'hui" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-percentage"></i> {% trans "Taux" %}</p>
+                <div class="stats-number">
+                    {% if stats.student_count > 0 %}
+                        {{ attendance_rate|default:"0" }}%
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+                <small>{% trans "presence moyenne" %}</small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="stats-card">
+                <p class="stats-label"><i class="fas fa-folder-open"></i> {% trans "Documents" %}</p>
+                <div class="stats-number">{{ stats.document_requests_count }}</div>
+                <small>{% trans "demandes actives" %}</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-xl-7">
+            <div class="card h-100 class-form-card">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-plus-circle"></i> {% trans "Creer une classe" %}</h2>
+                        <p>{% trans "Ajoutez un nouveau groupe, assignez un enseignant et definissez si besoin la date et l'heure du cours." %}</p>
+                    </div>
+
+                    <div class="class-builder-panel mb-4">
+                        <div class="class-builder-head">
+                            <span class="class-builder-icon"><i class="fas fa-box-archive"></i></span>
+                            <div>
+                                <h3>{% trans "Choisir une classe deja upload" %}</h3>
+                                <p>{% trans "Ouvrez directement une classe deja importee au lieu de recharger Excel." %}</p>
+                            </div>
+                        </div>
+                        {% if saved_filieres %}
+                            <div class="class-form-grid">
+                                <div class="field-span-2">
+                                    <label class="form-label" for="dashboardSavedClassSelect">{% trans "Classes stockees" %}</label>
+                                    <select class="form-select" id="dashboardSavedClassSelect">
+                                        <option value="">{% trans "Choisir une classe pre-upload" %}</option>
+                                        {% for saved_class in saved_filieres %}
+                                            <option value="{% url 'class_detail' saved_class.id %}">
+                                                {{ saved_class.nom }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="button" class="btn btn-primary w-100" data-dashboard-open-class>
+                                        <i class="fas fa-arrow-right me-1"></i>{% trans "Ouvrir" %}
+                                    </button>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="empty-state">
+                                <p class="mb-0">{% trans "Aucune classe upload pour le moment. Importez une liste une seule fois, puis elle apparaitra ici." %}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <form method="post" class="class-builder-form">
+                        {% csrf_token %}
+                        {% if filiere_form.non_field_errors %}
+                            <div class="errorlist">{{ filiere_form.non_field_errors }}</div>
+                        {% endif %}
+                        <div class="class-builder-panel">
+                            <div class="class-builder-head">
+                                <span class="class-builder-icon"><i class="fas fa-layer-group"></i></span>
+                                <div>
+                                    <h3>{% trans "Classe et planning" %}</h3>
+                                    <p>{% trans "Renseignez les informations principales, puis ajoutez une seance si elle est deja connue." %}</p>
+                                </div>
+                            </div>
+
+                            <div class="form-cluster">
+                                <div class="form-cluster-title">
+                                    <i class="fas fa-school"></i>
+                                    <span>{% trans "Informations de classe" %}</span>
+                                </div>
+                                <div class="class-form-grid">
+                                    <div class="field-span-2">
+                                        <label class="form-label" for="{{ filiere_form.nom.id_for_label }}">{{ filiere_form.nom.label }}</label>
+                                        {{ filiere_form.nom }}
+                                        {% if filiere_form.nom.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.nom.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.salle.id_for_label }}">{{ filiere_form.salle.label }}</label>
+                                        {{ filiere_form.salle }}
+                                        {% if filiere_form.salle.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.salle.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.teacher.id_for_label }}">{{ filiere_form.teacher.label }}</label>
+                                        {{ filiere_form.teacher }}
+                                        {% if filiere_form.teacher.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.teacher.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="field-span-2">
+                                        <label class="form-label" for="{{ filiere_form.description.id_for_label }}">{{ filiere_form.description.label }}</label>
+                                        {{ filiere_form.description }}
+                                        {% if filiere_form.description.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.description.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-cluster">
+                                <div class="form-cluster-title">
+                                    <i class="fas fa-calendar-days"></i>
+                                    <span>{% trans "Seance optionnelle" %}</span>
+                                </div>
+                                <div class="class-form-grid schedule-grid">
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.class_date.id_for_label }}">{{ filiere_form.class_date.label }}</label>
+                                        {{ filiere_form.class_date }}
+                                        {% if filiere_form.class_date.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.class_date.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    {{ filiere_form.day_of_week }}
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.start_time.id_for_label }}">{{ filiere_form.start_time.label }}</label>
+                                        {{ filiere_form.start_time }}
+                                        {% if filiere_form.start_time.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.start_time.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.end_time.id_for_label }}">{{ filiere_form.end_time.label }}</label>
+                                        {{ filiere_form.end_time }}
+                                        {% if filiere_form.end_time.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.end_time.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.subject.id_for_label }}">{{ filiere_form.subject.label }}</label>
+                                        {{ filiere_form.subject }}
+                                        {% if filiere_form.subject.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.subject.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="{{ filiere_form.session_type.id_for_label }}">{{ filiere_form.session_type.label }}</label>
+                                        {{ filiere_form.session_type }}
+                                        {% if filiere_form.session_type.errors %}
+                                            <div class="errorlist mt-2">{{ filiere_form.session_type.errors|join:", " }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary class-submit">
+                            <i class="fas fa-plus me-2"></i>{% trans "Creer la classe" %}
+                        </button>
+                    </form>
+                    <a href="{% url 'import_classes_excel' %}" class="btn btn-outline-secondary class-import-link">
+                        <i class="fas fa-file-import me-2"></i>{% trans "Ou importer les classes depuis Excel" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="section-head">
+                        <h2><i class="fas fa-bolt"></i> {% trans "Actions rapides" %}</h2>
+                        <p>{% trans "Gardez les gestes essentiels sous la main." %}</p>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="quick-action" href="{% url 'dashboard' %}"><i class="fas fa-rotate-right"></i> {% trans "Actualiser" %}</a>
+                        <a class="quick-action" href="{% url 'select_filiere' %}">
+                            <i class="fas fa-school"></i> {% trans "Mes classes" %}
+                        </a>
+                        <a class="quick-action" href="{% url 'import_classes_excel' %}">
+                            <i class="fas fa-file-import"></i> {% trans "Importer classes" %}
+                        </a>
+                        {% if request.user.is_staff or request.user.is_superuser %}
+                            <a class="quick-action" href="{% url 'manage_justifications' %}">
+                                <i class="fas fa-clipboard-check"></i> {% trans "Justifications" %} ({{ stats.pending_justifications_count }})
+                            </a>
+                        {% endif %}
+                        <a class="quick-action" href="{% url 'monthly_report' %}"><i class="fas fa-chart-line"></i> {% trans "Rapports" %}</a>
+                        {% if filieres %}
+                            <a class="quick-action" href="{% url 'select_filiere' %}"><i class="fas fa-pencil-alt"></i> {% trans "Faire l'appel" %}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-list"></i> {% trans "Vos classes" %}</h2>
+                <p>{% trans "Accedez a la gestion complete de chaque groupe." %}</p>
+            </div>
+            {% if filieres %}
+                <div class="table-responsive class-table-wrap">
+                    <table class="table align-middle class-table">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Classe" %}</th>
+                                <th>{% trans "Enseignant" %}</th>
+                                <th>{% trans "Salle" %}</th>
+                                <th>{% trans "Etudiants" %}</th>
+                                <th>{% trans "Presence" %}</th>
+                                <th class="text-end"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for filiere in filieres %}
+                                <tr>
+                                    <td>
+                                        <div class="class-name-cell">
+                                            <span class="class-avatar">{{ filiere.nom|first|upper }}</span>
+                                            <div>
+                                                <span class="class-title">{{ filiere.nom }}</span>
+                                                <span class="class-subtle"><i class="fas fa-layer-group"></i> {% trans "Groupe actif" %}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="class-subtle">
+                                            <i class="fas fa-user-tie"></i>
+                                        {% if filiere.teacher %}
+                                            {{ filiere.teacher.get_full_name|default:filiere.teacher.username }}
+                                        {% else %}
+                                            {% trans "Non assigne" %}
+                                        {% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="class-subtle"><i class="fas fa-door-open"></i> {{ filiere.salle|default:"-" }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="class-count">{{ filiere.student_count }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="presence-meter">
+                                            <span class="presence-pill">
+                                                <i class="fas fa-check"></i>
+                                                {{ filiere.present_count }}/{{ filiere.student_count }}
+                                            </span>
+                                            {% if filiere.student_count > 0 %}
+                                                <div class="presence-line" aria-hidden="true">
+                                                    <span style="width: {{ filiere.present_count|add:0|mul:100|div:filiere.student_count|floatformat:0 }}%;"></span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        <a class="btn btn-sm class-open-btn" href="{% url 'class_detail' filiere.id %}">
+                                            <i class="fas fa-arrow-right me-1"></i>{% trans "Ouvrir" %}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-inbox fs-1 mb-3 d-block text-muted"></i>
+                    <p class="mb-0">{% trans "Aucune classe pour le moment. Creez votre premiere classe pour commencer." %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if filieres %}
+        <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="section-head">
+                            <h2><i class="fas fa-triangle-exclamation"></i> {% trans "Absences a suivre" %}</h2>
+                            <p>{% trans "Les absences du jour qui demandent une attention rapide." %}</p>
+                        </div>
+                        {% if analytics.absences_today %}
+                            <div class="d-grid gap-2">
+                                {% for presence in analytics.absences_today %}
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-3 rounded" style="background: #eaf4ff; border: 1px solid rgba(31, 111, 235, 0.18);">
+                                        <div>
+                                            <strong>{{ presence.etudiant.nom }}</strong>
+                                            <div class="text-muted small">{{ presence.etudiant.filiere.nom }}</div>
+                                        </div>
+                                        <span class="badge bg-danger">{% trans "Absent" %}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-state">
+                                <p class="mb-0">{% trans "Aucune absence a signaler aujourd'hui." %}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="section-head">
+                            <h2><i class="fas fa-user-clock"></i> {% trans "Etudiants a risque" %}</h2>
+                            <p>{% trans "Les etudiants avec le plus d'absences cumulees." %}</p>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Etudiant" %}</th>
+                                        <th>{% trans "Classe" %}</th>
+                                        <th>{% trans "Absences" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in analytics.top_absent_students %}
+                                        <tr>
+                                            <td><strong>{{ student.nom }}</strong></td>
+                                            <td>{{ student.filiere.nom }}</td>
+                                            <td><span class="pill">{{ student.total_absences }}</span></td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr><td colspan="3" class="text-muted">{% trans "Aucune donnee." %}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card overview-panel">
+            <div class="card-body">
+                <div class="overview-head">
+                    <div class="overview-title">
+                        <span class="overview-icon"><i class="fas fa-chart-bar"></i></span>
+                        <div>
+                            <h2>{% trans "Vue d'ensemble" %}</h2>
+                            <p>{% trans "Comparez rapidement la taille et la presence de chaque classe." %}</p>
+                        </div>
+                    </div>
+                    <div class="overview-total">
+                        <strong>{{ stats.filiere_count }}</strong>
+                        <span>{% trans "Classes" %}</span>
+                    </div>
+                </div>
+
+                <div class="overview-list">
+                    {% for filiere in filieres %}
+                        {% if filiere.student_count > 0 %}
+                            {% with rate=filiere.present_count|add:0|mul:100|div:filiere.student_count|floatformat:0 %}
+                                <div class="overview-row">
+                                    <div class="overview-class">
+                                        <span class="overview-class-mark">{{ filiere.nom|first|upper }}</span>
+                                        <div>
+                                            <strong>{{ filiere.nom }}</strong>
+                                            <span>{% trans "Suivi du jour" %}</span>
+                                        </div>
+                                    </div>
+                                    <div class="overview-stat">
+                                        <span>{% trans "Effectif" %}</span>
+                                        <strong>{{ filiere.student_count }}</strong>
+                                    </div>
+                                    <div class="overview-stat">
+                                        <span>{% trans "Presents" %}</span>
+                                        <strong>{{ filiere.present_count }}</strong>
+                                    </div>
+                                    <div class="overview-stat">
+                                        <span>{% trans "Absents" %}</span>
+                                        <strong>{{ filiere.absent_count|default:0 }}</strong>
+                                    </div>
+                                    <div class="overview-rate">
+                                        <strong>{{ rate }}%</strong>
+                                        <div class="overview-rate-line" aria-hidden="true">
+                                            <span style="width: {{ rate }}%;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                        {% else %}
+                            <div class="overview-row">
+                                <div class="overview-class">
+                                    <span class="overview-class-mark">{{ filiere.nom|first|upper }}</span>
+                                    <div>
+                                        <strong>{{ filiere.nom }}</strong>
+                                        <span>{% trans "Aucun etudiant inscrit" %}</span>
+                                    </div>
+                                </div>
+                                <div class="overview-stat">
+                                    <span>{% trans "Effectif" %}</span>
+                                    <strong>0</strong>
+                                </div>
+                                <div class="overview-stat">
+                                    <span>{% trans "Presents" %}</span>
+                                    <strong>0</strong>
+                                </div>
+                                <div class="overview-stat">
+                                    <span>{% trans "Absents" %}</span>
+                                    <strong>0</strong>
+                                </div>
+                                <div class="overview-rate">
+                                    <strong>-</strong>
+                                    <div class="overview-rate-line" aria-hidden="true">
+                                        <span style="width: 0%;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <script>
+        (function () {
+            const select = document.getElementById('dashboardSavedClassSelect');
+            const button = document.querySelector('[data-dashboard-open-class]');
+            if (!select || !button) return;
+            button.addEventListener('click', () => {
+                if (select.value) window.location.href = select.value;
+            });
+        })();
+    </script>
+
+{% endblock %}

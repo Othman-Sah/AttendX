@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Alertes envoyees" %}{% endblock %}
+
+{% block content %}
+<section class="hero-section mb-4">
+    <span class="eyebrow"><i class="fas fa-sms"></i> {% trans "Alertes" %}</span>
+    <h1>{% trans "Historique des alertes" %}</h1>
+    <p>{% trans "Cette vue rassemble les notifications importantes envoyees aux utilisateurs, en attendant une integration SMS complete." %}</p>
+</section>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Utilisateur" %}</th>
+                        <th>{% trans "Titre" %}</th>
+                        <th>{% trans "Message" %}</th>
+                        <th>{% trans "Niveau" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notification in notifications %}
+                        <tr>
+                            <td>{{ notification.created_at|date:"d/m/Y H:i" }}</td>
+                            <td>{{ notification.user.username }}</td>
+                            <td>{{ notification.title }}</td>
+                            <td>{{ notification.message }}</td>
+                            <td><span class="pill">{{ notification.get_level_display }}</span></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">{% trans "Aucune alerte importante pour le moment." %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

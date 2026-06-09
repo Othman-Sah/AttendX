@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Suivi academique" %}{% endblock %}
+
+{% block content %}
+
+<section class="hero-section mb-4">
+    <span class="eyebrow"><i class="fas fa-chart-line"></i> {% trans "Suivi academique" %}</span>
+    <h1>{% trans "Analyse de progression" %}</h1>
+    <p>{% trans "Visualisez les tendances de presence, les taux par classe et les alertes hebdomadaires." %}</p>
+</section>
+
+<div class="row g-4 mb-4">
+    <div class="col-xl-8">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-chart-line"></i> {% trans "Tendance des 6 derniers mois" %}</h2>
+                    <p>{% trans "Presences et absences cumulees par mois, toutes classes confondues." %}</p>
+                </div>
+                <canvas id="trendChart" height="120"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-chart-bar"></i> {% trans "Taux par classe" %}</h2>
+                    <p>{% trans "Taux de presence global de chaque groupe." %}</p>
+                </div>
+                <canvas id="classChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="section-head">
+            <h2><i class="fas fa-calendar-week"></i> {% trans "Absences hebdomadaires" %}</h2>
+            <p>{% trans "Nombre d'absences enregistrees par semaine sur le dernier mois." %}</p>
+        </div>
+        <canvas id="weeklyChart" height="70"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+    const blue  = '#2979ff';
+    const cyan  = '#00cfff';
+    const soft  = 'rgba(41,121,255,0.14)';
+    const softC = 'rgba(0,207,255,0.14)';
+
+    Chart.defaults.font.family = 'Inter, "Segoe UI", sans-serif';
+    Chart.defaults.color = '#3b68b8';
+
+    fetch('{% url "analytics_data" %}')
+        .then(r => r.json())
+        .then(data => {
+            const tCtx = document.getElementById('trendChart');
+            if (tCtx && data.trend) {
+                new Chart(tCtx, {
+                    type: 'line',
+                    data: {
+                        labels: data.trend.map(d => d.label),
+                        datasets: [
+                            {
+                                label: '{% trans "Présents" %}',
+                                data: data.trend.map(d => d.present),
+                                borderColor: blue, backgroundColor: soft,
+                                borderWidth: 2.5, fill: true, tension: 0.45,
+                                pointBackgroundColor: blue, pointRadius: 4,
+                            },
+                            {
+                                label: '{% trans "Absents" %}',
+                                data: data.trend.map(d => d.absent),
+                                borderColor: cyan, backgroundColor: softC,
+                                borderWidth: 2.5, fill: true, tension: 0.45,
+                                pointBackgroundColor: cyan, pointRadius: 4,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        interaction: { mode: 'index', intersect: false },
+                        plugins: { legend: { position: 'top' } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: 'rgba(41,121,255,0.08)' } },
+                            x: { grid: { display: false } },
+                        },
+                    },
+                });
+            }
+
+            const cCtx = document.getElementById('classChart');
+            if (cCtx && data.class_rates) {
+                new Chart(cCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.class_rates.map(d => d.label),
+                        datasets: [{
+                            label: '{% trans "Taux (%)" %}',
+                            data: data.class_rates.map(d => d.rate),
+                            backgroundColor: data.class_rates.map(d =>
+                                d.rate >= 75 ? blue : d.rate >= 50 ? cyan : '#b8d4ff'
+                            ),
+                            borderRadius: 8,
+                            borderSkipped: false,
+                        }],
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { min: 0, max: 100, grid: { color: 'rgba(41,121,255,0.08)' }, ticks: { callback: v => v + '%' } },
+                            y: { grid: { display: false } },
+                        },
+                    },
+                });
+            }
+
+            const wCtx = document.getElementById('weeklyChart');
+            if (wCtx && data.weekly) {
+                new Chart(wCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.weekly.map(d => 'Sem. ' + d.label),
+                        datasets: [{
+                            label: '{% trans "Absences" %}',
+                            data: data.weekly.map(d => d.absences),
+                            backgroundColor: soft,
+                            borderColor: blue,
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false,
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: 'rgba(41,121,255,0.08)' } },
+                            x: { grid: { display: false } },
+                        },
+                    },
+                });
+            }
+        })
+        .catch(err => console.warn('Analytics fetch failed:', err));
+})();
+</script>
+{% endblock %}

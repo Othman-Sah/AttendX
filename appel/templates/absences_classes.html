@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Absences Cours" %}{% endblock %}
+
+{% block content %}
+{% if admin_mode %}
+<section class="hero-section mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="eyebrow"><i class="fas fa-user-clock"></i> {% trans "Administration" %}</span>
+            <h1>{% trans "Class absences" %}</h1>
+            <p>{% trans "Consultez toutes les classes et les absences enregistrees pour chaque groupe." %}</p>
+        </div>
+        <div class="col-lg-4">
+            <div class="spotlight h-100">
+                <span class="eyebrow"><i class="fas fa-list-check"></i> {% trans "Resume" %}</span>
+                <ul class="mb-0">
+                    <li>{% trans "Classes" %}: <strong>{{ stats.classes }}</strong></li>
+                    <li>{% trans "Absences" %}: <strong>{{ stats.total }}</strong></li>
+                    <li>{% trans "Non justifiees" %}: <strong>{{ stats.unjustified }}</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="d-grid gap-4">
+    {% for filiere in filieres %}
+        <section class="card">
+            <div class="card-body">
+                <div class="section-head">
+                    <h2><i class="fas fa-school"></i> {{ filiere.nom }}</h2>
+                    <p>
+                        {% trans "Etudiants" %}: <strong>{{ filiere.student_count }}</strong>
+                        · {% trans "Absences" %}: <strong>{{ filiere.absence_count }}</strong>
+                        · {% trans "Non justifiees" %}: <strong>{{ filiere.unjustified_absence_count }}</strong>
+                    </p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Etudiant" %}</th>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Justification" %}</th>
+                                <th>{% trans "Statut" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for presence in filiere.absence_records %}
+                                <tr>
+                                    <td><strong>{{ presence.etudiant.nom }}</strong></td>
+                                    <td>{{ presence.date|date:"d/m/Y" }}</td>
+                                    <td>
+                                        {% if presence.justification %}
+                                            {{ presence.justification.reason|truncatewords:8 }}
+                                        {% else %}
+                                            <span class="text-muted">{% trans "Non justifiee" %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if presence.justification %}
+                                            <span class="badge {% if presence.justification.status == 'approved' %}bg-success{% elif presence.justification.status == 'rejected' %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                                                {{ presence.justification.get_status_display }}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-danger">{% trans "Absent" %}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-4">{% trans "Aucune absence dans cette classe." %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    {% empty %}
+        <div class="card">
+            <div class="card-body">
+                <div class="empty-state">
+                    <i class="fas fa-school fs-1 mb-3 d-block text-muted"></i>
+                    <p class="mb-0">{% trans "Aucune classe disponible." %}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="section-head text-center">
+    <h2><i class="fas fa-user-clock"></i> {% trans "Absences Cours" %}</h2>
+    <p>{% trans "Historique de vos absences aux cours théoriques et travaux dirigés." %}</p>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="spotlight text-center h-100">
+            <h3 class="text-secondary mb-3">{% trans "Total Absences" %}</h3>
+            <div class="display-4 text-white font-weight-bold mb-2">{{ stats.total }} <small class="text-muted" style="font-size: 1rem;">{% trans "jours/séances" %}</small></div>
+            <p class="mb-0 text-muted">{% trans "Depuis le début de l'année" %}</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="spotlight text-center h-100" style="border-color: rgba(31, 111, 235, 0.32);">
+            <h3 class="text-danger mb-3">{% trans "Absences Non Justifiées" %}</h3>
+            <div class="display-4 text-white font-weight-bold mb-2">{{ stats.unjustified }} <small class="text-muted" style="font-size: 1rem;">{% trans "jours/séances" %}</small></div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="mb-4 text-primary"><i class="fas fa-history me-2"></i> {% trans "Historique Détaillé" %}</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Statut" %}</th>
+                        <th>{% trans "Justification" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for presence in presences %}
+                    <tr>
+                        <td>{{ presence.date|date:"d M Y" }}</td>
+                        <td><span class="badge bg-danger text-white">{% trans "Absent" %}</span></td>
+                        <td>
+                            {% if presence.justification %}
+                                <span class="badge {% if presence.justification.status == 'approved' %}bg-success{% elif presence.justification.status == 'rejected' %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                                    {{ presence.justification.get_status_display }}
+                                </span>
+                            {% else %}
+                                <span class="text-muted">{% trans "Non justifiée" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not presence.justification %}
+                                <a href="{% url 'justify_absence' presence.id %}" class="btn btn-outline-danger btn-sm">{% trans "Justifier" %}</a>
+                            {% else %}
+                                <a href="{% url 'justify_absence' presence.id %}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-pen"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">{% trans "Aucune absence enregistrée." %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

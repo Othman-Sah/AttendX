@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Appel" %}{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="section-head">
+                <h2><i class="fas fa-clipboard-list"></i> {% trans "Appel du jour" %}</h2>
+                <p>{% trans "La prise de presence se fait depuis la page de la classe." %}</p>
+            </div>
+            <a class="btn btn-primary" href="{% url 'dashboard' %}">
+                <i class="fas fa-arrow-left me-1"></i>{% trans "Retour au tableau de bord" %}
+            </a>
+        </div>
+    </div>
+{% endblock %}
