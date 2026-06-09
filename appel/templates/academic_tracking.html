@@ -49,13 +49,13 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script>
 (function () {
-    const blue  = '#2979ff';
-    const cyan  = '#00cfff';
-    const soft  = 'rgba(41,121,255,0.14)';
-    const softC = 'rgba(0,207,255,0.14)';
+    const blue  = '#003178';
+    const teal  = '#006b5f';
+    const soft  = 'rgba(0, 49, 120, 0.1)';
+    const softC = 'rgba(0, 107, 95, 0.1)';
 
     Chart.defaults.font.family = 'Inter, "Segoe UI", sans-serif';
-    Chart.defaults.color = '#3b68b8';
+    Chart.defaults.color = '#434652';
 
     fetch('{% url "analytics_data" %}')
         .then(r => r.json())
@@ -77,9 +77,9 @@
                             {
                                 label: '{% trans "Absents" %}',
                                 data: data.trend.map(d => d.absent),
-                                borderColor: cyan, backgroundColor: softC,
+                                borderColor: teal, backgroundColor: softC,
                                 borderWidth: 2.5, fill: true, tension: 0.45,
-                                pointBackgroundColor: cyan, pointRadius: 4,
+                                pointBackgroundColor: teal, pointRadius: 4,
                             },
                         ],
                     },
@@ -88,7 +88,7 @@
                         interaction: { mode: 'index', intersect: false },
                         plugins: { legend: { position: 'top' } },
                         scales: {
-                            y: { beginAtZero: true, grid: { color: 'rgba(41,121,255,0.08)' } },
+                            y: { beginAtZero: true, grid: { color: 'rgba(0, 49, 120, 0.05)' } },
                             x: { grid: { display: false } },
                         },
                     },
@@ -105,7 +105,7 @@
                             label: '{% trans "Taux (%)" %}',
                             data: data.class_rates.map(d => d.rate),
                             backgroundColor: data.class_rates.map(d =>
-                                d.rate >= 75 ? blue : d.rate >= 50 ? cyan : '#b8d4ff'
+                                d.rate >= 75 ? blue : d.rate >= 50 ? teal : '#d9e2ff'
                             ),
                             borderRadius: 8,
                             borderSkipped: false,
@@ -116,7 +116,7 @@
                         responsive: true,
                         plugins: { legend: { display: false } },
                         scales: {
-                            x: { min: 0, max: 100, grid: { color: 'rgba(41,121,255,0.08)' }, ticks: { callback: v => v + '%' } },
+                            x: { min: 0, max: 100, grid: { color: 'rgba(0, 49, 120, 0.05)' }, ticks: { callback: v => v + '%' } },
                             y: { grid: { display: false } },
                         },
                     },
@@ -143,7 +143,7 @@
                         responsive: true,
                         plugins: { legend: { display: false } },
                         scales: {
-                            y: { beginAtZero: true, grid: { color: 'rgba(41,121,255,0.08)' } },
+                            y: { beginAtZero: true, grid: { color: 'rgba(0, 49, 120, 0.05)' } },
                             x: { grid: { display: false } },
                         },
                     },

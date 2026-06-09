@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AttendX - Institutional Systems</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#a1bbff",
+                        "surface-container-high": "#e8e7f0",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#8df5e4",
+                        "surface-variant": "#e2e2ea",
+                        "surface-container-low": "#f3f3fb",
+                        "tertiary": "#1e3843",
+                        "tertiary-fixed-dim": "#afcbd8",
+                        "inverse-surface": "#2e3036",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface": "#1a1b21",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#d9e2ff",
+                        "outline-variant": "#c3c6d4",
+                        "on-primary-fixed-variant": "#00429c",
+                        "surface-tint": "#2b5bb5",
+                        "surface": "#faf8ff",
+                        "inverse-primary": "#b0c6ff",
+                        "inverse-on-surface": "#f0f0f8",
+                        "primary-container": "#0d47a1",
+                        "status-present": "#2E7D32",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e2e2ea",
+                        "on-secondary-container": "#007165",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d9d9e1",
+                        "background": "#faf8ff",
+                        "on-surface-variant": "#434652",
+                        "on-tertiary-container": "#a5c0ce",
+                        "border-low-contrast": "#E2E8F0",
+                        "surface-container": "#ededf5",
+                        "primary": "#003178",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-background": "#1a1b21",
+                        "tertiary-fixed": "#cbe7f5",
+                        "secondary-fixed": "#8df5e4",
+                        "surface-bright": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#70d8c8",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-tertiary-fixed": "#021f29",
+                        "error": "#ba1a1a",
+                        "status-absent": "#D32F2F",
+                        "secondary": "#006b5f",
+                        "surface-subtle": "#F8FAFC",
+                        "status-late": "#F57C00",
+                        "tertiary-container": "#354f5b",
+                        "outline": "#737783",
+                        "on-tertiary-fixed-variant": "#304a55",
+                        "on-primary-fixed": "#001945"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "title-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "display-lg": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "code-sm": ["JetBrains Mono", "monospace"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "title-lg": ["20px", { lineHeight: "28px", fontWeight: "500" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "code-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles to enforce typography pairing */
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-surface sticky top-0 z-50 border-b border-low-contrast shadow-sm w-full">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto h-20">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">AttendX</span>
+</div>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-title-lg text-title-lg text-primary border-b-2 border-primary pb-1 hover:text-primary transition-colors" href="#">How it Works</a>
+<a class="font-title-lg text-title-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Institutions</a>
+<a class="font-title-lg text-title-lg text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-label-md text-label-md text-primary hover:bg-surface-container-low px-4 py-2 rounded-full transition-colors">Sign In</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-6 py-2.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-sm">Request Demo</button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex flex-col">
+<!-- Hero Section -->
+<section class="relative pt-24 pb-32 px-margin-mobile md:px-margin-desktop overflow-hidden">
+<div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-surface-container-low via-background to-background"></div>
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="flex flex-col items-start max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-low border border-low-contrast mb-6">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Scholastic Modernism Platform</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6 text-balance">
+                        Absolute Clarity in the Classroom.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 text-pretty max-w-xl">
+                        Empower educators and administrators with a document-first philosophy. Automated attendance, robust institutional reporting, and seamless roster management built for high-stakes environments.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="font-label-md text-label-md bg-primary text-on-primary px-8 py-4 rounded-full shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
+                            Request a Demo
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="font-label-md text-label-md bg-surface text-primary border border-primary/20 px-8 py-4 rounded-full hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">login</span>
+                            Teacher Portal
+                        </button>
+</div>
+</div>
+<!-- Hero Visual (Bento-style UI mockup abstraction) -->
+<div class="relative w-full aspect-square md:aspect-[4/3] rounded-xl bg-surface border border-low-contrast shadow-[0px_12px_48px_rgba(0,49,120,0.08)] overflow-hidden flex flex-col">
+<!-- Faux App Header -->
+<div class="h-14 border-b border-low-contrast bg-surface-subtle flex items-center px-6 gap-4">
+<div class="w-3 h-3 rounded-full bg-error/80"></div>
+<div class="w-3 h-3 rounded-full bg-status-late/80"></div>
+<div class="w-3 h-3 rounded-full bg-status-present/80"></div>
+<div class="w-32 h-4 bg-surface-variant rounded-full ml-4"></div>
+</div>
+<!-- Faux App Body -->
+<div class="p-6 flex-grow flex flex-col gap-4 bg-surface">
+<div class="flex justify-between items-end mb-4">
+<div>
+<div class="w-24 h-4 bg-surface-variant rounded mb-2"></div>
+<div class="w-48 h-8 bg-surface-container-highest rounded"></div>
+</div>
+<div class="w-32 h-10 bg-primary/10 rounded-lg"></div>
+</div>
+<!-- Faux List Rows -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface border border-low-contrast hover:shadow-sm transition-shadow">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high"></div>
+<div class="space-y-2">
+<div class="w-32 h-4 bg-surface-variant rounded"></div>
+<div class="w-20 h-3 bg-surface-container-high rounded"></div>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="w-20 h-8 rounded bg-status-present/20 border border-status-present/30"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface border border-low-contrast hover:shadow-sm transition-shadow">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high"></div>
+<div class="space-y-2">
+<div class="w-28 h-4 bg-surface-variant rounded"></div>
+<div class="w-24 h-3 bg-surface-container-high rounded"></div>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="w-20 h-8 rounded bg-status-absent/10 border border-status-absent/20"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-24 bg-surface-subtle border-y border-low-contrast px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16 max-w-2xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Institutional Grade Tools</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Built on a fixed-grid foundation to ensure data remains predictable, readable, and highly actionable for educators.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Feature Card 1 -->
+<div class="bg-surface rounded-xl p-8 border border-low-contrast shadow-sm hover:shadow-[0px_4px_12px_rgba(13,71,161,0.05)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[24px]">fact_check</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Classroom Management</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex-grow">
+                            Large, tactile toggle interfaces for rapid status updates. Designed to maintain focus on the students, not the software.
+                        </p>
+</div>
+<!-- Feature Card 2 -->
+<div class="bg-surface rounded-xl p-8 border border-low-contrast shadow-sm hover:shadow-[0px_4px_12px_rgba(13,71,161,0.05)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-[24px]">analytics</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Automated Reporting</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex-grow">
+                            Generate compliance-ready institutional reports with a single click. Visual progress bars indicate term completion and attendance health.
+                        </p>
+</div>
+<!-- Feature Card 3 -->
+<div class="bg-surface rounded-xl p-8 border border-low-contrast shadow-sm hover:shadow-[0px_4px_12px_rgba(13,71,161,0.05)] hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+<div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-tertiary text-[24px]">manage_accounts</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Roster Syncing</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex-grow">
+                            Seamless integration with major SIS platforms. Filter chips allow educators to quickly sort by status, excusals, or tardiness.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Data Visualization Showcase -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface">
+<div class="max-w-container-max mx-auto flex flex-col lg:flex-row items-center gap-16">
+<div class="w-full lg:w-1/2 relative">
+<!-- Abstract image representation of data dashboard -->
+<img alt="Dashboard Preview" class="w-full rounded-xl border border-low-contrast shadow-sm" data-alt="A modern, high-key photograph showing a pristine computer monitor displaying complex but clean data visualizations on a white background. The desk setup is minimalist and professional, illuminated by soft natural light. Accents of corporate blue and calm teal are visible on the screen, emphasizing a sense of order, statistical clarity, and scholastic modernism perfect for an administrative dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrA5tYy7b_RpXxF1n-ux7MXv2dWMKcyx8qt94MUtoSMx_G1BPIDEYKh8KY2u6xg18ReGNWJr1YtwJ71CYTS8vRG9f6HIc1XHAVq0QCTpOHjfLdzyw3kY20f7PqGaC9Nvuf1FOotFKoWcxvhmzcg-eD81xKZGv-CioaF6i6I3-PjSvx8wirmYz4Z44G5clLWubAUwWZ6Ex58-nKJeFMJQwZm2w33Y29mB5T90phEErPjRcj7rVhMQi79SOdDMNfnqXC-N047FVD8Bc"/>
+<!-- Floating Stat Card overlay -->
+<div class="absolute -bottom-6 -right-6 bg-surface p-6 rounded-xl border border-low-contrast shadow-[0px_8px_24px_rgba(13,71,161,0.1)] max-w-xs hidden md:block">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Attendance Rate</span>
+<span class="material-symbols-outlined text-status-present">trending_up</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">96.4%</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-3 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 96.4%"></div>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-1/2 flex flex-col items-start">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">Breathable Data Architecture</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                        We believe attendance records hold the same weight as institutional financial reports. Our interface utilizes intentional whitespace, clear grid alignments, and functional color coding to prevent cognitive overload.
+                    </p>
+<ul class="space-y-4 w-full">
+<li class="flex items-start gap-3">
+<div class="mt-1 w-6 h-6 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">check</span>
+</div>
+<div>
+<h4 class="font-title-lg text-title-lg text-on-surface">Sticky Headers</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Maintain context while scrolling through vast chronological records.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="mt-1 w-6 h-6 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary">check</span>
+</div>
+<div>
+<h4 class="font-title-lg text-title-lg text-on-surface">Tonal Layers</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Subtle background shifts distinguish data rows without visual clutter.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-low-contrast w-full mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center py-8 px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto">
+<!-- Brand & Copyright -->
+<div class="flex flex-col items-center md:items-start mb-6 md:mb-0 gap-2">
+<div class="font-title-lg text-title-lg font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+                    AttendX
+                </div>
+<p class="font-label-md text-label-md text-on-surface-variant">© 2024 AttendX Institutional Systems. All rights reserved.</p>
+</div>
+<!-- Links -->
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:underline decoration-secondary opacity-90 hover:opacity-100 transition-all" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:underline decoration-secondary opacity-90 hover:opacity-100 transition-all" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:underline decoration-secondary opacity-90 hover:opacity-100 transition-all" href="#">Accessibility</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:underline decoration-secondary opacity-90 hover:opacity-100 transition-all" href="#">Contact</a>
+</nav>
+</div>
+</footer>
+</body></html>

@@ -12,32 +12,33 @@
     }
     .scan-icon {
         width: 88px; height: 88px;
-        border-radius: 24px;
+        border-radius: var(--radius-md);
         display: inline-flex;
         align-items: center;
         justify-content: center;
         font-size: 2.4rem;
         margin-bottom: 1.5rem;
     }
-    .scan-icon.success  { background: linear-gradient(135deg, #2979ff, #073b88); color: #fff; box-shadow: 0 12px 28px rgba(41,121,255,0.35); }
-    .scan-icon.warning  { background: rgba(255,152,0,0.12); color: #e65100; border: 1px solid rgba(255,152,0,0.28); }
-    .scan-icon.danger   { background: rgba(229,57,53,0.10); color: #c62828; border: 1px solid rgba(229,57,53,0.22); }
-    .scan-title { font-size: 1.8rem; font-weight: 950; letter-spacing: -0.03em; line-height: 1; }
-    .scan-sub   { color: var(--text-sub, #3b68b8); font-size: 0.97rem; max-width: 38ch; margin: 0 auto; }
+    .scan-icon.success  { background: var(--status-present); color: #fff; }
+    .scan-icon.warning  { background: #fff8e1; color: var(--status-late); border: 1px solid #ffe082; }
+    .scan-icon.danger   { background: var(--error-container); color: var(--error); border: 1px solid var(--error-container); }
+    .scan-title { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .scan-sub   { color: var(--text-sub); font-size: 0.97rem; max-width: 38ch; margin: 0 auto; }
     .scan-meta  {
         display: inline-flex;
         flex-direction: column;
         gap: 0.55rem;
         padding: 1.1rem 1.5rem;
-        border-radius: 16px;
-        background: rgba(41,121,255,0.07);
-        border: 1px solid rgba(41,121,255,0.16);
+        border-radius: var(--radius-md);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-low-contrast);
+        box-shadow: var(--shadow-card);
         text-align: left;
         min-width: 280px;
     }
     .scan-meta-row { display: flex; align-items: center; gap: 0.7rem; }
-    .scan-meta-label { color: var(--text-dim, #7aa0d4); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-    .scan-meta-value { color: var(--blue-900, #073b88); font-weight: 800; font-size: 0.95rem; }
+    .scan-meta-label { color: var(--text-dim); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+    .scan-meta-value { color: var(--primary); font-weight: 600; font-size: 0.95rem; }
 </style>
 
 <div class="scan-wrap">
@@ -45,30 +46,30 @@
 {% if success %}
     <span class="scan-icon success"><i class="fas fa-check"></i></span>
     {% if already_marked %}
-        <h1 class="scan-title mb-2" style="color: var(--blue-900, #073b88)">{% trans "Deja enregistre" %}</h1>
+        <h1 class="scan-title mb-2" style="color: var(--primary)">{% trans "Deja enregistre" %}</h1>
         <p class="scan-sub mb-4">{% trans "Votre presence pour aujourd'hui etait deja marquee." %}</p>
     {% else %}
-        <h1 class="scan-title mb-2" style="color: var(--blue-900, #073b88)">{% trans "Presence confirmee !" %}</h1>
+        <h1 class="scan-title mb-2" style="color: var(--primary)">{% trans "Presence confirmee !" %}</h1>
         <p class="scan-sub mb-4">{% trans "Votre presence a ete enregistree avec succes." %}</p>
     {% endif %}
 
     <div class="scan-meta mb-4">
         <div class="scan-meta-row">
-            <i class="fas fa-user-graduate" style="color: var(--blue-500, #2979ff); width:18px"></i>
+            <i class="fas fa-user-graduate" style="color: var(--primary); width:18px"></i>
             <div>
                 <div class="scan-meta-label">{% trans "Etudiant" %}</div>
                 <div class="scan-meta-value">{{ student.nom }}</div>
             </div>
         </div>
         <div class="scan-meta-row">
-            <i class="fas fa-school" style="color: var(--blue-500, #2979ff); width:18px"></i>
+            <i class="fas fa-school" style="color: var(--primary); width:18px"></i>
             <div>
                 <div class="scan-meta-label">{% trans "Classe" %}</div>
                 <div class="scan-meta-value">{{ session.filiere.nom }}</div>
             </div>
         </div>
         <div class="scan-meta-row">
-            <i class="fas fa-calendar-day" style="color: var(--blue-500, #2979ff); width:18px"></i>
+            <i class="fas fa-calendar-day" style="color: var(--primary); width:18px"></i>
             <div>
                 <div class="scan-meta-label">{% trans "Date" %}</div>
                 <div class="scan-meta-value">{{ today|date:"d/m/Y" }}</div>
@@ -82,13 +83,13 @@
 
 {% elif expired %}
     <span class="scan-icon danger"><i class="fas fa-clock"></i></span>
-    <h1 class="scan-title mb-2" style="color: #c62828">{% trans "Code expire" %}</h1>
+    <h1 class="scan-title mb-2" style="color: var(--error)">{% trans "Code expire" %}</h1>
     <p class="scan-sub mb-4">
         {% trans "Ce QR code n'est plus valide. Demandez a votre enseignant de generer un nouveau code." %}
     </p>
     <div class="scan-meta mb-4">
         <div class="scan-meta-row">
-            <i class="fas fa-school" style="color: var(--blue-500, #2979ff); width:18px"></i>
+            <i class="fas fa-school" style="color: var(--primary); width:18px"></i>
             <div>
                 <div class="scan-meta-label">{% trans "Classe" %}</div>
                 <div class="scan-meta-value">{{ session.filiere.nom }}</div>
@@ -101,20 +102,20 @@
 
 {% elif wrong_class %}
     <span class="scan-icon warning"><i class="fas fa-triangle-exclamation"></i></span>
-    <h1 class="scan-title mb-2" style="color: #e65100">{% trans "Mauvaise classe" %}</h1>
+    <h1 class="scan-title mb-2" style="color: var(--status-late)">{% trans "Mauvaise classe" %}</h1>
     <p class="scan-sub mb-4">
         {% blocktrans with class=expected_class %}Ce QR est reserve a la classe <strong>{{ class }}</strong>. Vous n'y etes pas inscrit(e).{% endblocktrans %}
     </p>
     <div class="scan-meta mb-4">
         <div class="scan-meta-row">
-            <i class="fas fa-user-graduate" style="color: var(--blue-500, #2979ff); width:18px"></i>
+            <i class="fas fa-user-graduate" style="color: var(--primary); width:18px"></i>
             <div>
                 <div class="scan-meta-label">{% trans "Votre classe" %}</div>
                 <div class="scan-meta-value">{{ student.filiere.nom }}</div>
             </div>
         </div>
         <div class="scan-meta-row">
-            <i class="fas fa-school" style="color: #e65100; width:18px"></i>
+            <i class="fas fa-school" style="color: var(--status-late); width:18px"></i>
             <div>
                 <div class="scan-meta-label">{% trans "Classe du QR" %}</div>
                 <div class="scan-meta-value">{{ expected_class }}</div>
@@ -127,7 +128,7 @@
 
 {% else %}
     <span class="scan-icon danger"><i class="fas fa-xmark"></i></span>
-    <h1 class="scan-title mb-2" style="color: #c62828">{% trans "Erreur" %}</h1>
+    <h1 class="scan-title mb-2" style="color: var(--error)">{% trans "Erreur" %}</h1>
     <p class="scan-sub mb-4">{% trans "Impossible de traiter ce QR code. Veuillez reessayer." %}</p>
     <a href="{% url 'student_dashboard' %}" class="btn btn-outline-secondary">
         <i class="fas fa-arrow-left me-2"></i>{% trans "Retour" %}

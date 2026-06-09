@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit Profile - AttendX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#faf8ff",
+                      "outline": "#737783",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#70d8c8",
+                      "background": "#faf8ff",
+                      "surface-container": "#ededf5",
+                      "primary": "#003178",
+                      "on-background": "#1a1b21",
+                      "tertiary-fixed-dim": "#afcbd8",
+                      "primary-fixed": "#d9e2ff",
+                      "on-secondary-container": "#007165",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#faf8ff",
+                      "surface-variant": "#e2e2ea",
+                      "on-primary-fixed": "#001945",
+                      "tertiary-fixed": "#cbe7f5",
+                      "on-tertiary-fixed-variant": "#304a55",
+                      "secondary-fixed": "#8df5e4",
+                      "on-primary-container": "#a1bbff",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#8df5e4",
+                      "outline-variant": "#c3c6d4",
+                      "on-primary-fixed-variant": "#00429c",
+                      "status-present": "#2E7D32",
+                      "status-absent": "#D32F2F",
+                      "on-surface": "#1a1b21",
+                      "on-secondary-fixed": "#00201c",
+                      "primary-container": "#0d47a1",
+                      "on-secondary-fixed-variant": "#005048",
+                      "on-tertiary-fixed": "#021f29",
+                      "tertiary-container": "#354f5b",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "tertiary": "#1e3843",
+                      "secondary": "#006b5f",
+                      "surface-subtle": "#F8FAFC",
+                      "inverse-primary": "#b0c6ff",
+                      "surface-container-high": "#e8e7f0",
+                      "on-surface-variant": "#434652",
+                      "inverse-surface": "#2e3036",
+                      "on-primary": "#ffffff",
+                      "border-low-contrast": "#E2E8F0",
+                      "status-late": "#F57C00",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-container": "#a5c0ce",
+                      "surface-dim": "#d9d9e1",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "surface-container-highest": "#e2e2ea",
+                      "surface-tint": "#2b5bb5",
+                      "surface-container-low": "#f3f3fb",
+                      "inverse-on-surface": "#f0f0f8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "40px",
+                      "container-max": "1440px",
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "code-sm": ["JetBrains Mono"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "code-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-white dark:bg-surface border-b border-low-contrast shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop h-16 max-w-container-max mx-auto">
+<div class="flex items-center space-x-8">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">AttendX</div>
+<nav class="hidden md:flex space-x-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Classes</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Roster</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2 text-on-surface-variant dark:text-surface-variant">
+<button class="hover:text-primary dark:hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-primary dark:hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined" data-icon="help">help</span></button>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors">New Session</button>
+<img alt="User profile photo" class="w-8 h-8 rounded-full border border-low-contrast cursor-pointer" data-alt="A professional headshot of a teacher or school administrator. They are wearing a neat, light blue collared shirt. The background is a soft, out-of-focus modern office or classroom setting with bright natural light, aligning with a light-mode educational platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS_V_8OoCpwyBjiQOjie8Bv2J0bKIWNNiol4Yeejrwz-pLI2rnI0anhN2SIWOlARYNvsV_CYsEPJWaVMaLcfP0Ivr7Sd_9YcSbtjz5c0HlhYpcfNvJeDIKg5U20x94hKsAtDqkZCmU3izJg6zMRqeFGHL119iQJkjKjv3ZviK_QQ6R7ogmGB9O338J6z_Ww5dXc9Mu5CMcXBu2kJNFsWexGwtr1FuPkuIDsek4XlUoinuSWvTAcQQHUiexzx3IoVykbOhG1vUyEZ8"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full pt-gutter">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-full w-64 p-4 space-y-2 bg-surface-subtle dark:bg-surface-container border-r border-low-contrast sticky top-16" style="height: calc(100vh - 64px);">
+<div class="mb-6 px-2">
+<h2 class="font-headline-md text-headline-md font-bold text-primary">AttendX Admin</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">St. Peter's Academy</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-3 py-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="how_to_reg">how_to_reg</span>
+<span>Mark Attendance</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Student Roster</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span>Analytics</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 border-t border-low-contrast pt-4">
+<a class="flex items-center space-x-3 px-3 py-2 font-label-md text-label-md bg-primary-container text-on-primary-container rounded-lg font-bold transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined fill" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant rounded-lg transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+<button class="w-full mt-4 bg-primary text-on-primary py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors">Quick Report</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-margin-mobile md:p-gutter overflow-y-auto">
+<div class="max-w-3xl mx-auto space-y-8">
+<!-- Page Header -->
+<div>
+<h1 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg text-primary mb-2">Profile Settings</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage your personal information and security preferences.</p>
+</div>
+<!-- Tabs -->
+<div class="flex space-x-4 border-b border-low-contrast mb-6">
+<button class="pb-2 border-b-2 border-primary font-label-md text-label-md text-primary font-bold">Personal Info</button>
+<button class="pb-2 border-b-2 border-transparent font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Security</button>
+</div>
+<!-- Form Section -->
+<div class="bg-surface-container-lowest rounded-xl border border-low-contrast shadow-sm p-6 space-y-6">
+<!-- Profile Photo -->
+<div class="flex items-center space-x-6">
+<div class="relative">
+<img alt="Current Profile Photo" class="w-24 h-24 rounded-full border border-low-contrast object-cover" data-alt="A close-up headshot of a male teacher in his late 30s with short dark hair, wearing a casual professional blue shirt. The background is a bright, out-of-focus classroom setting with natural light, complementing a clean, corporate modern educational interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWrQdMd3wKsAe7-vk-8-r4UvNshcAz_PW1j_eRLVKTptCgLzcR4D4qorx81o_wJe10leQxoU66fQGBLypz6k7J-W_jVXQGl0NIK6sTYLwLV5QU482_hi72rHMPazBebD3KEoh-52YZ7wQXeG3qM7-FPJjI5GzXwLotF-H0AIO_YaYzEGQtlREgZHa0neJ4nc4NTn8fxW798k3Tbx9Xhwx_f5RMgu-9yICn6t8BbfFJ5QGzhHZ5xpRjviHt75lIiWfQyt4RjXx_WXU"/>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary p-1.5 rounded-full shadow-md hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</button>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Profile Photo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-2">PNG, JPG or GIF up to 5MB.</p>
+<div class="flex space-x-3">
+<button class="px-4 py-1.5 bg-surface-variant text-on-surface-variant rounded-DEFAULT font-label-md text-label-md hover:bg-surface-dim transition-colors">Upload</button>
+<button class="px-4 py-1.5 text-error font-label-md text-label-md hover:bg-error-container hover:text-on-error-container rounded-DEFAULT transition-colors">Remove</button>
+</div>
+</div>
+</div>
+<hr class="border-low-contrast"/>
+<!-- Basic Info -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1">
+<label class="block font-label-md text-label-md text-on-surface-variant">First Name</label>
+<input class="w-full bg-surface-subtle border border-low-contrast rounded-DEFAULT px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Jonathan"/>
+</div>
+<div class="space-y-1">
+<label class="block font-label-md text-label-md text-on-surface-variant">Last Name</label>
+<input class="w-full bg-surface-subtle border border-low-contrast rounded-DEFAULT px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Doe"/>
+</div>
+<div class="space-y-1 md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Email Address</label>
+<input class="w-full bg-surface-subtle border border-low-contrast rounded-DEFAULT px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="email" value="jonathan.doe@stpeters.edu"/>
+</div>
+<div class="space-y-1 md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant">Contact Number</label>
+<div class="flex">
+<span class="inline-flex items-center px-3 rounded-l-DEFAULT border border-r-0 border-low-contrast bg-surface-variant text-on-surface-variant font-body-md text-body-md">+1</span>
+<input class="w-full bg-surface-subtle border border-low-contrast rounded-r-DEFAULT px-3 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="tel" value="(555) 123-4567"/>
+</div>
+</div>
+</div>
+<hr class="border-low-contrast"/>
+<!-- Actions -->
+<div class="flex justify-end space-x-4">
+<button class="px-6 py-2 border border-outline text-on-surface-variant rounded-DEFAULT font-label-md text-label-md hover:bg-surface-variant transition-colors">Cancel</button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-[0px_4px_12px_rgba(13,71,161,0.2)]">Save Changes</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

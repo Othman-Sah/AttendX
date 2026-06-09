@@ -576,6 +576,9 @@ def send_absence_email(student, date, filiere):
 
 
 def get_logo_path():
+    media_logo = Path(settings.BASE_DIR) / 'media' / 'logo.jpeg'
+    if media_logo.exists():
+        return media_logo
     return Path(settings.BASE_DIR) / 'LOGO2.jpeg'
 
 

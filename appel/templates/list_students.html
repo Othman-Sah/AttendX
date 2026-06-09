@@ -65,7 +65,7 @@
         <div class="col">
             <div class="stats-card">
                 <p class="stats-label"><i class="fas fa-percentage"></i> {% trans "Taux" %}</p>
-                <div class="stats-number" style="font-size: 2rem;">
+                <div class="stats-number">
                     {% if students|length > 0 %}
                         {{ attendance_rate|default:"-" }}%
                     {% else %}
@@ -93,7 +93,7 @@
                             <div class="errorlist">{{ student_form.non_field_errors }}</div>
                         {% endif %}
 
-                        <div class="card border-0" style="background: #f8fafc;">
+                        <div class="card border-0" style="background: var(--bg-muted);">
                             <div class="card-body">
                                 <div class="section-head mb-3">
                                     <h3 class="h5 mb-1"><i class="fas fa-id-badge"></i> {% trans "Informations etudiant" %}</h3>
@@ -136,7 +136,7 @@
                             </div>
                         </div>
 
-                        <div class="card border-0" style="background: #eef4ff;">
+                        <div class="card border-0" style="background: var(--primary-soft);">
                             <div class="card-body">
                                 <div class="section-head mb-3">
                                     <h3 class="h5 mb-1"><i class="fas fa-user-shield"></i> {% trans "Compte etudiant" %}</h3>

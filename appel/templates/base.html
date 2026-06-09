@@ -2366,40 +2366,15 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="{% static 'appel/css/redesign.css' %}?v=3d-wb-2">
+    <link rel="stylesheet" href="{% static 'appel/css/redesign.css' %}?v=3d-wb-10">
 </head>
 <body class="page-loading">
     <div id="pageLoader" class="page-loader" aria-live="polite" aria-label="Loading screen">
         <section class="loader-card">
-            <div class="loader-bus-stage" aria-hidden="true">
-                <span class="route-skyline"></span>
-                <span class="route-pin is-start"><i class="fas fa-home"></i></span>
-                <span class="route-pin is-end"><i class="fas fa-school"></i></span>
-                <div class="school-bus">
-                    <div class="bus-body">
-                        <span class="bus-route">AttendX</span>
-                        <div class="bus-windows">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <span class="bus-stripe"></span>
-                        <span class="bus-stop-sign">STOP</span>
-                        <span class="bus-front"></span>
-                    </div>
-                    <span class="bus-wheel is-left"></span>
-                    <span class="bus-wheel is-right"></span>
-                </div>
-            </div>
+            <div class="loader-spinner"></div>
             <div class="loader-kicker">AttendX</div>
             <h1 class="page-loader-title">AttendX</h1>
-            <p class="page-loader-text">{% trans "Le bus scolaire arrive..." %}</p>
-            <div class="loader-steps" aria-hidden="true">
-                <span><i class="fas fa-user-check"></i>{% trans "Appel" %}</span>
-                <span><i class="fas fa-school"></i>{% trans "Classe" %}</span>
-                <span><i class="fas fa-bolt"></i>{% trans "Pret" %}</span>
-            </div>
+            <p class="page-loader-text">{% trans "Chargement d'AttendX..." %}</p>
             <div class="loader-progress">
                 <div class="page-loader-bar"></div>
             </div>

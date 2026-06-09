@@ -15,50 +15,48 @@
     .qr-img {
         width: 260px;
         height: 260px;
-        border-radius: 20px;
-        border: 3px solid var(--border-soft, rgba(41,121,255,0.18));
-        box-shadow:
-            0 1px 0 rgba(255,255,255,0.9) inset,
-            0 12px 32px rgba(41,121,255,0.18),
-            0 4px 12px rgba(41,121,255,0.12);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-low-contrast);
+        box-shadow: var(--shadow-card);
         background: #fff;
         padding: 10px;
     }
     .qr-title {
         font-size: 1.5rem;
-        font-weight: 900;
-        color: var(--blue-900, #073b88);
+        font-weight: 700;
+        color: var(--primary);
         letter-spacing: -0.02em;
     }
-    .qr-subtitle { color: var(--text-sub, #3b68b8); font-size: 0.93rem; }
+    .qr-subtitle { color: var(--text-sub); font-size: 0.93rem; }
     .countdown {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         padding: 0.5rem 1.1rem;
-        border-radius: 999px;
-        background: rgba(41,121,255,0.10);
-        border: 1px solid rgba(41,121,255,0.22);
-        color: var(--blue-700, #0d47c8);
-        font-weight: 800;
+        border-radius: var(--radius-sm);
+        background: var(--primary-soft);
+        border: 1px solid var(--primary-container);
+        color: var(--primary);
+        font-weight: 600;
         font-size: 1.05rem;
         min-width: 120px;
         justify-content: center;
     }
     .countdown.expired {
-        background: rgba(255,80,80,0.10);
-        border-color: rgba(255,80,80,0.25);
-        color: #c62828;
+        background: var(--error-container);
+        border-color: var(--error);
+        color: var(--error);
     }
     .url-box {
         word-break: break-all;
         font-size: 0.78rem;
-        color: var(--text-dim, #7aa0d4);
-        background: rgba(41,121,255,0.06);
-        border: 1px solid rgba(41,121,255,0.14);
-        border-radius: 10px;
+        color: var(--text-dim);
+        background: var(--bg-muted);
+        border: 1px solid var(--border-low-contrast);
+        border-radius: var(--radius-sm);
         padding: 0.55rem 0.85rem;
         text-align: left;
+        font-family: 'JetBrains Mono', monospace;
     }
     .scanned-list { max-height: 340px; overflow-y: auto; }
     .scanned-row {
@@ -66,23 +64,23 @@
         align-items: center;
         gap: 0.75rem;
         padding: 0.65rem 0.9rem;
-        border-radius: 12px;
-        background: rgba(41,121,255,0.06);
-        border: 1px solid rgba(41,121,255,0.12);
+        border-radius: var(--radius-md);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-low-contrast);
         margin-bottom: 0.45rem;
     }
     .scanned-avatar {
         width: 36px; height: 36px; flex: 0 0 36px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #2979ff, #073b88);
-        color: #fff;
+        border-radius: 50% !important;
+        background: var(--primary-soft) !important;
+        color: var(--primary) !important;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-weight: 900;
+        font-weight: 600;
         font-size: 0.85rem;
     }
-    .scanned-name { font-weight: 700; color: var(--blue-900, #073b88); }
+    .scanned-name { font-weight: 600; color: var(--text-main); }
 </style>
 
 <div class="qr-wrap">
